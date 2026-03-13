@@ -141,6 +141,17 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html,
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
   body {
     @apply bg-background text-foreground font-sans;
   }
@@ -153,6 +164,93 @@ All colors MUST be HSL.
 }
 
 @layer components {
+  /* Home page heritage rangoli backdrop built with layered gradients */
+  .heritage-rangoli-bg {
+    @apply relative overflow-hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(118% 94% at 88% 50%, hsl(35 98% 57% / 0.28) 0%, transparent 56%),
+      radial-gradient(94% 90% at 18% 22%, hsl(7 92% 54% / 0.2) 0%, transparent 58%),
+      linear-gradient(116deg, hsl(220 16% 8%) 0%, hsl(0 0% 6%) 58%, hsl(0 0% 4%) 100%);
+  }
+
+  .heritage-rangoli-bg::before,
+  .heritage-rangoli-bg::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .heritage-rangoli-bg::before {
+    width: min(90vw, 1180px);
+    aspect-ratio: 1 / 1;
+    right: -34%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    opacity: 0.8;
+    background:
+      radial-gradient(circle at center, transparent 0 16%, hsl(49 100% 67% / 0.9) 16% 17%, transparent 17% 24%, hsl(42 96% 60% / 0.58) 24% 25.2%, transparent 25.2% 34%, hsl(27 97% 58% / 0.56) 34% 35.4%, transparent 35.4% 45%, hsl(12 92% 56% / 0.55) 45% 46.3%, transparent 46.3% 58%, hsl(32 95% 63% / 0.42) 58% 59.3%, transparent 59.3% 100%),
+      repeating-conic-gradient(from -2deg at center, hsl(44 100% 68% / 0.44) 0deg 5deg, transparent 5deg 10deg, hsl(16 98% 60% / 0.3) 10deg 12deg, transparent 12deg 20deg),
+      repeating-radial-gradient(circle at center, hsl(45 99% 66% / 0.2) 0 2px, transparent 2px 14px),
+      radial-gradient(circle at center, hsl(25 92% 58% / 0.22) 0%, transparent 70%);
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 20px hsl(35 100% 60% / 0.18));
+    will-change: transform, filter;
+    animation: heritage-mandala-spin 78s linear infinite, heritage-mandala-pulse 9s ease-in-out infinite;
+  }
+
+  .heritage-rangoli-bg::after {
+    inset: 0;
+    opacity: 0.34;
+    background:
+      radial-gradient(135% 100% at 88% 50%, hsl(46 98% 68% / 0.18) 0%, transparent 54%),
+      radial-gradient(100% 86% at 10% 90%, hsl(8 92% 55% / 0.15) 0%, transparent 60%),
+      repeating-radial-gradient(circle at 84% 50%, hsl(48 100% 68% / 0.08) 0 1px, transparent 1px 11px),
+      radial-gradient(ellipse at center, transparent 52%, hsl(0 0% 0% / 0.34) 100%);
+    mix-blend-mode: screen;
+    will-change: background-position, opacity;
+    animation: heritage-aura-drift 24s ease-in-out infinite;
+  }
+
+  .heritage-rangoli-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .heritage-rangoli-bg {
+      background:
+        radial-gradient(130% 96% at 98% 52%, hsl(35 98% 57% / 0.24) 0%, transparent 54%),
+        radial-gradient(96% 94% at 10% 24%, hsl(7 92% 54% / 0.14) 0%, transparent 58%),
+        linear-gradient(116deg, hsl(220 16% 8%) 0%, hsl(0 0% 6%) 58%, hsl(0 0% 4%) 100%);
+    }
+
+    .heritage-rangoli-bg::before {
+      width: min(132vw, 860px);
+      right: -64%;
+      opacity: 0.64;
+      animation-duration: 98s, 12s;
+    }
+
+    .heritage-rangoli-bg::after {
+      opacity: 0.24;
+      animation-duration: 28s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .heritage-rangoli-bg::before,
+    .heritage-rangoli-bg::after {
+      animation: none;
+    }
+
+    .heritage-rangoli-bg::before {
+      transform: translateY(-50%);
+    }
+  }
+
   /* Hero Section Styles */
   .hero-title {
     @apply text-6xl md:text-8xl font-bold text-foreground kannada-text leading-tight;
@@ -253,6 +351,39 @@ All colors MUST be HSL.
     }
     50% {
       box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+    }
+  }
+
+  @keyframes heritage-mandala-spin {
+    from {
+      transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+      transform: translateY(-50%) rotate(360deg);
+    }
+  }
+
+  @keyframes heritage-mandala-pulse {
+    0%,
+    100% {
+      filter: drop-shadow(0 0 20px hsl(35 100% 60% / 0.18)) brightness(1) saturate(1);
+      opacity: 0.74;
+    }
+    50% {
+      filter: drop-shadow(0 0 28px hsl(44 100% 64% / 0.24)) brightness(1.14) saturate(1.16);
+      opacity: 0.86;
+    }
+  }
+
+  @keyframes heritage-aura-drift {
+    0%,
+    100% {
+      background-position: 0 0, 0 0, 0 0, 0 0;
+      opacity: 0.3;
+    }
+    50% {
+      background-position: -16px 10px, 12px -6px, 14px 8px, 0 0;
+      opacity: 0.38;
     }
   }
 

@@ -37,7 +37,7 @@ const Index = () => {
   }, [current]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen heritage-rangoli-bg">
       {/* 🇮🇳 Republic Day Popup (Jan 26 only) */}
       <RepublicDayPopup />
 
@@ -45,7 +45,7 @@ const Index = () => {
       <Hero />
 
       {/* Home Image Gallery */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background/62 backdrop-blur-[1px]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="relative h-[450px] rounded-2xl overflow-hidden shadow-lg bg-black">
 
