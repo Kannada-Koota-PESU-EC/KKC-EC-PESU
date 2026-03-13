@@ -1,0 +1,296 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Kannada Koota EC PES Design System - All colors, gradients, fonts, etc defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Club Brand Colors */
+    --club-yellow: 51 100% 50%;        /* #FFD600 */
+    --club-black: 0 0% 0%;             /* #000000 */
+    --club-blue: 199 89% 48%;          /* #0ea5e9 */
+    
+    /* Background & Surface - Black Theme */
+    --background: 0 0% 8%;
+    --foreground: 51 100% 50%;
+    --surface: 0 0% 12%;
+    --surface-foreground: 51 90% 85%;
+
+    /* Primary (Club Yellow) */
+    --primary: 51 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --primary-muted: 51 100% 15%;
+
+    /* Secondary (Dark Gray with Yellow accent) */
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 51 90% 85%;
+
+    /* Accent (Bright Yellow) */
+    --accent: 51 100% 55%;
+    --accent-foreground: 0 0% 0%;
+    --accent-muted: 51 100% 20%;
+
+    /* Semantic Colors */
+    --muted: 0 0% 20%;
+    --muted-foreground: 51 50% 70%;
+    --border: 0 0% 25%;
+    --input: 0 0% 15%;
+    --ring: 51 100% 50%;
+
+    /* Interactive States */
+    --hover: 51 100% 45%;
+    --active: 51 100% 40%;
+
+    /* Card & Components */
+    --card: 0 0% 12%;
+    --card-foreground: 51 90% 85%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 51 90% 85%;
+
+    /* Status Colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --radius: 0.5rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--club-yellow)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--surface)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--club-blue)) 100%);
+
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(var(--club-black) / 0.1), 0 2px 4px -1px hsl(var(--club-black) / 0.06);
+    --shadow-elevated: 0 10px 15px -3px hsl(var(--club-black) / 0.1), 0 4px 6px -2px hsl(var(--club-black) / 0.05);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.3);
+
+    /* Typography */
+    --font-kannada: 'Noto Sans Kannada', system-ui, -apple-system, sans-serif;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 3%;
+    --foreground: 51 100% 50%;
+    --surface: 0 0% 5%;
+    --surface-foreground: 51 90% 85%;
+
+    --primary: 51 100% 55%;
+    --primary-foreground: 0 0% 0%;
+    --primary-muted: 51 100% 10%;
+
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 51 90% 85%;
+
+    --accent: 51 100% 60%;
+    --accent-foreground: 0 0% 0%;
+    --accent-muted: 51 100% 8%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 51 50% 65%;
+    --border: 0 0% 20%;
+    --input: 0 0% 10%;
+    --ring: 51 100% 55%;
+
+    --hover: 51 100% 50%;
+    --active: 51 100% 45%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 51 90% 85%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 51 90% 85%;
+
+    --success: 142 76% 40%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 0 0% 0%;
+    --destructive: 0 84% 65%;
+    --destructive-foreground: 0 0% 100%;
+
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -1px hsl(0 0% 0% / 0.2);
+    --shadow-elevated: 0 10px 15px -3px hsl(0 0% 0% / 0.3), 0 4px 6px -2px hsl(0 0% 0% / 0.2);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.4);
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Kannada Typography Support */
+  .kannada-text {
+    font-family: var(--font-kannada);
+    font-feature-settings: "kern" 1;
+  }
+}
+
+@layer components {
+  /* Hero Section Styles */
+  .hero-title {
+    @apply text-6xl md:text-8xl font-bold text-foreground kannada-text leading-tight;
+  }
+
+  .hero-subtitle {
+    @apply text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto;
+  }
+
+  /* Marquee Animation */
+  .marquee {
+    @apply flex w-full overflow-hidden;
+  }
+
+  .marquee-content {
+    @apply flex animate-marquee gap-6;
+  }
+
+  .marquee:hover .marquee-content {
+    @apply pause;
+  }
+
+  /* Card Styles */
+  .card-elevated {
+    @apply bg-card border border-border rounded-lg transition-all duration-300;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-elevated:hover {
+    box-shadow: var(--shadow-elevated);
+    @apply -translate-y-1;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-lg transition-all duration-300;
+  }
+
+  /* Button Variants */
+  .btn-hero {
+    @apply bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:bg-hover active:bg-active transition-colors duration-200;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-accent-foreground px-6 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors duration-200;
+  }
+
+  /* Navigation Styles */
+  .nav-link {
+    @apply text-foreground hover:text-primary transition-colors duration-200 relative;
+  }
+
+  .nav-link-active {
+    @apply bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium;
+  }
+
+  .nav-link::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+    content: '';
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+}
+
+@layer utilities {
+  /* Custom Animations */
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: var(--shadow-glow);
+    }
+    50% {
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .pause {
+    animation-play-state: paused;
+  }
+
+  /* Scrollbar Styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 2px;
+  }
+}
