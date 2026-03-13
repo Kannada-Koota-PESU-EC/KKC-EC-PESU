@@ -6,7 +6,7 @@ export default function Events() {
   const pastEvents = getPastEvents();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen events-flower-rangoli-bg">
       {/* Page Header */}
       <section className="py-16 text-center">
         <h1 className="text-5xl font-bold text-primary mb-4">
@@ -28,10 +28,16 @@ export default function Events() {
             No upcoming events right now.
           </p>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {upcomingEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+          <div className="space-y-8">
+            <EventCard event={upcomingEvents[0]} featured />
+
+            {upcomingEvents.length > 1 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {upcomingEvents.slice(1).map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </section>

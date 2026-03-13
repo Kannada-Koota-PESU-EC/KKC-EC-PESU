@@ -24,7 +24,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
   };
 
   const cardClasses = featured
-    ? 'card-elevated lg:col-span-2 bg-gradient-to-br from-card to-primary-muted'
+    ? 'card-elevated card-hover w-full border-primary/45 bg-gradient-to-br from-card via-card to-primary-muted shadow-[0_0_0_1px_hsl(var(--primary)/0.22),0_18px_42px_-22px_hsl(var(--primary)/0.6)]'
     : 'card-elevated card-hover';
 
   return (
@@ -35,15 +35,15 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
       data-testid={featured ? 'featured-event' : 'event-card'}
       data-event-id={event.id}
     >
-      <div className={`p-6 ${featured ? 'lg:flex lg:space-x-6' : ''}`}>
+      <div className={`p-6 ${featured ? 'md:flex md:space-x-6' : ''}`}>
         
         {/* Event Image */}
-        <div className={`relative overflow-hidden rounded-lg ${featured ? 'lg:w-1/2' : ''}`}>
+        <div className={`relative overflow-hidden rounded-lg ${featured ? 'md:w-[46%] md:flex-shrink-0' : ''}`}>
           <img
             src={event.image}
             alt={event.title}
             className={`w-full object-cover transition-transform duration-300 ${
-              featured ? 'h-64 lg:h-80' : 'h-48'
+              featured ? 'h-64 md:h-[320px] lg:h-[360px]' : 'h-48'
             }`}
             loading="lazy"
             onError={(e) => {
@@ -72,13 +72,13 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
         </div>
 
         {/* Content */}
-        <div className={`${featured ? 'lg:w-1/2 mt-4 lg:mt-0' : 'mt-4'} space-y-4`}>
+        <div className={`${featured ? 'md:w-[54%] mt-4 md:mt-0' : 'mt-4'} space-y-4`}>
 
           {/* Title */}
           <div>
             <h3
               className={`font-bold text-foreground leading-tight ${
-                featured ? 'text-2xl lg:text-3xl' : 'text-xl'
+                featured ? 'text-2xl md:text-3xl' : 'text-xl'
               }`}
             >
               {event.title}
