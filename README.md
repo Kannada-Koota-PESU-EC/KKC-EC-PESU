@@ -28,6 +28,7 @@ PESU Kannada Koota is a student community at PES University focused on promoting
 The codebase follows a feature-based structure to keep domain logic and UI close together:
 
 ```text
+config/               # Tooling config files (eslint, jest, vite, tsconfig refs)
 src/
 	app/                 # App shell and top-level pages (router entry, not-found)
 	features/            # Feature modules (home, events, team, contact, blogs, upis)
@@ -49,5 +50,5 @@ src/
 - `npm run dev` - Start development server
 - `npm run build` - Build production bundle
 - `npm run lint` - Run ESLint
-- `npx jest --config jest.config.cjs` - Run tests
+- `npm run test` - Run tests
 

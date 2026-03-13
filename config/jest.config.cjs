@@ -1,4 +1,5 @@
 module.exports = {
+  rootDir: '..',
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
@@ -9,7 +10,7 @@ module.exports = {
     '^.+\\.tsx?$': [
       'ts-jest',
       {
-        tsconfig: 'config/tsconfig/tsconfig.test.json',
+        tsconfig: '<rootDir>/config/tsconfig/tsconfig.test.json',
       },
     ],
   },
