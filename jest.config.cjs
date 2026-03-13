@@ -9,7 +9,7 @@ module.exports = {
     '^.+\\.tsx?$': [
       'ts-jest',
       {
-        tsconfig: 'tsconfig.test.json',
+        tsconfig: 'config/tsconfig/tsconfig.test.json',
       },
     ],
   },
