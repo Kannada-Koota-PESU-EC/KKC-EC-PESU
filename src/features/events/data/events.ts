@@ -94,11 +94,21 @@ export const events: Event[] = [
   date: '2026-03-17',
   teaser: '“Raktha Spandana” — A drop of blood can save a life. A blood donation camp organized by Kannada Koota. Blood donation is the noblest of all donations.',
   image: '/Events/blood-donation.jpeg',
-  registerLink: 'https://forms.gle/k3aQZrJ8jMttbiDt6',
   gallery: [
     '/Events/blood-donation.jpeg'
   ],
 },
+  {
+  id: 'Kalantaranga',
+  title: 'ಕಲಾಂತರಂಗ Kalantaranga',
+  date: '2026-04-01',
+  teaser: 'Kalantaranga - A wave of art, a celebration of your talent.This is your moment to shine.Before the art within you fades, let it surge into a flowing stream — come, make this stage yours ✨ Venue: Seminar Hall 1 Time: 2:30 PM – 4:30 PM Prize pool: ₹3000',
+  image: '/Events/Kalantaranga.jpeg',
+  registerLink: 'https://forms.gle/nrLd6SAGNo2kDB8t6',
+  gallery: [
+    '/Events/Kalantaranga.jpeg'
+  ],
+}
 ];
 
 /* ---------- DATE HELPERS ---------- */
