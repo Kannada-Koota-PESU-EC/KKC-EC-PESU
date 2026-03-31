@@ -106,7 +106,7 @@ export const events: Event[] = [
   image: '/Events/Kalantaranga1.jpeg',
   registerLink: 'https://forms.gle/nrLd6SAGNo2kDB8t6',
   gallery: [
-    '/Events/Kalantaranga.jpeg'
+    '/Events/Kalantaranga1.jpeg'
   ],
 }
 ];
