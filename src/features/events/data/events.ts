@@ -101,8 +101,8 @@ export const events: Event[] = [
   {
   id: 'Kalantaranga',
   title: 'ಕಲಾಂತರಂಗ Kalantaranga',
-  date: '2026-04-01',
-  teaser: 'Kalantaranga - A wave of art, a celebration of your talent.This is your moment to shine.Before the art within you fades, let it surge into a flowing stream — come, make this stage yours ✨ Venue: Seminar Hall 1 Time: 2:30 PM – 4:30 PM Prize pool: ₹3000',
+  date: '2026-04-08',
+  teaser: 'Kalantaranga - A wave of art, a celebration of your talent.This is your moment to shine.Before the art within you fades, let it surge into a flowing stream — come, make this stage yours ✨ Venue: Seminar Hall 2 Time: 2:30 PM – 4:30 PM Prize pool: ₹3000',
   image: '/Events/Kalantaranga.jpeg',
   registerLink: 'https://forms.gle/nrLd6SAGNo2kDB8t6',
   gallery: [
