@@ -17,11 +17,11 @@ export default function Recruitment() {
           </div>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join Kannada Koota EC and become a part of our team!
+            ಕನ್ನಡ ಕೂಟದ ತಂಡದ ಭಾಗವಾಗಿ ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ
           </p>
 
           <p className="mt-2 text-base text-muted-foreground kannada-text">
-            ಕನ್ನಡ ಕೂಟದ ತಂಡದ ಭಾಗವಾಗಿ ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ
+            Join Kannada Koota EC and become a part of our team!
           </p>
         </div>
       </section>
@@ -45,19 +45,19 @@ export default function Recruitment() {
             <div className="p-6 md:p-10 text-center">
 
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                Join Kannada Koota EC
+                Join Kannada Koota
               </h2>
 
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+                ವಿವಿಧ ಕ್ಷೇತ್ರಗಳಲ್ಲಿ ನಿಮ್ಮ ಪ್ರತಿಭೆಯನ್ನು ತೋರಿಸಿ, ನಮ್ಮೊಂದಿಗೆ
+                ಸೇರಿ ಕನ್ನಡದ ಸಂಭ್ರಮವನ್ನು ಇನ್ನಷ್ಟು ದೊಡ್ಡದಾಗಿಸಿ!
+              </p>
+
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-3xl mx-auto mt-4">
                 Kannada Koota EC is looking for enthusiastic and passionate
                 students to join our team. Be a part of our journey in
                 celebrating Kannada language, culture and community while
                 gaining valuable experience and creating wonderful memories.
-              </p>
-
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-3xl mx-auto mt-4">
-                ವಿವಿಧ ಕ್ಷೇತ್ರಗಳಲ್ಲಿ ನಿಮ್ಮ ಪ್ರತಿಭೆಯನ್ನು ತೋರಿಸಿ, ನಮ್ಮೊಂದಿಗೆ
-                ಸೇರಿ ಕನ್ನಡದ ಸಂಭ್ರಮವನ್ನು ಇನ್ನಷ್ಟು ದೊಡ್ಡದಾಗಿಸಿ!
               </p>
 
               {/* Register Button */}
