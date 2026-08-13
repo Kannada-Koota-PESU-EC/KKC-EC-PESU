@@ -1,13 +1,24 @@
+import { useRef } from "react";
 import { Button } from "@/shared/components/ui/button";
-import { Users, ExternalLink } from "lucide-react";
+import { Users, ExternalLink, ArrowDown } from "lucide-react";
 
 export default function Recruitment() {
+  const registerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToRegister = () => {
+    registerRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background">
 
       {/* Header */}
       <section className="py-16 bg-gradient-to-br from-surface via-background to-primary-muted">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          
           <div className="flex items-center justify-center gap-3 mb-4">
             <Users className="h-8 w-8 text-primary" />
 
@@ -23,6 +34,19 @@ export default function Recruitment() {
           <p className="mt-2 text-base text-muted-foreground kannada-text">
             Join Kannada Koota EC and become a part of our team!
           </p>
+
+          {/* Register Your Interest Button */}
+          <div className="mt-8">
+            <Button
+              size="lg"
+              onClick={scrollToRegister}
+              className="px-8 py-6 text-lg"
+            >
+              Register Your Interest
+              <ArrowDown className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+
         </div>
       </section>
 
@@ -60,8 +84,11 @@ export default function Recruitment() {
                 gaining valuable experience and creating wonderful memories.
               </p>
 
-              {/* Register Button */}
-              <div className="mt-8">
+              {/* Register Now Section */}
+              <div
+                ref={registerRef}
+                className="mt-10 scroll-mt-24"
+              >
                 <Button
                   size="lg"
                   className="px-8 py-6 text-lg"
@@ -76,11 +103,11 @@ export default function Recruitment() {
                     <ExternalLink className="ml-2 h-5 w-5" />
                   </a>
                 </Button>
-              </div>
 
-              <p className="text-sm text-muted-foreground mt-4">
-                Click the button above to fill out the recruitment form.
-              </p>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Click the button above to fill out the recruitment form.
+                </p>
+              </div>
 
             </div>
           </div>
