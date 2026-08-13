@@ -1,7 +1,7 @@
 const videos = [
   {
     id: 1,
-    title: "Blog 1",
+    title: "Blog 9",
     src: "/blog1.mp4",
   },
   {
