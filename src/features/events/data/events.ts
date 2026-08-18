@@ -110,15 +110,28 @@ export const events: Event[] = [
   },
 
   {
-  id: 'Kalantaranga',
-  title: 'ಕಲಾಂತರಂಗ Kalantaranga',
-  date: '2026-04-08',
-  teaser: 'Kalantaranga - A wave of art, a celebration of your talent.This is your moment to shine.Before the art within you fades, let it surge into a flowing stream — come, make this stage yours ✨ Venue: Seminar Hall 2 Time: 2:30 PM – 4:30 PM Prize pool: ₹3000',
-  image: '/Events/Kalantaranga1.jpeg',
-  gallery: [
-    '/Events/Kalantaranga1.jpeg'
-  ],
-}
+    id: 'Kalantaranga',
+    title: 'ಕಲಾಂತರಂಗ Kalantaranga',
+    date: '2026-04-08',
+    teaser:
+      'Kalantaranga - A wave of art, a celebration of your talent. This is your moment to shine. Before the art within you fades, let it surge into a flowing stream — come, make this stage yours ✨ Venue: Seminar Hall 2 Time: 2:30 PM – 4:30 PM Prize pool: ₹3000',
+    image: '/Events/Kalantaranga1.jpeg',
+    gallery: [
+      '/Events/Kalantaranga1.jpeg',
+    ],
+  },
+
+  {
+    id: 'Nritya_Lahari',
+    title: 'ನೃತ್ಯ ಲಹರಿ Nritya Lahari',
+    date: '2026-08-19',
+    teaser:
+      'Nritya Lahari — The rhythm of Kannada in every step! Dance is not merely about steps… It is emotion, rhythm, grace, and celebration! Get ready to experience the essence of Kannada, the colours of our culture, and the spirit of dance — all coming alive on a single stage! Venue: Quadrangle, PES EC Campus Time: 10:00 AM',
+    image: '/Events/Nritya_Lahari.png',
+    gallery: [
+      '/Events/Nritya_Lahari.png',
+    ],
+  },
 ];
 
 /* ---------- DATE HELPERS ---------- */
