@@ -30,6 +30,7 @@ export const events: Event[] = [
       '/Events/BK3.png',
     ],
   },
+
   {
     id: '2',
     title: 'ಕನ್ನಡ ರಾಜ್ಯೋತ್ಸವ Celebration 2024',
@@ -44,6 +45,7 @@ export const events: Event[] = [
       '/Events/BK3.png',
     ],
   },
+
   {
     id: '3',
     title: 'Kannada Koota X Rotaract',
@@ -58,6 +60,7 @@ export const events: Event[] = [
       '/Events/KKEC X RT 2.JPG',
     ],
   },
+
   {
     id: '4',
     title: 'Quadrangle Dance',
@@ -72,32 +75,40 @@ export const events: Event[] = [
       '/Events/KKEC DC 5.png',
     ],
   },
+
   {
     id: 'club-head',
     title: 'ಹೊಸ ಚಿಗುರು New Crew for 2026',
     date: '2026-02-04',
-    teaser: 'We are thrilled to announce a new leadership structure for our club. As we continue to push the boundaries of cultural and community engagement, we welcome a fresh board of Heads and Domain Heads.',
+    teaser:
+      'We are thrilled to announce a new leadership structure for our club. As we continue to push the boundaries of cultural and community engagement, we welcome a fresh board of Heads and Domain Heads.',
     image: '/Events/club-head.jpg',
   },
+
   {
     id: 'mahashivratri-dance',
     title: 'ಮಹಾ ಶಿವರಾತ್ರಿ ನೃತ್ಯ ಪ್ರದರ್ಶನು Mahashivratri Dance Performance',
     date: '2026-02-13',
-    teaser: 'From silence to resonance,from resonance to rhythm 🎼🎼from rhythm to dance,from dance to devotion 🌟 The Kannada Koota presents a special dance performance for Mahashivratri🌀',
+    teaser:
+      'From silence to resonance, from resonance to rhythm 🎼🎼, from rhythm to dance, from dance to devotion 🌟 The Kannada Koota presents a special dance performance for Mahashivratri 🌀',
     image: '/Events/mahashivratri-dance1.jpeg',
-    gallery: ['/Events/mahashivratri-dance2.jpeg',
+    gallery: [
+      '/Events/mahashivratri-dance2.jpeg',
     ],
   },
+
   {
-  id: 'blood-donation',
-  title: 'ರಕ್ತ ಸ್ಪಂದನು Raktha Spandana',
-  date: '2026-03-17',
-  teaser: '“Raktha Spandana” — A drop of blood can save a life. A blood donation camp organized by Kannada Koota. Blood donation is the noblest of all donations.',
-  image: '/Events/blood-donation.jpeg',
-  gallery: [
-    '/Events/blood-donation.jpeg'
-  ],
-},
+    id: 'blood-donation',
+    title: 'ರಕ್ತ ಸ್ಪಂದನು Raktha Spandana',
+    date: '2026-03-17',
+    teaser:
+      '“Raktha Spandana” — A drop of blood can save a life. A blood donation camp organized by Kannada Koota. Blood donation is the noblest of all donations.',
+    image: '/Events/blood-donation.jpeg',
+    gallery: [
+      '/Events/blood-donation.jpeg',
+    ],
+  },
+
   {
   id: 'Kalantaranga',
   title: 'ಕಲಾಂತರಂಗ Kalantaranga',
@@ -122,7 +133,7 @@ export const getUpcomingEvents = () => {
   const today = getToday();
 
   return events
-    .filter(event => {
+    .filter((event) => {
       const eventDate = new Date(event.date);
       eventDate.setHours(0, 0, 0, 0);
       return eventDate >= today;
@@ -137,7 +148,7 @@ export const getPastEvents = () => {
   const today = getToday();
 
   return events
-    .filter(event => {
+    .filter((event) => {
       const eventDate = new Date(event.date);
       eventDate.setHours(0, 0, 0, 0);
       return eventDate < today;
@@ -149,4 +160,4 @@ export const getPastEvents = () => {
 };
 
 export const getEventById = (id: string) =>
-  events.find(event => event.id === id);
+  events.find((event) => event.id === id);
