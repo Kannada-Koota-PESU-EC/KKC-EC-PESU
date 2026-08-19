@@ -127,9 +127,9 @@ export const events: Event[] = [
     date: '2026-08-19',
     teaser:
       'Nritya Lahari — The rhythm of Kannada in every step! Dance is not merely about steps… It is emotion, rhythm, grace, and celebration! Get ready to experience the essence of Kannada, the colours of our culture, and the spirit of dance — all coming alive on a single stage! Venue: Quadrangle, PES EC Campus Time: 10:00 AM',
-    image: '/Events/Nritya_Lahari.png',
+    image: '/Events/Nritya_Lahari.jpeg',
     gallery: [
-      '/Events/Nritya_Lahari.png',
+      '/Events/Nritya_Lahari.jpeg',
     ],
   },
 ];
