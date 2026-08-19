@@ -59,7 +59,7 @@ export default function Recruitment() {
             {/* Poster */}
             <div className="w-full bg-muted flex justify-center">
               <img
-                src="/recruitment.png"
+                src="/Events/recruitment.jpeg"
                 alt="Kannada Koota Recruitment"
                 className="w-full h-auto object-contain"
               />
