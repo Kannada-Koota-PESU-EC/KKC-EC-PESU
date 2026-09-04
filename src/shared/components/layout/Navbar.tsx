@@ -5,7 +5,6 @@ import { Button } from "@/shared/components/ui/button";
 
 const navItems = [
   { name: "Home", path: "/" },
-  { name: "Recruitment", path: "/recruitment" },
   { name: "Events", path: "/events" },
   { name: "Blogs", path: "/blogs" },
   { name: "Team", path: "/team" },
