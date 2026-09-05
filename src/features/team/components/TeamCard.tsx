@@ -55,11 +55,6 @@ export default function TeamCard({ member }: TeamCardProps) {
                 target.src = '/api/placeholder/200/200';
               }}
             />
-            {member.role === 'Club Head' && (
-              <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-2">
-                <span className="text-xs font-bold">â˜…</span>
-              </div>
-            )}
           </div>
         </div>
 
@@ -116,7 +111,7 @@ export default function TeamCard({ member }: TeamCardProps) {
         {/* Role Badge */}
         <div className="pt-2">
           <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-            member.role === 'Club Head' ? 'bg-primary text-primary-foreground' :
+            (member.role === 'Club Head' || member.role === 'Vice Head')? 'bg-primary text-primary-foreground' :
             member.role === 'Domain Head' ? 'bg-accent text-accent-foreground' :
             'bg-muted text-muted-foreground'
           }`}>
