@@ -121,7 +121,7 @@ export const teamData: Record<number, Member[]> = {
     },
     {
       id: 'dh-2026-10',
-      name: 'ವಿನಯ ಕಟ್ನೂರ / Vinay',
+      name: 'ಅಭಿರಾಮ ಹೆಚ್ ವೈ / Abhirama H Y',
       role: 'Domain Head', 
       domain: 'ಸಾಂಸ್ಕೃತಿಕ-ಇಂಚರ / Culturals-INCHARA',
       year: 2026,
