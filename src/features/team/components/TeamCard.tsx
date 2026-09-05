@@ -21,14 +21,14 @@ export default function TeamCard({ member }: TeamCardProps) {
   };
 
   const getCardSize = () => {
-    if (member.role === 'Club Head' || member.role === 'Domain Head') {
+    if (member.role === 'Club Head' || member.role === 'Domain Head' || member.role === 'Vice Head') {
       return 'md:col-span-1';
     }
     return '';
   };
 
   const getImageSize = () => {
-    if (member.role === 'Club Head' || member.role === 'Domain Head') {
+    if (member.role === 'Club Head' || member.role === 'Vice Head' || member.role === 'Domain Head') {
       return 'w-24 h-24 lg:w-28 lg:h-28';
     }
     return 'w-20 h-20 lg:w-24 lg:h-24';
@@ -60,12 +60,12 @@ export default function TeamCard({ member }: TeamCardProps) {
 
         {/* Member Info */}
         <div className="space-y-2">
-          <h3 className={`font-bold text-foreground ${member.role === 'Club Head' ? 'text-xl' : member.role === 'Domain Head' ? 'text-xl' : 'text-lg'}`}>
+          <h3 className={`font-bold text-foreground ${(member.role === 'Club Head' || member.role === 'Vice Head')? 'text-xl' : member.role === 'Domain Head' ? 'text-xl' : 'text-lg'}`}>
             {member.name}
           </h3>
           
           <div className="space-y-1">
-            <p className={`font-semibold ${member.role === 'Club Head' ? 'text-primary' : 'text-accent'}`}>
+            <p className={`font-semibold ${(member.role === 'Club Head' || member.role === 'Vice Head')? 'text-primary' : 'text-accent'}`}>
               {member.role}
             </p>
             
