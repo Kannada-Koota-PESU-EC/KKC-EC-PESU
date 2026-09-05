@@ -142,7 +142,7 @@ export const teamData: Record<number, Member[]> = {
       instagram: 'https://www.instagram.com/tejaswi_g_hegde/',
     },
     {
-      id: 'dh-2026-11',
+      id: 'dh-2026-12',
       name: 'ಅಶ್ಮಿತಾ ಶ್ರೀ ಆನಂದ್ / Ashmitha Sri Anand',
       role: 'Domain Head', 
       domain: 'ಕಾರ್ಯಾಚರಣೆಗಳು / Operations',
@@ -152,7 +152,7 @@ export const teamData: Record<number, Member[]> = {
       instagram: 'https://www.instagram.com/justagirl10451',
     },
     {
-      id: 'dh-2026-12',
+      id: 'dh-2026-13',
       name: 'ಯಶಸ್ ಎಸ್ ಎನ್ / Yashas S N',
       role: 'Domain Head', 
       domain: ' ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕಗಳು / Public Relations',
@@ -160,6 +160,16 @@ export const teamData: Record<number, Member[]> = {
       photo: '/DomainHeads/photo.jpeg',
       linkedin: 'https://www.linkedin.com/in/yashas-sn-a851b3392/',
       instagram: 'https://www.instagram.com/yashasyashu06?igsh=MTY1YmtramQzb2VnMg==',
+    },
+    {
+      id: 'dh-2026-14',
+      name: 'ಆದಿತ್ಯ ಬಿ ಜಂಬಗಿ / Aditya B Jambagi ',
+      role: 'Domain Head', 
+      domain: 'ಪ್ರಾಯೋಜಕತ್ವ / Sponsorship',
+      year: 2026,
+      photo: '/DomainHeads/photo.jpeg',
+      linkedin: 'https://www.linkedin.com/in/aditya-jambagi-853b4233a?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+      instagram: 'https://www.instagram.com/aditya_b_jambagi/',
     },
   ],
     2025: [
