@@ -141,7 +141,7 @@ export const teamData: Record<number, Member[]> = {
     },
     {
       id: 'dh-2026-12',
-      name: "ಯಶಸ್ ಎಸ್ ಎನ್ / Yashas S N',
+      name: 'ಯಶಸ್ ಎಸ್ ಎನ್ / Yashas S N',
       role: 'Domain Head', 
       domain: ' ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕಗಳು / Public Relations',
       year: 2026,
