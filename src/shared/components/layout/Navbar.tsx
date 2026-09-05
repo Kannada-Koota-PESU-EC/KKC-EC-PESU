@@ -32,7 +32,7 @@ export default function Navbar() {
               className="h-8 w-auto"
             />
             <span className="font-bold text-lg hidden sm:block">
-              Kannada Koota EC PES
+              Kannada Koota EC PES TEST
             </span>
             <span className="font-bold text-lg sm:hidden">KKEC</span>
           </Link>
