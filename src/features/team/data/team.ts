@@ -19,6 +19,8 @@ export const teamData: Record<number, Member[]> = {
       role: 'Club Head',
       year: 2026,
       photo: '/DomainHeads/photo.jpeg',
+      linkedin: 'http://www.linkedin.com/in/manjunath-v-66ba84315',
+      instagram: 'https://www.instagram.com/__manjunath__nayak__?igsi=MTlpMDk2aDFsNGs3aA==',
     },
     {
       id: 'ch-2026-2', 
@@ -138,6 +140,16 @@ export const teamData: Record<number, Member[]> = {
       photo: '/DomainHeads/photo.jpeg',
       linkedin: 'http://www.linkedin.com/in/tejaswi-hegde-797064320',
       instagram: 'https://www.instagram.com/tejaswi_g_hegde/',
+    },
+    {
+      id: 'dh-2026-11',
+      name: 'ಅಶ್ಮಿತಾ ಶ್ರೀ ಆನಂದ್ / Ashmitha Sri Anand',
+      role: 'Domain Head', 
+      domain: 'ಕಾರ್ಯಾಚರಣೆಗಳು / Operations',
+      year: 2026,
+      photo: '/DomainHeads/photo.jpeg',
+      linkedin: 'https://www.linkedin.com/in/ashmitha-sri-anand-92849231b/',
+      instagram: 'https://www.instagram.com/justagirl10451',
     },
     {
       id: 'dh-2026-12',
