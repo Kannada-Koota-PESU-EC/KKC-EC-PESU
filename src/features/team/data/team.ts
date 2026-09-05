@@ -1,7 +1,7 @@
 export interface Member {
   id: string;
   name: string; // Kannada first, then English
-  role: 'Club Head' | 'Domain Head' | 'Member';
+  role: 'Club Head' | 'Domain Head' | 'Member' | 'Vice Head';
   domain?: string; // Kannada first, then English (for domain heads)
   year: number;
   photo: string;
