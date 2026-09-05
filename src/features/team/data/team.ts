@@ -169,7 +169,7 @@ export const getCurrentYear = (): number => {
 
 export const getClubHeads = (year: number): Member[] => {
   const team = getTeamByYear(year);
-  return team.filter(member => member.role === 'Club Head');
+  return team.filter(member => member.role === 'Club Head' || member.role === 'Vice Head');
 };
 
 export const getDomainHeads = (year: number): Member[] => {
