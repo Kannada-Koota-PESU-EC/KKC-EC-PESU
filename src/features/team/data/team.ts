@@ -15,7 +15,7 @@ export const teamData: Record<number, Member[]> = {
   2026: [
     {
       id: 'ch-2026-1',
-      name: 'ಮಂಜುನಾಥ್ ವಿ / Manjunath',
+      name: 'ಮಂಜುನಾಥ್ ವಿ / Manjunath V',
       role: 'Club Head',
       year: 2026,
       photo: '/DomainHeads/photo.jpeg',
