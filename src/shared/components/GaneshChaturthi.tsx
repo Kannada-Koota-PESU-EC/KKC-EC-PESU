@@ -180,7 +180,7 @@ const GaneshChaturthiAnimation = () => {
         {/* Festival greeting in Kannada */}
         <div
           style={{
-            fontFamily: "'Noto Sans Kannada', system-ui, sans-serif",
+            fontFamily: "'Noto Sans Kannada', sans-serif",
             fontSize: "clamp(1.1rem, 3.5vw, 1.6rem)",
             fontWeight: 700,
             color: "hsl(44 100% 65%)",

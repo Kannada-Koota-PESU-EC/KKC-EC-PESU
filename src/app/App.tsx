@@ -13,7 +13,7 @@ import Contact from "@/features/contact/pages/ContactPage";
 import NotFound from "@/app/pages/NotFoundPage";
 import Navbar from "@/shared/components/layout/Navbar";
 import Footer from "@/shared/components/layout/Footer";
-import GaneshChaturthiAnimation from "@/shared/components/GaneshChaturthi";
+import GaneshChaturthiAnimation from "@/shared/components/GaneshChaturthi2";
 
 // Create a query client instance
 const queryClient = new QueryClient();
