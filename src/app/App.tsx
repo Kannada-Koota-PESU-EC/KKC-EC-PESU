@@ -13,6 +13,7 @@ import Contact from "@/features/contact/pages/ContactPage";
 import NotFound from "@/app/pages/NotFoundPage";
 import Navbar from "@/shared/components/layout/Navbar";
 import Footer from "@/shared/components/layout/Footer";
+import GaneshChaturthiAnimation from "@/shared/components/GaneshChaturthi";
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const AppContent = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <GaneshChaturthiAnimation />
       <BrowserRouter>
         <div className="min-h-screen flex flex-col">
           <Navbar />
