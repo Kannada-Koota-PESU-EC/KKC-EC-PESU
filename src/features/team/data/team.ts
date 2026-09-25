@@ -92,6 +92,15 @@ export const teamData: Record<number, Member[]> = {
       instagram: 'https://www.instagram.com/deepthi_venkatesh211/',
     },
     {
+      id: 'dh-2026-15',
+      name: 'ಅರ್ಚನಾ ಹೆಚ್.ಕೆ. / Archana H.K ',
+      role: 'Domain Head', 
+      domain: 'ಸಾಂಸ್ಕೃತಿಕ / Cultural',
+      year: 2026,
+      photo: '/DomainHeads/photo.jpeg',
+      linkedin: 'https://www.linkedin.com/in/archana-h-k/',
+    },
+    {
       id: 'dh-2026-7',
       name: 'ತನುಶ್ರೀ ಜಿ ಭಕ್ತ / Tanushree G Bhakta',
       role: 'Domain Head', 
