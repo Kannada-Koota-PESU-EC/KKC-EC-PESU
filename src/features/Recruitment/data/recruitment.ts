@@ -65,11 +65,11 @@ export const recruitmentDomains: RecruitmentDomain[] = [
       "The Hospitality domain takes care of guests, participants, artists, and other attendees during events. It focuses on welcoming them, coordinating their requirements, and ensuring their overall experience is well managed.",
   },
   {
-    id: "social-media-marketing",
-    name: "Social Media & Marketing",
+    id: "marketing",
+    name: "Marketing",
     icon: Megaphone,
     description:
-      "The Social Media & Marketing domain manages Kannada Koota's presence across social media and other digital platforms. It promotes events, activities, and initiatives while helping reach and engage a wider audience.",
+      "The Marketing domain manages Kannada Koota's presence across social media and other digital platforms. It promotes events, activities, and initiatives while helping reach and engage a wider audience.",
   },
   {
     id: "inchara",
