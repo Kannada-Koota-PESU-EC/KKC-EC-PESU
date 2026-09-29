@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 // TODO: paste your Google Form link here
-const GFORM_LINK = "#";
+const GFORM_LINK = "https://forms.gle/dfZvpLap3yH4PEXR7";
 
 const DOMAINS = [
   { icon: "💃", name: "Dance", desc: "Folk, classical and fusion performances at every fest." },
