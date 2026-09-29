@@ -50,7 +50,10 @@ export default function DomainCard({ domain, index }: DomainCardProps) {
         <h3 className="relative mt-5 text-xl font-bold text-foreground">
           {domain.name}
         </h3>
-        <p className="relative mt-3 text-sm leading-relaxed text-muted-foreground md:text-[0.95rem]">
+        <p className="relative mt-1 text-base font-semibold text-primary/80 kannada-text">
+          {domain.kannadaName}
+        </p>
+        <p className="relative mt-3 text-[0.95rem] leading-loose text-muted-foreground md:text-base kannada-text">
           {domain.description}
         </p>
       </article>

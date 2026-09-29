@@ -17,16 +17,19 @@ describe('Recruitment Page', () => {
     });
   });
 
-  it('renders a single Apply Now call to action', () => {
+  it('renders the Register Now buttons', () => {
     render(<Recruitment />);
 
-    const applyButtons = screen.getAllByText('Apply Now');
-    expect(applyButtons).toHaveLength(1);
+    // One in the header (scrolls to the form section) and one in the form section
+    expect(screen.getAllByText('Register Now')).toHaveLength(2);
 
     if (!isRecruitmentFormAvailable) {
-      expect(screen.getByRole('button', { name: /apply now/i })).toBeDisabled();
+      const disabled = screen
+        .getAllByRole('button', { name: /register now/i })
+        .filter((button) => (button as HTMLButtonElement).disabled);
+      expect(disabled).toHaveLength(1);
     } else {
-      expect(screen.getByRole('link', { name: /apply now/i })).toHaveAttribute('target', '_blank');
+      expect(screen.getByRole('link', { name: /register now/i })).toHaveAttribute('target', '_blank');
     }
   });
 });

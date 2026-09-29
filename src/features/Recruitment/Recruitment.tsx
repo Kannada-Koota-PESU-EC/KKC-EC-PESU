@@ -12,8 +12,8 @@ export default function Recruitment() {
   const domainsHeader = useReveal<HTMLDivElement>();
   const applyCard = useReveal<HTMLDivElement>();
 
-  const scrollToDomains = () => {
-    document.getElementById("domains")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const revealClasses = (isVisible: boolean) =>
@@ -59,10 +59,18 @@ export default function Recruitment() {
                 <Button
                   variant="outline"
                   size="lg"
-                  onClick={scrollToDomains}
-                  className="group"
+                  onClick={() => scrollToSection("domains")}
+                  className="group w-full sm:w-auto"
                 >
                   Explore the {recruitmentDomains.length} Domains
+                  <ArrowDown className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                </Button>
+                <Button
+                  size="lg"
+                  onClick={() => scrollToSection("apply")}
+                  className="group w-full sm:w-auto"
+                >
+                  Register Now
                   <ArrowDown className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                 </Button>
               </div>
@@ -153,13 +161,13 @@ export default function Recruitment() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Apply Now
+                    Register Now
                     <ExternalLink className="ml-2 h-5 w-5" />
                   </a>
                 </Button>
               ) : (
                 <Button size="lg" className="px-10 py-6 text-lg" disabled>
-                  Apply Now
+                  Register Now
                   <ExternalLink className="ml-2 h-5 w-5" />
                 </Button>
               )}
