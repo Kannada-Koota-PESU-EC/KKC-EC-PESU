@@ -40,12 +40,11 @@ export default function Recruitment() {
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#a8691d]/20 md:h-[760px] md:w-[760px]" />
         <div className="relative mx-auto max-w-5xl px-5 py-20 text-center sm:px-6 md:py-24 lg:px-8">
           <p className="mb-7 text-xs uppercase tracking-[0.18em] text-[#f2b52d] md:text-sm">
-            ಕನ್ನಡ ಕೂಟ EC · ನೇಮಕಾತಿ 2026 / Kannada Koota EC · Recruitment 2026
+            ನೇಮಕಾತಿ 2026 / Recruitment 2026
           </p>
           <p className="kannada-text text-xl font-medium leading-tight text-[#f3c257] md:text-3xl">
             ಹೊಸ ಪ್ರತಿಭೆಗಳ ಹುಡುಕಾಟ
           </p>
-          <p className="mt-1 text-sm text-[#d8b36b] md:text-base">Discovering New Talent</p>
           <p className="kannada-text mt-6 text-xl font-medium leading-tight text-[#f3c257] md:text-3xl">
             ಕನ್ನಡ ಕೂಟದ ಒಂದು ಭಾಗವಾಗಿ
           </p>
@@ -60,8 +59,6 @@ export default function Recruitment() {
             <ArrowUpRight className="h-4 w-4" />
           </button>
           <p className="mx-auto mt-8 w-full max-w-2xl break-words px-2 text-sm leading-relaxed text-[#cdb8a7] md:text-base">
-            ನಿಮ್ಮ ಜಾಗವನ್ನು ಕಂಡುಕೊಳ್ಳಿ, ನಿಮ್ಮ ತಂಡವನ್ನು ಸೇರಿಕೊಳ್ಳಿ ಮತ್ತು ಮರೆಯಲಾಗದ ಅನುಭವಗಳನ್ನು ಸೃಷ್ಟಿಸಿ.
-            <br />
             Find your space, meet your people and help create something that stays with you long after the event ends.
           </p>
         </div>
@@ -83,9 +80,8 @@ export default function Recruitment() {
             <p className="kannada-text text-xl font-semibold text-[#f0c26a] md:text-2xl">
               ನಿಮಗೆ ಸರಿಹೊಂದುವ ಕ್ಷೇತ್ರವನ್ನು ಕಂಡುಕೊಳ್ಳಿ
             </p>
-            <p className="mt-1 text-sm text-[#cdb8a7]">Find the domain that suits you</p>
             <h2 className="mt-4 text-3xl font-bold text-[#fff1df] md:text-4xl">
-              ಡೊಮೇನ್‌ಗಳನ್ನು ಅನ್ವೇಷಿಸಿ / Explore Domains
+              Explore Domains
             </h2>
           </div>
           <button
@@ -141,7 +137,6 @@ export default function Recruitment() {
         <div className="mx-auto max-w-3xl px-5">
           <p className="kannada-text text-xl font-semibold text-[#f0c26a] md:text-2xl">ಮುಂದಿನ ಹೆಜ್ಜೆ ನಿಮ್ಮದು</p>
           <p className="mt-1 text-sm text-[#cdb8a7]">The Next Step Is Yours</p>
-          <h2 className="mt-4 text-3xl font-bold leading-tight text-[#fff1df] md:text-4xl">Take the Next Step / ಮುಂದಿನ ಹೆಜ್ಜೆ ಇಡಿ</h2>
           <p className="mt-4 text-sm leading-relaxed text-[#cbb8aa]">
             ನಿಮ್ಮ ನೋಂದಣಿಯನ್ನು Google Form ಮೂಲಕ ಪೂರ್ಣಗೊಳಿಸಿ.
             <br />
