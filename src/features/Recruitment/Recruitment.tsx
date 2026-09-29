@@ -1,20 +1,20 @@
 import { useRef, useState } from "react";
-import { Plus, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 
 const domains = [
-  ["ಐಟಿ / IT", "Build and manage the digital side of Kannada Koota through technology."],
-  ["ಈವೆಂಟ್ ಮ್ಯಾನೇಜ್‌ಮೆಂಟ್ / Event Management", "Turn ideas into well-planned, engaging events from start to finish."],
-  ["ಲಾಜಿಸ್ಟಿಕ್ಸ್ / Logistics", "Keep everything moving smoothly, from planning to execution."],
-  ["ಸಾಂಸ್ಕೃತಿಕ / Culturals", "Bring creativity, tradition and celebration together through cultural activities."],
-  ["ವಿನ್ಯಾಸ ಮತ್ತು ವೀಡಿಯೊ ಸಂಪಾದನೆ / Design and Video Editing", "Create the visuals and videos that give Kannada Koota its identity."],
-  ["ಅತಿಥಿ ಸತ್ಕಾರ / Hospitality", "Make guests, participants and teams feel welcomed and taken care of."],
-  ["ಮಾರ್ಕೆಟಿಂಗ್ / Marketing", "Take our events and initiatives to the right audience through creative promotion."],
-  ["ಛಾಯಾಗ್ರಹಣ / Photography", "Capture the moments, people and energy that make every event memorable."],
-  ["ಸಾಂಸ್ಕೃತಿಕ-ಇಂಚರ / Culturals-INCHARA", "Contribute to Inchara through performances, cultural expression and creative initiatives."],
-  ["ವಿಷಯ ಬರವಣಿಗೆ / Content Writing", "Turn ideas into engaging stories, captions, posts and communication."],
-  ["ಕಾರ್ಯಾಚರಣೆಗಳು / Operations", "Coordinate the behind-the-scenes work that keeps everything running."],
-  ["ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕಗಳು / Public Relations", "Build connections and communicate Kannada Koota's presence beyond the team."],
-  ["ಪ್ರಾಯೋಜಕತ್ವ / Sponsorship", "Connect with brands and organisations to build meaningful partnerships."]
+  ["💻", "ಐಟಿ / IT", "Build and manage the digital side of Kannada Koota through technology."],
+  ["🎪", "ಈವೆಂಟ್ ಮ್ಯಾನೇಜ್‌ಮೆಂಟ್ / Event Management", "Turn ideas into well-planned, engaging events from start to finish."],
+  ["📦", "ಲಾಜಿಸ್ಟಿಕ್ಸ್ / Logistics", "Keep everything moving smoothly, from planning to execution."],
+  ["🎭", "ಸಾಂಸ್ಕೃತಿಕ / Culturals", "Bring creativity, tradition and celebration together through cultural activities."],
+  ["🎨", "ವಿನ್ಯಾಸ ಮತ್ತು ವೀಡಿಯೊ ಸಂಪಾದನೆ / Design and Video Editing", "Create the visuals and videos that give Kannada Koota its identity."],
+  ["🤝", "ಅತಿಥಿ ಸತ್ಕಾರ / Hospitality", "Make guests, participants and teams feel welcomed and taken care of."],
+  ["📣", "ಮಾರ್ಕೆಟಿಂಗ್ / Marketing", "Take our events and initiatives to the right audience through creative promotion."],
+  ["📸", "ಛಾಯಾಗ್ರಹಣ / Photography", "Capture the moments, people and energy that make every event memorable."],
+  ["🎶", "ಸಾಂಸ್ಕೃತಿಕ-ಇಂಚರ / Culturals-INCHARA", "Contribute to Inchara through performances, cultural expression and creative initiatives."],
+  ["✍️", "ವಿಷಯ ಬರವಣಿಗೆ / Content Writing", "Turn ideas into engaging stories, captions, posts and communication."],
+  ["⚙️", "ಕಾರ್ಯಾಚರಣೆಗಳು / Operations", "Coordinate the behind-the-scenes work that keeps everything running."],
+  ["🗣️", "ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕಗಳು / Public Relations", "Build connections and communicate Kannada Koota's presence beyond the team."],
+  ["💼", "ಪ್ರಾಯೋಜಕತ್ವ / Sponsorship", "Connect with brands and organisations to build meaningful partnerships."]
 ];
 
 const reasons = [
@@ -29,59 +29,108 @@ export default function Recruitment() {
   const [domainsOpen, setDomainsOpen] = useState(false);
 
   const scrollToRegister = () => {
-    registerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    registerRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-hidden">
-      <section className="relative min-h-[82vh] flex items-center overflow-hidden bg-gradient-to-br from-surface via-background to-primary-muted">
-        <div className="absolute -right-20 -bottom-10 text-[180px] md:text-[330px] font-bold leading-none text-foreground/[0.025] pointer-events-none select-none">2026</div>
-        <div className="max-w-6xl w-full mx-auto px-5 sm:px-6 lg:px-8 py-24 md:py-28">
-          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-end">
+    <div className="min-h-screen text-foreground bg-gradient-to-br from-[#3A0909] via-[#681914] to-[#7A5208]">
+      
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(255,215,0,0.18),transparent_28%),radial-gradient(circle_at_10%_80%,rgba(220,30,30,0.18),transparent_30%)] pointer-events-none" />
+
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-20 md:py-24">
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-center">
+            
             <div>
-              <p className="text-primary text-xs md:text-sm tracking-[0.22em] uppercase font-semibold mb-6">Kannada Koota EC · Recruitment 2026</p>
-              <h2 className="kannada-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.05] mb-3">ಹೊಸ ಪ್ರತಿಭೆಗಳ ಹುಡುಕಾಟ</h2>
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.85]">ಕನ್ನಡ ಕೂಟದ<br />ಒಂದು ಭಾಗವಾಗಿ</h1>
-              <p className="mt-7 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
-                <span className="font-semibold text-foreground">BECOME A PART OF OUR TEAM</span><br /><br />
+              <p className="text-yellow-300 text-xs tracking-[0.2em] uppercase font-semibold mb-5">
+                Kannada Koota EC · Recruitment 2026
+              </p>
+
+              <p className="kannada-text text-lg md:text-2xl font-medium leading-tight mb-4 whitespace-nowrap">
+                ಹೊಸ ಪ್ರತಿಭೆಗಳ ಹುಡುಕಾಟ <span className="text-yellow-300/70">•</span> ಕನ್ನಡ ಕೂಟದ ಒಂದು ಭಾಗವಾಗಿ
+              </p>
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight capitalize">
+                Become a part of our team
+              </h1>
+
+              <p className="mt-4 text-sm md:text-base text-white/70 max-w-xl leading-relaxed">
                 Your ideas. Your creativity. Your space to make an impact.
               </p>
-              <button onClick={scrollToRegister} className="mt-7 inline-flex items-center gap-3 border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-5 py-3 font-semibold transition-all duration-300 hover:-translate-y-1">
-                ಅರ್ಜಿ ಸಲ್ಲಿಸಿ <span className="text-muted-foreground">/</span> APPLY NOW <ArrowUpRight className="h-4 w-4" />
+
+              <button
+                onClick={scrollToRegister}
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-yellow-300 text-red-950 px-5 py-3 text-sm font-semibold hover:bg-yellow-200 transition-all hover:-translate-y-0.5"
+              >
+                ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Apply Now
+                <ArrowUpRight className="h-4 w-4" />
               </button>
             </div>
-            <div className="border-l border-border pl-6 md:pl-8">
-              <p className="text-muted-foreground leading-relaxed max-w-md">Find your space, meet your people and help create something that stays with you long after the event ends.</p>
+
+            <div className="lg:border-l border-white/20 lg:pl-8">
+              <p className="text-sm md:text-base text-white/70 leading-relaxed max-w-md">
+                Find your space, meet your people and help create something that stays with you long after the event ends.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="border-y border-border py-4 overflow-hidden">
-        <div className="flex justify-center gap-8 md:gap-14 text-xs tracking-[0.22em] text-muted-foreground uppercase whitespace-nowrap">
-          <span>CREATE <span className="text-primary ml-4">✦</span></span>
-          <span>COLLABORATE <span className="text-primary ml-4">✦</span></span>
-          <span>LEARN <span className="text-primary ml-4">✦</span></span>
+      {/* Divider */}
+      <div className="border-y border-white/15 py-3 bg-black/10">
+        <div className="max-w-6xl mx-auto px-5 flex justify-center gap-7 text-[11px] tracking-[0.2em] text-white/60 uppercase">
+          <span>CREATE <span className="text-yellow-300 ml-2">✦</span></span>
+          <span>COLLABORATE <span className="text-yellow-300 ml-2">✦</span></span>
+          <span>LEARN <span className="text-yellow-300 ml-2">✦</span></span>
         </div>
       </div>
 
-      <section className="py-24 md:py-28" id="domains">
+      {/* Domains */}
+      <section id="domains" className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="mb-9">
-            <p className="kannada-text text-2xl md:text-4xl font-semibold leading-[1.1] mb-2">ನಿಮಗೆ ಸರಿಹೊಂದುವ ಕ್ಷೇತ್ರವನ್ನು ಕಂಡುಕೊಳ್ಳಿ</p>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[0.9]">EXPLORE DOMAINS</h2>
+          
+          <div className="max-w-3xl mb-7">
+            <p className="kannada-text text-xl md:text-2xl font-semibold leading-tight mb-1">
+              ನಿಮಗೆ ಸರಿಹೊಂದುವ ಕ್ಷೇತ್ರವನ್ನು ಕಂಡುಕೊಳ್ಳಿ
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              Explore Domains
+            </h2>
           </div>
-          <button type="button" onClick={() => setDomainsOpen(!domainsOpen)} className="w-full flex items-center justify-between border border-border bg-card hover:border-primary/60 px-5 py-5 transition-all duration-300">
-            <span className="font-medium">{domainsOpen ? "HIDE DOMAINS" : "VIEW ALL DOMAINS"}</span>
-            <Plus className={`h-6 w-6 text-primary transition-transform duration-300 ${domainsOpen ? "rotate-45" : ""}`} />
+
+          <button
+            type="button"
+            onClick={() => setDomainsOpen((open) => !open)}
+            aria-expanded={domainsOpen}
+            className="w-full flex items-center justify-between rounded-lg border border-white/15 bg-white/10 backdrop-blur-sm px-5 py-4 text-sm font-medium hover:border-yellow-300/60 hover:bg-white/15 transition"
+          >
+            <span>{domainsOpen ? "Hide Domains" : "View All Domains"}</span>
+            <Plus className={`h-5 w-5 text-yellow-300 transition-transform duration-300 ${domainsOpen ? "rotate-45" : ""}`} />
           </button>
+
           {domainsOpen && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border border-t-0">
-              {domains.map(([name, description], index) => (
-                <article key={name} className="relative min-h-[205px] bg-card p-6 md:p-7 overflow-hidden group transition-all duration-300 hover:bg-muted/40">
-                  <p className="text-primary text-xs tracking-[0.15em] mb-9">{String(index + 1).padStart(2, "0")}</p>
-                  <h3 className="kannada-text text-lg md:text-xl font-semibold leading-[1.3] mb-3">{name}</h3>
-                  <p className="text-sm text-muted-foreground leading-snug max-w-sm">{description}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-3">
+              {domains.map(([emoji, name, description], index) => (
+                <article
+                  key={name}
+                  className={`rounded-xl border border-white/15 bg-white/10 backdrop-blur-sm p-4 md:p-5 hover:bg-white/15 hover:border-yellow-300/50 hover:-translate-y-1 transition-all ${
+                    index === domains.length - 1 ? "lg:col-start-2" : ""
+                  }`}
+                >
+                  <div className="text-2xl mb-3">{emoji}</div>
+                  <p className="text-[10px] text-yellow-300 tracking-widest mb-2">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="kannada-text text-sm md:text-base font-semibold leading-snug mb-2">
+                    {name}
+                  </h3>
+                  <p className="text-xs text-white/65 leading-relaxed">
+                    {description}
+                  </p>
                 </article>
               ))}
             </div>
@@ -89,40 +138,73 @@ export default function Recruitment() {
         </div>
       </section>
 
-      <section className="py-24 md:py-28 border-t border-border">
+      {/* Why Join Us */}
+      <section className="py-16 md:py-20 border-t border-white/15">
         <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="mb-9">
-            <p className="kannada-text text-2xl md:text-4xl font-semibold leading-[1.05] mb-2">ನಮ್ಮ ತಂಡವನ್ನು ಏಕೆ ಸೇರಬೇಕು?</p>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[0.9]">WHY JOIN US?</h2>
+          
+          <div className="max-w-3xl mb-7">
+            <p className="kannada-text text-xl md:text-2xl font-semibold leading-tight mb-1">
+              ನಮ್ಮ ತಂಡವನ್ನು ಏಕೆ ಸೇರಬೇಕು?
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              Why Join Us?
+            </h2>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4 max-w-4xl">
+
+          <div className="max-w-3xl border-y border-white/15">
             {reasons.map((reason, index) => (
-              <div key={reason} className="min-h-[145px] md:min-h-[155px] border border-border bg-card p-5 md:p-6 flex flex-col justify-between hover:border-primary/60 hover:bg-muted/30 hover:-translate-y-1 transition-all duration-300">
-                <span className="text-primary text-xs tracking-[0.15em]">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="text-lg md:text-xl font-medium tracking-tight leading-snug max-w-sm">{reason}</h3>
+              <div
+                key={reason}
+                className="flex items-center gap-5 py-4 border-b last:border-b-0 border-white/15"
+              >
+                <span className="text-xs text-yellow-300 font-medium w-6">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="text-sm md:text-base font-medium text-white/90">
+                  {reason}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section ref={registerRef} id="register" className="relative py-28 md:py-32 text-center overflow-hidden scroll-mt-24">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[330px] h-[330px] md:w-[520px] md:h-[520px] rounded-full border border-primary/10 pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-5">
-          <p className="kannada-text text-3xl md:text-5xl font-semibold leading-[1.05] mb-3">ಮುಂದಿನ ಹೆಜ್ಜೆ ನಿಮ್ಮದು</p>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.85]">THE NEXT STEP<br />IS YOURS.</h2>
-          <p className="mt-7 text-muted-foreground leading-relaxed">
-            ನಿಮ್ಮ ನೋಂದಣಿಯನ್ನು Google Form ಮೂಲಕ ಪೂರ್ಣಗೊಳಿಸಿ.<br />
+      {/* Final CTA */}
+      <section
+        ref={registerRef}
+        id="register"
+        className="py-20 md:py-24 text-center border-t border-white/15"
+      >
+        <div className="max-w-3xl mx-auto px-5">
+          <p className="kannada-text text-xl md:text-2xl font-semibold leading-tight mb-2">
+            ಮುಂದಿನ ಹೆಜ್ಜೆ ನಿಮ್ಮದು
+          </p>
+
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight">
+            The Next Step Is Yours.
+          </h2>
+
+          <p className="mt-4 text-sm text-white/65 leading-relaxed">
+            ನಿಮ್ಮ ನೋಂದಣಿಯನ್ನು Google Form ಮೂಲಕ ಪೂರ್ಣಗೊಳಿಸಿ.
+            <br />
             Complete your registration through the Google Form.
           </p>
-          <a href="https://forms.gle/1Ejkg7UAniHSm3fB9" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-3 bg-primary text-primary-foreground hover:bg-primary/90 px-7 py-4 font-bold transition-all duration-300 hover:-translate-y-1">
-            ಅರ್ಜಿ ಸಲ್ಲಿಸಿ <span className="opacity-60">/</span> APPLY NOW <ArrowUpRight className="h-5 w-5" />
+
+          <a
+            href="https://forms.gle/1Ejkg7UAniHSm3fB9"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-yellow-300 text-red-950 px-6 py-3 text-sm font-semibold hover:bg-yellow-200 transition-all hover:-translate-y-0.5"
+          >
+            ಅರ್ಜಿ ಸಲ್ಲಿಸಿ / Apply Now
+            <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
       </section>
 
-      <footer className="border-t border-border py-6">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between gap-3 text-xs text-muted-foreground">
+      {/* Footer */}
+      <footer className="border-t border-white/15 py-5 bg-black/10">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between gap-2 text-xs text-white/50">
           <span>© 2026 Kannada Koota EC</span>
           <span className="kannada-text">ಕನ್ನಡ ಕೂಟ · PES University EC Campus</span>
         </div>
