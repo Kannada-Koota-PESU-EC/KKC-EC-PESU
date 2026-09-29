@@ -54,9 +54,12 @@ background:var(--bg);color:var(--text);font-family:Poppins,system-ui,sans-serif;
 .kkr .steps .n{position:absolute;left:-15px;top:0;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#2a0808;font-weight:600;display:grid;place-items:center;font-size:.85rem}
 .kkr .steps b{display:block}
 .kkr .steps span.d{color:var(--muted);font-size:.92rem}
-.kkr .cta{margin-top:70px;padding:60px 20px;text-align:center;background:linear-gradient(135deg,var(--red),#7a1208)}
-.kkr .cta p{max-width:520px;margin:10px auto 22px}
-.kkr .cta .btn{background:#fff4e0;color:#7a1208;box-shadow:none}
+.kkr .cta{margin:80px auto 0;max-width:960px;border-radius:28px;padding:60px 24px;text-align:center;background:radial-gradient(circle at 50% 0,#2b1a12,#141010 70%);border:1px solid rgba(255,197,40,.45);box-shadow:0 0 60px rgba(255,197,40,.12)}
+.kkr .cta h2{color:var(--gold)}
+.kkr .cta p{max-width:500px;margin:12px auto 26px;color:var(--muted)}
+.kkr .live{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.kkr .live:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(255,197,40,.6);animation:kkpulse 1.8s infinite}
+@keyframes kkpulse{50%{box-shadow:0 0 0 10px rgba(255,197,40,0)}}
 .kkr footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem}
 .kkr .rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
 .kkr .rv.on{opacity:1;transform:none}
@@ -150,12 +153,15 @@ export default function Recruitments() {
         </ol>
       </section>
 
-      <div className="cta" id="register">
-        <h2>Ready to be part of ಕೂಟ?</h2>
-        <p>Registrations close end of day. Fill the Google Form to lock in your spot.</p>
-        <a className="btn" href={GFORM_LINK} target="_blank" rel="noopener noreferrer">
-          Fill the Registration Form
-        </a>
+      <div className="wrap" id="register">
+        <div className="cta">
+          <div className="live">Registrations open</div>
+          <h2>Ready to be part of ಕೂಟ?</h2>
+          <p>Fill the Google Form to lock in your spot. Seats are limited, so don't wait.</p>
+          <a className="btn" href={GFORM_LINK} target="_blank" rel="noopener noreferrer">
+            Fill the Registration Form
+          </a>
+        </div>
       </div>
 
       <footer>© Kannada Koota EC PES · PES University, Electronic City Campus</footer>
