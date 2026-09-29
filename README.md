@@ -14,7 +14,7 @@ PESU Kannada Koota is a student community at PES University focused on promoting
 - Team page with year-wise club/domain heads.
 - Blogs/media page.
 - Contact information page.
-- UPI donation flow components (scanner + manual fallback).
+- Cloudflare deployment configuration
 
 ## Tech Stack
 
