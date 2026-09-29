@@ -9,6 +9,7 @@ const navItems = [
   { name: "Blogs", path: "/blogs" },
   { name: "Team", path: "/team" },
   { name: "Contact", path: "/contact" },
+  { name: "Recruitments", path: "/recruitments" },
 ];
 
 export default function Navbar() {
