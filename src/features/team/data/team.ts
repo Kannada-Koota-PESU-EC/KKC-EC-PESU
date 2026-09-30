@@ -93,7 +93,7 @@ export const teamData: Record<number, Member[]> = {
     },
     {
       id: 'dh-2026-15',
-      name: 'ಅರ್ಚನಾ ಹೆಚ್.ಕೆ. / Archana H.K ',
+      name: 'ಅರ್ಚನಾ ಕೃಷ್ಣ / Archana Krishna ',
       role: 'Domain Head', 
       domain: 'ಸಾಂಸ್ಕೃತಿಕ / Cultural',
       year: 2026,
