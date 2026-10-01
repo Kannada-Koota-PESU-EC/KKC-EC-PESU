@@ -1,5 +1,6 @@
 import {
   CalendarCheck,
+  Camera,
   Code2,
   Drama,
   HandHeart,
@@ -51,7 +52,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಸಾಂಸ್ಕೃತಿಕ",
     icon: Drama,
     description:
-      "Promotes and celebrates Kannada culture, traditions, and arts through various activities and performances.\n\nಕನ್ನಡ ಸಂಸ್ಕೃತಿ, ಪರಂಪರೆ ಮತ್ತು ಕಲೆಯನ್ನು ವಿವಿಧ ಚಟುವಟಿಕೆಗಳು ಹಾಗೂ ಪ್ರದರ್ಶನಗಳ ಮೂಲಕ ಪ್ರತಿನಿಧಿಸುತ್ತದೆ.",
+      "Promotes and celebrates Kannada culture, traditions, arts, and dance through various activities and performances.\n\nಕನ್ನಡ ಸಂಸ್ಕೃತಿ, ಪರಂಪರೆ, ಕಲೆ ಮತ್ತು ನೃತ್ಯವನ್ನು ವಿವಿಧ ಚಟುವಟಿಕೆಗಳು ಹಾಗೂ ಪ್ರದರ್ಶನಗಳ ಮೂಲಕ ಪ್ರಚಾರ ಮಾಡುತ್ತದೆ ಮತ್ತು ಆಚರಿಸುತ್ತದೆ.",
   },
   {
     id: "event-management",
@@ -71,11 +72,11 @@ export const recruitmentDomains: RecruitmentDomain[] = [
   },
   {
     id: "marketing",
-    name: "Marketing",
+    name: "Marketing and Sponsorship",
     kannadaName: "ಮಾರ್ಕೆಟಿಂಗ್",
     icon: Megaphone,
     description:
-      "Promotes the club’s events, activities, and initiatives to reach a wider audience.\n\nಕನ್ನಡ ಕೂಟದ ಕಾರ್ಯಕ್ರಮಗಳು, ಚಟುವಟಿಕೆಗಳು ಹಾಗೂ ಉಪಕ್ರಮಗಳನ್ನು ಹೆಚ್ಚಿನ ಜನರಿಗೆ ತಲುಪಿಸುವಂತೆ ಪ್ರಚಾರ ಮಾಡುತ್ತದೆ.",
+      "Promotes the club’s events, activities, and initiatives to reach a wider audience, while connecting with sponsors and building partnerships to support them.\n\nಕನ್ನಡ ಕೂಟದ ಕಾರ್ಯಕ್ರಮಗಳು, ಚಟುವಟಿಕೆಗಳು ಹಾಗೂ ಉಪಕ್ರಮಗಳನ್ನು ಹೆಚ್ಚಿನ ಜನರಿಗೆ ತಲುಪಿಸುವಂತೆ ಪ್ರಚಾರ ಮಾಡುತ್ತದೆ ಮತ್ತು ಅವುಗಳಿಗೆ ಬೆಂಬಲ ನೀಡಲು ಪ್ರಾಯೋಜಕರನ್ನು ಸಂಪರ್ಕಿಸಿ ಸಹಭಾಗಿತ್ವವನ್ನು ಸ್ಥಾಪಿಸುತ್ತದೆ.",
   },
   {
     id: "inchara",
@@ -83,15 +84,15 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಇಂಚರ",
     icon: Mic,
     description:
-      "Handles music and singing activities, contributing to cultural events through musical performances.\n\nಸಂಗೀತ ಮತ್ತು ಗಾಯನ ಚಟುವಟಿಕೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ ಸಾಂಸ್ಕೃತಿಕ ಕಾರ್ಯಕ್ರಮಗಳಿಗೆ ಸಂಗೀತದ ಮೂಲಕ ಕೊಡುಗೆ ನೀಡುತ್ತದೆ.",
+      "Handles music, singing, and instrumental activities, contributing to cultural events through musical performances.\n\nಸಂಗೀತ, ಗಾಯನ ಮತ್ತು ವಾದ್ಯಸಂಗೀತದ ಚಟುವಟಿಕೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ, ಸಾಂಸ್ಕೃತಿಕ ಕಾರ್ಯಕ್ರಮಗಳಿಗೆ ಸಂಗೀತದ ಮೂಲಕ ಕೊಡುಗೆ ನೀಡುತ್ತದೆ.",
   },
   {
     id: "design",
-    name: "Design",
+    name: "Design and Video Editing",
     kannadaName: "ವಿನ್ಯಾಸ",
     icon: Palette,
     description:
-      "Creates posters, graphics, and other visual content for the club.\n\nಕನ್ನಡ ಕೂಟಕ್ಕೆ ಅಗತ್ಯವಿರುವ ಪೋಸ್ಟರ್‌ಗಳು, ಗ್ರಾಫಿಕ್ಸ್ ಹಾಗೂ ಇತರ ದೃಶ್ಯಾತ್ಮಕ ವಿಷಯಗಳನ್ನು ಸೃಷ್ಟಿಸುತ್ತದೆ.",
+      "Creates posters, graphics, video edits, and other visual content for the club.\n\nಕನ್ನಡ ಕೂಟಕ್ಕೆ ಅಗತ್ಯವಿರುವ ಪೋಸ್ಟರ್‌ಗಳು, ಗ್ರಾಫಿಕ್ಸ್, ವಿಡಿಯೋ ಎಡಿಟಿಂಗ್ ಹಾಗೂ ಇತರ ದೃಶ್ಯಾತ್ಮಕ ವಿಷಯಗಳನ್ನು ಸೃಷ್ಟಿಸುತ್ತದೆ.",
   },
   {
     id: "content-writing",
@@ -111,19 +112,19 @@ export const recruitmentDomains: RecruitmentDomain[] = [
   },
   {
     id: "public-relations",
-    name: "Public Relations",
+    name: "Public Relations and Promotions",
     kannadaName: "ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕ",
     icon: MessagesSquare,
     description:
-      "Manages communication and relationships with students, organizations, guests, and external groups.\n\nವಿದ್ಯಾರ್ಥಿಗಳು, ಸಂಸ್ಥೆಗಳು, ಅತಿಥಿಗಳು ಹಾಗೂ ಬಾಹ್ಯ ವ್ಯಕ್ತಿಗಳು ಮತ್ತು ಸಂಸ್ಥೆಗಳೊಂದಿಗೆ ಸಂವಹನ ಮತ್ತು ಸಂಬಂಧಗಳನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ.",
+      "Manages communication and relationships with students, organizations, guests, and external groups, while driving promotions to increase the club’s reach.\n\nವಿದ್ಯಾರ್ಥಿಗಳು, ಸಂಸ್ಥೆಗಳು, ಅತಿಥಿಗಳು ಹಾಗೂ ಬಾಹ್ಯ ಗುಂಪುಗಳೊಂದಿಗೆ ಸಂವಹನ ಮತ್ತು ಬಾಂಧವ್ಯವನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ, ಜೊತೆಗೆ ಕ್ಲಬ್‌ನ ಪ್ರಚಾರ ಕಾರ್ಯಗಳನ್ನು ಮುನ್ನಡೆಸುತ್ತದೆ.",
   },
   {
-    id: "sponsorship",
-    name: "Sponsorship",
-    kannadaName: "ಪ್ರಾಯೋಜಕತ್ವ",
-    icon: Handshake,
+    id: "photography",
+    name: "Photography and Videography",
+    kannadaName: "ಛಾಯಾಗ್ರಹಣ ಚಿತ್ರೀಕರಣ",
+    icon: Camera,
     description:
-      "Connects with sponsors and builds partnerships to support club events and activities.\n\nಕನ್ನಡ ಕೂಟದ ಕಾರ್ಯಕ್ರಮಗಳು ಮತ್ತು ಚಟುವಟಿಕೆಗಳಿಗೆ ಪ್ರಾಯೋಜಕರನ್ನು ಸಂಪರ್ಕಿಸಿ ಸಹಭಾಗಿತ್ವವನ್ನು ಸ್ಥಾಪಿಸುತ್ತದೆ.",
+      "Captures all the events and performances from the club.\n\nಕ್ಲಬ್‌ನ ಎಲ್ಲಾ ಈವೆಂಟ್‌ಗಳು ಮತ್ತು ಪ್ರದರ್ಶನಗಳ ಫೋಟೋ ಮತ್ತು ವಿಡಿಯೋ ಸೆರೆಹಿಡಿಯಲಾಗುತ್ತದೆ..",
   },
   {
     id: "logistics",
