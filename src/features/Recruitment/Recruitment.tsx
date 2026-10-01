@@ -62,7 +62,7 @@ export default function Recruitment() {
                   onClick={() => scrollToSection("domains")}
                   className="group w-full sm:w-auto"
                 >
-                  Explore the {recruitmentDomains.length} Domains
+                  Explore the Domains
                   <ArrowDown className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                 </Button>
                 <Button
@@ -113,7 +113,7 @@ export default function Recruitment() {
               ಕನ್ನಡದ ಸಂಭ್ರಮವನ್ನು ಇನ್ನಷ್ಟು ದೊಡ್ಡದಾಗಿಸಿ!
             </p>
             <p className="text-muted-foreground">
-              Explore our {recruitmentDomains.length} domains and pick the one
+              Explore our domains and pick the one
               that matches your interests and skills.
             </p>
           </div>
