@@ -10,6 +10,7 @@ import Index from "@/features/home/pages/IndexPage";
 import Events from "@/features/events/pages/EventsPage";
 import Team from "@/features/team/pages/TeamPage";
 import Contact from "@/features/contact/pages/ContactPage";
+import Recruitment from "@/features/Recruitment/Recruitment";
 import NotFound from "@/app/pages/NotFoundPage";
 import Navbar from "@/shared/components/layout/Navbar";
 import Footer from "@/shared/components/layout/Footer";
@@ -43,6 +44,7 @@ const AppContent = () => (
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/events" element={<Events />} />
               <Route path="/team" element={<Team />} />
+              <Route path="/recruitments" element={<Recruitment />} />
               {/* <Route path="/upis" element={<Upis />} /> */}
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
