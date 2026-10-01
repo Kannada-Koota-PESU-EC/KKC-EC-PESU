@@ -43,7 +43,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಐಟಿ",
     icon: Code2,
     description:
-      "ಕನ್ನಡ ಕೂಟದ ತಾಂತ್ರಿಕ ಕಾರ್ಯಗಳನ್ನು ನಿರ್ವಹಿಸುವ ವಿಭಾಗವೇ ಐಟಿ ವಿಭಾಗ. ವೆಬ್‌ಸೈಟ್ ಅಭಿವೃದ್ಧಿ, ಡಿಜಿಟಲ್ ವೇದಿಕೆಗಳು ಹಾಗೂ ಕ್ಲಬ್‌ನ ಚಟುವಟಿಕೆಗಳು ಮತ್ತು ಕಾರ್ಯಕ್ರಮಗಳಿಗೆ ಅಗತ್ಯವಾದ ತಂತ್ರಜ್ಞಾನ ಆಧಾರಿತ ಪರಿಹಾರಗಳನ್ನು ಇದು ನಿರ್ವಹಿಸುತ್ತದೆ.",
+      "Handles the club’s website, digital platforms, and technology needs. ಕನ್ನಡ ಕೂಟದ ವೆಬ್‌ಸೈಟ್, ಡಿಜಿಟಲ್ ವೇದಿಕೆಗಳು ಹಾಗೂ ತಂತ್ರಜ್ಞಾನ ಸಂಬಂಧಿತ ಕಾರ್ಯಗಳನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ.",
   },
   {
     id: "cultural",
@@ -51,7 +51,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಸಾಂಸ್ಕೃತಿಕ",
     icon: Drama,
     description:
-      "ಕನ್ನಡ ಸಂಸ್ಕೃತಿ, ಪರಂಪರೆ ಮತ್ತು ವೈಭವವನ್ನು ಪ್ರತಿನಿಧಿಸಿ ಆಚರಿಸುವುದು ಸಾಂಸ್ಕೃತಿಕ ವಿಭಾಗದ ಮುಖ್ಯ ಉದ್ದೇಶ. ಸಾಂಸ್ಕೃತಿಕ ಚಟುವಟಿಕೆಗಳು, ಕಲಾ ಪ್ರದರ್ಶನಗಳು ಹಾಗೂ ಸಂಬಂಧಿತ ಕಾರ್ಯಕ್ರಮಗಳನ್ನು ಈ ವಿಭಾಗವು ಆಯೋಜಿಸಿ ಸಂಯೋಜಿಸುತ್ತದೆ.",
+      "Promotes and celebrates Kannada culture, traditions, and arts through various activities and performances. ಕನ್ನಡ ಸಂಸ್ಕೃತಿ, ಪರಂಪರೆ ಮತ್ತು ಕಲೆಯನ್ನು ವಿವಿಧ ಚಟುವಟಿಕೆಗಳು ಹಾಗೂ ಪ್ರದರ್ಶನಗಳ ಮೂಲಕ ಪ್ರತಿನಿಧಿಸುತ್ತದೆ.",
   },
   {
     id: "event-management",
@@ -59,7 +59,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಕಾರ್ಯಕ್ರಮ ನಿರ್ವಹಣೆ",
     icon: CalendarCheck,
     description:
-      "ಕನ್ನಡ ಕೂಟದ ವಿವಿಧ ಕಾರ್ಯಕ್ರಮಗಳ ಯೋಜನೆ ಮತ್ತು ಸಂಯೋಜನೆಯ ಜವಾಬ್ದಾರಿಯನ್ನು ಕಾರ್ಯಕ್ರಮ ನಿರ್ವಹಣಾ ವಿಭಾಗವು ವಹಿಸುತ್ತದೆ. ವಿವಿಧ ತಂಡಗಳೊಂದಿಗೆ ಸಮನ್ವಯ ಸಾಧಿಸಿ ಕಾರ್ಯಕ್ರಮಗಳು ಸುಗಮವಾಗಿ ನಡೆಯುವಂತೆ ಈ ವಿಭಾಗವು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.",
+      "Plans and coordinates events to ensure they run smoothly. ಕಾರ್ಯಕ್ರಮಗಳ ಯೋಜನೆ ಮತ್ತು ಸಮನ್ವಯವನ್ನು ನಿರ್ವಹಿಸಿ ಅವು ಸುಗಮವಾಗಿ ನಡೆಯುವಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.",
   },
   {
     id: "hospitality",
@@ -67,7 +67,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಆತಿಥ್ಯ",
     icon: HandHeart,
     description:
-      "ಕಾರ್ಯಕ್ರಮಗಳಿಗೆ ಆಗಮಿಸುವ ಅತಿಥಿಗಳು, ಭಾಗವಹಿಸುವವರು, ಕಲಾವಿದರು ಹಾಗೂ ಇತರರ ಆತಿಥ್ಯ ಮತ್ತು ಅಗತ್ಯಗಳ ನಿರ್ವಹಣೆಯನ್ನು ಆತಿಥ್ಯ ವಿಭಾಗವು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ. ಅವರನ್ನು ಸ್ವಾಗತಿಸುವುದು, ಅವರ ಅಗತ್ಯಗಳನ್ನು ಸಂಯೋಜಿಸುವುದು ಮತ್ತು ಉತ್ತಮ ಅನುಭವವನ್ನು ಒದಗಿಸುವುದು ಈ ವಿಭಾಗದ ಪ್ರಮುಖ ಕಾರ್ಯವಾಗಿದೆ.",
+      "Welcomes and takes care of guests, participants, and artists during events. ಕಾರ್ಯಕ್ರಮಗಳಲ್ಲಿ ಅತಿಥಿಗಳು, ಭಾಗವಹಿಸುವವರು ಹಾಗೂ ಕಲಾವಿದರ ಆತಿಥ್ಯ ಮತ್ತು ಅಗತ್ಯಗಳನ್ನು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.",
   },
   {
     id: "marketing",
@@ -75,7 +75,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಮಾರ್ಕೆಟಿಂಗ್",
     icon: Megaphone,
     description:
-      "ಕನ್ನಡ ಕೂಟದ ಕಾರ್ಯಕ್ರಮಗಳು, ಚಟುವಟಿಕೆಗಳು ಮತ್ತು ವಿವಿಧ ಉಪಕ್ರಮಗಳ ಪ್ರಚಾರವನ್ನು ಮಾರ್ಕೆಟಿಂಗ್ ವಿಭಾಗವು ನಿರ್ವಹಿಸುತ್ತದೆ. ಹೆಚ್ಚಿನ ಜನರನ್ನು ತಲುಪಲು ಹಾಗೂ ಕಾರ್ಯಕ್ರಮಗಳು ಮತ್ತು ಚಟುವಟಿಕೆಗಳ ಬಗ್ಗೆ ಅರಿವು ಮೂಡಿಸಲು ವಿವಿಧ ಪ್ರಚಾರ ಮತ್ತು ಮಾರ್ಕೆಟಿಂಗ್ ಚಟುವಟಿಕೆಗಳನ್ನು ಈ ವಿಭಾಗವು ಕೈಗೊಳ್ಳುತ್ತದೆ.",
+      "Promotes the club’s events, activities, and initiatives to reach a wider audience. ಕನ್ನಡ ಕೂಟದ ಕಾರ್ಯಕ್ರಮಗಳು, ಚಟುವಟಿಕೆಗಳು ಹಾಗೂ ಉಪಕ್ರಮಗಳನ್ನು ಹೆಚ್ಚಿನ ಜನರಿಗೆ ತಲುಪಿಸುವಂತೆ ಪ್ರಚಾರ ಮಾಡುತ್ತದೆ.",
   },
   {
     id: "inchara",
@@ -83,7 +83,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಇಂಚರ",
     icon: Mic,
     description:
-      "ಕನ್ನಡ ಕೂಟದ ಸಂಗೀತ ಮತ್ತು ಗಾಯನ ಚಟುವಟಿಕೆಗಳನ್ನು ಇಂಚರ ವಿಭಾಗವು ನಿರ್ವಹಿಸುತ್ತದೆ. ಗಾಯನ, ಸಂಗೀತ ಪ್ರದರ್ಶನಗಳು ಹಾಗೂ ಸಾಂಸ್ಕೃತಿಕ ಕಾರ್ಯಕ್ರಮಗಳಲ್ಲಿ ಸಂಗೀತದ ಮೂಲಕ ಕೊಡುಗೆ ನೀಡುವುದು ಈ ವಿಭಾಗದ ಪ್ರಮುಖ ಕಾರ್ಯಗಳಾಗಿವೆ.",
+      "Handles music and singing activities, contributing to cultural events through musical performances. ಸಂಗೀತ ಮತ್ತು ಗಾಯನ ಚಟುವಟಿಕೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ ಸಾಂಸ್ಕೃತಿಕ ಕಾರ್ಯಕ್ರಮಗಳಿಗೆ ಸಂಗೀತದ ಮೂಲಕ ಕೊಡುಗೆ ನೀಡುತ್ತದೆ.",
   },
   {
     id: "design",
@@ -91,7 +91,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ವಿನ್ಯಾಸ",
     icon: Palette,
     description:
-      "ಕನ್ನಡ ಕೂಟಕ್ಕೆ ಅಗತ್ಯವಿರುವ ದೃಶ್ಯಾತ್ಮಕ ವಿಷಯಗಳನ್ನು ಸೃಷ್ಟಿಸುವುದು ವಿನ್ಯಾಸ ವಿಭಾಗದ ಕಾರ್ಯವಾಗಿದೆ. ಪೋಸ್ಟರ್‌ಗಳು, ಗ್ರಾಫಿಕ್ಸ್, ಪ್ರಚಾರ ಸಾಮಗ್ರಿಗಳು ಹಾಗೂ ಇತರ ದೃಶ್ಯ ವಿನ್ಯಾಸಗಳನ್ನು ಈ ವಿಭಾಗವು ಸಿದ್ಧಪಡಿಸುತ್ತದೆ.",
+      "Creates posters, graphics, and other visual content for the club. ಕನ್ನಡ ಕೂಟಕ್ಕೆ ಅಗತ್ಯವಿರುವ ಪೋಸ್ಟರ್‌ಗಳು, ಗ್ರಾಫಿಕ್ಸ್ ಹಾಗೂ ಇತರ ದೃಶ್ಯಾತ್ಮಕ ವಿಷಯಗಳನ್ನು ಸೃಷ್ಟಿಸುತ್ತದೆ.",
   },
   {
     id: "content-writing",
@@ -99,7 +99,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ವಿಷಯ ಬರವಣಿಗೆ",
     icon: PenLine,
     description:
-      "ಕನ್ನಡ ಕೂಟದ ಲಿಖಿತ ಸಂವಹನವನ್ನು ನಿರ್ವಹಿಸುವುದು ವಿಷಯ ಬರವಣಿಗೆ ವಿಭಾಗದ ಕಾರ್ಯವಾಗಿದೆ. ಪ್ರಕಟಣೆಗಳು, ಕಾರ್ಯಕ್ರಮಗಳ ವಿವರಣೆಗಳು, ಸಾಮಾಜಿಕ ಜಾಲತಾಣದ ವಿಷಯಗಳು, ಪ್ರಚಾರ ಸಾಮಗ್ರಿಗಳು ಹಾಗೂ ಇತರ ಕ್ಲಬ್ ಸಂಬಂಧಿತ ಬರಹಗಳನ್ನು ಈ ವಿಭಾಗವು ಸಿದ್ಧಪಡಿಸುತ್ತದೆ.",
+      "Creates written content for announcements, events, social media, and club communications. ಪ್ರಕಟಣೆಗಳು, ಕಾರ್ಯಕ್ರಮಗಳು, ಸಾಮಾಜಿಕ ಜಾಲತಾಣಗಳು ಹಾಗೂ ಕ್ಲಬ್‌ನ ಸಂವಹನಕ್ಕಾಗಿ ಬರಹಗಳನ್ನು ಸಿದ್ಧಪಡಿಸುತ್ತದೆ.",
   },
   {
     id: "operations",
@@ -107,7 +107,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಕಾರ್ಯಾಚರಣೆ",
     icon: Workflow,
     description:
-      "ಕನ್ನಡ ಕೂಟದ ಚಟುವಟಿಕೆಗಳನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ನಡೆಸಲು ಅಗತ್ಯವಾದ ಆಂತರಿಕ ಸಮನ್ವಯವನ್ನು ಕಾರ್ಯಾಚರಣೆ ವಿಭಾಗವು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ. ಜನರು, ಸಂಪನ್ಮೂಲಗಳು ಮತ್ತು ಕಾರ್ಯವಿಧಾನಗಳನ್ನು ವ್ಯವಸ್ಥಿತವಾಗಿ ಸಂಘಟಿಸಿ ಯೋಜಿತ ಚಟುವಟಿಕೆಗಳು ಸರಿಯಾಗಿ ಕಾರ್ಯಗತಗೊಳ್ಳುವಂತೆ ಈ ವಿಭಾಗವು ಖಚಿತಪಡಿಸುತ್ತದೆ.",
+      "Coordinates people, resources, and processes to ensure smooth club operations. ಜನರು, ಸಂಪನ್ಮೂಲಗಳು ಹಾಗೂ ಕಾರ್ಯವಿಧಾನಗಳ ಸಮನ್ವಯದ ಮೂಲಕ ಕ್ಲಬ್‌ನ ಚಟುವಟಿಕೆಗಳು ಸುಗಮವಾಗಿ ನಡೆಯುವಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.",
   },
   {
     id: "public-relations",
@@ -115,7 +115,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕ",
     icon: MessagesSquare,
     description:
-      "ವಿದ್ಯಾರ್ಥಿಗಳು, ಸಂಸ್ಥೆಗಳು, ಅತಿಥಿಗಳು ಹಾಗೂ ಇತರ ಬಾಹ್ಯ ವ್ಯಕ್ತಿಗಳು ಮತ್ತು ಸಂಸ್ಥೆಗಳೊಂದಿಗೆ ಕನ್ನಡ ಕೂಟದ ಸಂವಹನ ಮತ್ತು ಸಂಬಂಧಗಳನ್ನು ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕ ವಿಭಾಗವು ನಿರ್ವಹಿಸುತ್ತದೆ. ಕ್ಲಬ್ ಅನ್ನು ಸೂಕ್ತವಾಗಿ ಪ್ರತಿನಿಧಿಸುವುದು ಮತ್ತು ಪರಿಣಾಮಕಾರಿ ಸಂವಹನವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳುವುದು ಈ ವಿಭಾಗದ ಪ್ರಮುಖ ಕಾರ್ಯವಾಗಿದೆ.",
+      "Manages communication and relationships with students, organizations, guests, and external groups. ವಿದ್ಯಾರ್ಥಿಗಳು, ಸಂಸ್ಥೆಗಳು, ಅತಿಥಿಗಳು ಹಾಗೂ ಬಾಹ್ಯ ವ್ಯಕ್ತಿಗಳು ಮತ್ತು ಸಂಸ್ಥೆಗಳೊಂದಿಗೆ ಸಂವಹನ ಮತ್ತು ಸಂಬಂಧಗಳನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ.",
   },
   {
     id: "sponsorship",
@@ -123,7 +123,7 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ಪ್ರಾಯೋಜಕತ್ವ",
     icon: Handshake,
     description:
-      "ಕನ್ನಡ ಕೂಟದ ಕಾರ್ಯಕ್ರಮಗಳು ಮತ್ತು ಚಟುವಟಿಕೆಗಳಿಗೆ ಪ್ರಾಯೋಜಕರನ್ನು ಗುರುತಿಸಿ ಸಂಪರ್ಕಿಸುವ ಕಾರ್ಯವನ್ನು ಪ್ರಾಯೋಜಕತ್ವ ವಿಭಾಗವು ನಿರ್ವಹಿಸುತ್ತದೆ. ಪ್ರಾಯೋಜಕರೊಂದಿಗೆ ಸಂವಹನ, ಪ್ರಸ್ತಾವನೆಗಳ ಸಿದ್ಧತೆ ಹಾಗೂ ಸಹಭಾಗಿತ್ವವನ್ನು ಸ್ಥಾಪಿಸಲು ಅಗತ್ಯವಾದ ಸಮನ್ವಯವನ್ನು ಈ ವಿಭಾಗವು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.",
+      "Connects with sponsors and builds partnerships to support club events and activities. ಕನ್ನಡ ಕೂಟದ ಕಾರ್ಯಕ್ರಮಗಳು ಮತ್ತು ಚಟುವಟಿಕೆಗಳಿಗೆ ಪ್ರಾಯೋಜಕರನ್ನು ಸಂಪರ್ಕಿಸಿ ಸಹಭಾಗಿತ್ವವನ್ನು ಸ್ಥಾಪಿಸುತ್ತದೆ.",
   },
   {
     id: "logistics",
@@ -131,6 +131,6 @@ export const recruitmentDomains: RecruitmentDomain[] = [
     kannadaName: "ವ್ಯವಸ್ಥಾಪನೆ",
     icon: Truck,
     description:
-      "ಕಾರ್ಯಕ್ರಮಗಳು ಮತ್ತು ಚಟುವಟಿಕೆಗಳಿಗೆ ಅಗತ್ಯವಿರುವ ಪ್ರಾಯೋಗಿಕ ವ್ಯವಸ್ಥೆಗಳನ್ನು ನಿರ್ವಹಿಸುವುದು ವ್ಯವಸ್ಥಾಪನಾ ವಿಭಾಗದ ಕಾರ್ಯವಾಗಿದೆ. ಉಪಕರಣಗಳು, ಸಾಮಗ್ರಿಗಳು, ಸಾರಿಗೆ, ಸ್ಥಳ ಹಾಗೂ ಇತರ ಕಾರ್ಯಕ್ರಮ ಸ್ಥಳದ ಅಗತ್ಯತೆಗಳ ಸಮನ್ವಯವನ್ನು ಈ ವಿಭಾಗವು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.",
+      "Manages equipment, materials, transport, venues, and other event-related requirements. ಉಪಕರಣಗಳು, ಸಾಮಗ್ರಿಗಳು, ಸಾರಿಗೆ, ಸ್ಥಳ ಹಾಗೂ ಇತರ ಕಾರ್ಯಕ್ರಮ ಸಂಬಂಧಿತ ಅಗತ್ಯತೆಗಳನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ.",
   },
 ];
