@@ -24,7 +24,7 @@ import {
  * as disabled with a "form opens soon" note. No other change is
  * needed once the link is added.
  * ------------------------------------------------------------------ */
-export const RECRUITMENT_FORM_URL = "PASTE_GOOGLE_FORM_URL_HERE";
+export const RECRUITMENT_FORM_URL = "https://forms.gle/QUZBsGsBA94D9b7L9";
 
 export const isRecruitmentFormAvailable = /^https?:\/\//.test(RECRUITMENT_FORM_URL);
 
