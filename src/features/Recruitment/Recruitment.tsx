@@ -45,14 +45,15 @@ export default function Recruitment() {
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground kannada-text">
-                ಕನ್ನಡ ಕೂಟದ ತಂಡದ ಭಾಗವಾಗಿ ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ
+                Join us as part of the Kannada Koota team.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Kannada Koota EC is looking for enthusiastic and passionate
-                students to join our team. Be a part of our journey in
-                celebrating Kannada language, culture and community while
-                gaining valuable experience and creating wonderful memories.
+                ಕನ್ನಡ ಕೂಟ – ದ್ವಿತೀಯ ಹಂತದ ನೇಮಕಾತಿ
+                ಕನ್ನಡ ಭಾಷೆ, ಕಲೆ ಮತ್ತು ಸಂಸ್ಕೃತಿಯ ಸಂಭ್ರಮದಲ್ಲಿ ನಮ್ಮೊಂದಿಗೆ ಕೈಜೋಡಿಸಲು ಮತ್ತೊಂದು ಸುವರ್ಣಾವಕಾಶ!
+                ಕನ್ನಡದ ಕಂಪನ್ನು ಪಸರಿಸುವ ನಮ್ಮ ತಂಡಕ್ಕೆ ಹೊಸ ಪ್ರತಿಭೆಗಳನ್ನು ಆತ್ಮೀಯವಾಗಿ ಸ್ವಾಗತಿಸುತ್ತಿದ್ದೇವೆ.
+                ನಿಮ್ಮ ಸೃಜನಶೀಲತೆ, ಆಸಕ್ತಿ ಮತ್ತು ಉತ್ಸಾಹಕ್ಕೆ ನಮ್ಮೊಂದಿಗೆ ಹೊಸ ವೇದಿಕೆ ಕಲ್ಪಿಸಿಕೊಳ್ಳಿ. ಕನ್ನಡದ ಸೊಗಡನ್ನು ಎಲ್ಲೆಡೆ ಹರಡಲು ನಮ್ಮೊಂದಿಗೆ ಸೇರಿಕೊಳ್ಳಿ.
+                ಬನ್ನಿ, ಕನ್ನಡದ ಹಿರಿಮೆಯನ್ನು ಒಗ್ಗಟ್ಟಿನಿಂದ ಎತ್ತಿಹಿಡಿಯೋಣ!
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
