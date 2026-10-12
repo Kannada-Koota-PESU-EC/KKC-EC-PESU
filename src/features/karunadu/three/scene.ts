@@ -3,16 +3,19 @@ import { MAP, KARNATAKA_PATH } from "@/features/karunadu/data/map-path";
 import { project } from "@/features/karunadu/data/karnataka";
 import type { Stop } from "@/features/karunadu/data/journey";
 
-/* Real-terrain Karnataka built from /public/karnataka/terrain.bin
- * (elevation in metres on a 200 x 312 grid, plus an inside/outside mask). */
+/* Real Karnataka in 3D
+ * - terrain.bin: elevation on a 400 x 624 grid (AWS Terrain Tiles), 1 byte
+ *   per cell: 0 = outside the state, 1..255 = height in 8 m steps
+ * - satellite.jpg: cloud-free Sentinel-2 true-colour mosaic (Jan 2024,
+ *   contains modified Copernicus Sentinel data), same extent as the map */
 
-const VERTICAL = 0.022; // map units per metre (relief exaggerated ~15x so the Ghats read clearly)
+const VERTICAL = 0.02; // map units per metre (relief exaggerated so the Ghats read clearly)
 
 interface Terrain {
   w: number;
   h: number;
-  heights: Uint16Array;
-  mask: Uint8Array;
+  metres: Float32Array;
+  inside: Uint8Array;
 }
 
 async function loadTerrain(): Promise<Terrain> {
@@ -20,58 +23,38 @@ async function loadTerrain(): Promise<Terrain> {
   const view = new DataView(buf);
   const w = view.getUint16(4, true);
   const h = view.getUint16(6, true);
-  const heights = new Uint16Array(buf.slice(8, 8 + w * h * 2));
-  const mask = new Uint8Array(buf.slice(8 + w * h * 2));
-  // two passes of a 3x3 blur to remove sensor noise from the elevation tiles
-  let src = heights;
-  for (let pass = 0; pass < 2; pass++) {
-    const out = new Uint16Array(src.length);
-    for (let y = 0; y < h; y++) {
-      for (let x = 0; x < w; x++) {
-        let sum = 0;
-        let cnt = 0;
-        for (let dy = -1; dy <= 1; dy++) {
-          for (let dx = -1; dx <= 1; dx++) {
-            const xx = x + dx;
-            const yy = y + dy;
-            if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
-            sum += src[yy * w + xx];
-            cnt++;
-          }
-        }
-        out[y * w + x] = Math.round(sum / cnt);
-      }
-    }
-    src = out;
+  const raw = new Uint8Array(buf, 8, w * h);
+  const inside = new Uint8Array(w * h);
+  const metres = new Float32Array(w * h);
+  for (let i = 0; i < raw.length; i++) {
+    inside[i] = raw[i] > 0 ? 1 : 0;
+    metres[i] = raw[i] > 0 ? (raw[i] - 1) * 8 : 0;
   }
-  return { w, h, heights: src, mask };
+  // one gentle 3x3 blur pass smooths the 8 m steps
+  const out = new Float32Array(w * h);
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      let sum = 0;
+      let n = 0;
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          const xx = x + dx;
+          const yy = y + dy;
+          if (xx < 0 || yy < 0 || xx >= w || yy >= h || !inside[yy * w + xx]) continue;
+          sum += metres[yy * w + xx];
+          n++;
+        }
+      }
+      out[y * w + x] = n ? sum / n : 0;
+    }
+  }
+  return { w, h, metres: out, inside };
 }
 
-/* realistic land colours by elevation */
-const C = {
-  coast: new THREE.Color("#3f6f4a"),
-  plain: new THREE.Color("#9a7448"),
-  redSoil: new THREE.Color("#8f5236"),
-  plateau: new THREE.Color("#a98a5a"),
-  forest: new THREE.Color("#2d5a34"),
-  peak: new THREE.Color("#5e7b55"),
-  outside: new THREE.Color("#141c2b"),
-};
-
-function landColor(e: number, inside: boolean, out: THREE.Color) {
-  if (!inside) return out.copy(C.outside);
-  if (e < 60) return out.copy(C.coast);
-  if (e < 400) return out.copy(C.coast).lerp(C.plain, (e - 60) / 340);
-  if (e < 650) return out.copy(C.plain).lerp(C.redSoil, (e - 400) / 250);
-  if (e < 900) return out.copy(C.redSoil).lerp(C.plateau, (e - 650) / 250);
-  if (e < 1300) return out.copy(C.plateau).lerp(C.forest, (e - 900) / 400);
-  return out.copy(C.forest).lerp(C.peak, Math.min(1, (e - 1300) / 400));
-}
-
-function sampleHeight(t: Terrain, x: number, z: number) {
-  const gx = Math.max(0, Math.min(t.w - 1, Math.round((x / MAP.width) * t.w - 0.5)));
-  const gy = Math.max(0, Math.min(t.h - 1, Math.round((z / MAP.height) * t.h - 0.5)));
-  return t.heights[gy * t.w + gx] * VERTICAL;
+function heightAt(t: Terrain, x: number, z: number) {
+  const gx = Math.max(0, Math.min(t.w - 1, Math.round((x / MAP.width) * (t.w - 1))));
+  const gy = Math.max(0, Math.min(t.h - 1, Math.round((z / MAP.height) * (t.h - 1))));
+  return t.metres[gy * t.w + gx] * VERTICAL;
 }
 
 function outlinePoints(): THREE.Vector2[] {
@@ -80,6 +63,23 @@ function outlinePoints(): THREE.Vector2[] {
     .map((p) => p.trim().split(" ").map(Number))
     .filter((p) => p.length === 2 && !Number.isNaN(p[0]))
     .map(([x, y]) => new THREE.Vector2(x, y));
+}
+
+function skyTexture() {
+  const c = document.createElement("canvas");
+  c.width = 4;
+  c.height = 256;
+  const g = c.getContext("2d")!;
+  const grad = g.createLinearGradient(0, 0, 0, 256);
+  grad.addColorStop(0, "#050914");
+  grad.addColorStop(0.55, "#101b33");
+  grad.addColorStop(0.8, "#24314f");
+  grad.addColorStop(1, "#3a3346");
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 4, 256);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
 }
 
 export interface KarnatakaScene {
@@ -91,92 +91,93 @@ export interface KarnatakaScene {
 }
 
 export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Promise<KarnatakaScene> {
-  const terrain = await loadTerrain();
+  const [terrain, satellite] = await Promise.all([
+    loadTerrain(),
+    new THREE.TextureLoader().loadAsync("/karnataka/satellite.jpg"),
+  ]);
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.15;
+
+  satellite.colorSpace = THREE.SRGBColorSpace;
+  satellite.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
 
   const scene = new THREE.Scene();
-  const sky = new THREE.Color("#0f1626");
+  const sky = skyTexture();
   scene.background = sky;
-  scene.fog = new THREE.Fog(sky, 500, 1700);
+  scene.fog = new THREE.Fog("#1a2440", 700, 2100);
 
-  const camera = new THREE.PerspectiveCamera(42, 1, 1, 4000);
+  const camera = new THREE.PerspectiveCamera(40, 1, 1, 5000);
 
-  /* light: warm low sun from the west (the Arabian Sea side) */
-  scene.add(new THREE.HemisphereLight("#cfe3ff", "#3a2a1a", 0.75));
-  const sun = new THREE.DirectionalLight("#ffd9a0", 2.2);
-  sun.position.set(-400, 500, 200);
+  /* light: late-afternoon sun from the north-west, soft sky fill */
+  scene.add(new THREE.HemisphereLight("#d6e6ff", "#2a2016", 1.1));
+  const sun = new THREE.DirectionalLight("#fff0d8", 2.6);
+  sun.position.set(-500, 650, -350);
   scene.add(sun);
 
-  /* terrain mesh */
+  /* terrain draped with the satellite mosaic */
   const geo = new THREE.PlaneGeometry(MAP.width, MAP.height, terrain.w - 1, terrain.h - 1);
   geo.rotateX(-Math.PI / 2);
   geo.translate(MAP.width / 2, 0, MAP.height / 2);
   const pos = geo.attributes.position as THREE.BufferAttribute;
-  const colors = new Float32Array(pos.count * 3);
-  const col = new THREE.Color();
   for (let i = 0; i < pos.count; i++) {
-    const gx = i % terrain.w;
-    const gy = Math.floor(i / terrain.w);
-    const e = terrain.heights[gy * terrain.w + gx];
-    const inside = terrain.mask[gy * terrain.w + gx] === 1;
-    pos.setY(i, inside ? e * VERTICAL : -1.5);
-    landColor(e, inside, col);
-    colors.set([col.r, col.g, col.b], i * 3);
+    pos.setY(i, terrain.inside[i] ? terrain.metres[i] * VERTICAL : -2.5);
   }
-  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   geo.computeVertexNormals();
-  const land = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0 }));
-  scene.add(land);
+  scene.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: satellite, roughness: 0.92, metalness: 0 })));
 
-  /* the land beyond the border fades into the night */
+  /* ground beyond the map */
   const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(MAP.width * 6, MAP.height * 6),
-    new THREE.MeshStandardMaterial({ color: "#121a28", roughness: 1 })
+    new THREE.PlaneGeometry(MAP.width * 8, MAP.height * 8),
+    new THREE.MeshStandardMaterial({ color: "#0d1422", roughness: 1 })
   );
   ground.rotation.x = -Math.PI / 2;
-  ground.position.set(MAP.width / 2, -2, MAP.height / 2);
+  ground.position.set(MAP.width / 2, -3, MAP.height / 2);
   scene.add(ground);
 
   /* state border in zari gold, draped over the terrain */
-  const border = outlinePoints().map((p) => new THREE.Vector3(p.x, sampleHeight(terrain, p.x, p.y) + 1.6, p.y));
-  const borderGeo = new THREE.BufferGeometry().setFromPoints([...border, border[0]]);
-  scene.add(new THREE.Line(borderGeo, new THREE.LineBasicMaterial({ color: "#f2c86a", transparent: true, opacity: 0.95 })));
+  const border = outlinePoints().map((p) => new THREE.Vector3(p.x, heightAt(terrain, p.x, p.y) + 1.2, p.y));
+  scene.add(
+    new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([...border, border[0]]),
+      new THREE.LineBasicMaterial({ color: "#f2c86a", transparent: true, opacity: 0.9 })
+    )
+  );
 
-  /* stop markers: a light pillar + glowing base */
+  /* stop markers: a slim light pillar + glowing base */
   const stopPos = stops.map((s) => {
     const p = project(s.lat, s.lon);
-    return new THREE.Vector3(p.x, sampleHeight(terrain, p.x, p.y), p.y);
+    return new THREE.Vector3(p.x, heightAt(terrain, p.x, p.y), p.y);
   });
-  const glow = new THREE.MeshBasicMaterial({ color: "#ffcc00", transparent: true, opacity: 0.9 });
-  const pillarMat = new THREE.MeshBasicMaterial({ color: "#ffcc00", transparent: true, opacity: 0.18, depthWrite: false });
+  const pillarMat = new THREE.MeshBasicMaterial({ color: "#ffd56a", transparent: true, opacity: 0.22, depthWrite: false });
   const markers = stopPos.map((v, i) => {
-    const g = new THREE.Group();
     const home = i === stops.length - 1;
-    const base = new THREE.Mesh(new THREE.SphereGeometry(home ? 3.2 : 2.4, 16, 12), home ? new THREE.MeshBasicMaterial({ color: "#d6262b" }) : glow);
-    base.position.copy(v).setY(v.y + 2);
-    const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 60, 8, 1, true), pillarMat);
-    pillar.position.copy(v).setY(v.y + 32);
-    g.add(base, pillar);
-    scene.add(g);
-    return { g, base, pillar };
+    const base = new THREE.Mesh(
+      new THREE.SphereGeometry(home ? 2.6 : 1.9, 20, 14),
+      new THREE.MeshBasicMaterial({ color: home ? "#e63a3f" : "#ffcc33" })
+    );
+    base.position.copy(v).setY(v.y + 1.8);
+    const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 70, 8, 1, true), pillarMat);
+    pillar.position.copy(v).setY(v.y + 37);
+    scene.add(base, pillar);
+    return { base, pillar };
   });
 
-  /* camera path: high overview → each stop (seen from the south-west, slightly above) */
+  /* camera path: overview → each stop, seen from the south-west and above */
   const centre = new THREE.Vector3(MAP.width / 2, 0, MAP.height / 2);
-  const camKeys: THREE.Vector3[] = [new THREE.Vector3(MAP.width * 0.1, 1050, MAP.height * 1.25)];
+  const camKeys: THREE.Vector3[] = [new THREE.Vector3(MAP.width * 0.22, 1150, MAP.height * 1.3)];
   const lookKeys: THREE.Vector3[] = [centre.clone()];
   stopPos.forEach((v, i) => {
     const last = i === stopPos.length - 1;
-    camKeys.push(new THREE.Vector3(v.x - 60, v.y + (last ? 190 : 150), v.z + 170));
-    lookKeys.push(v.clone().setY(v.y + 5));
+    camKeys.push(new THREE.Vector3(v.x - 75, v.y + (last ? 230 : 175), v.z + 200));
+    lookKeys.push(v.clone().setY(v.y + 4));
   });
   const camCurve = new THREE.CatmullRomCurve3(camKeys, false, "centripetal");
   const lookCurve = new THREE.CatmullRomCurve3(lookKeys, false, "centripetal");
+  const segs = camKeys.length - 1;
 
   let target = 0;
   let current = 0;
@@ -199,26 +200,26 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     const dt = Math.min(0.1, clock.getDelta());
     const t = clock.elapsedTime;
     current += (target - current) * (1 - Math.exp(-dt * 3.5));
+
     // each stop gets an equal share of the scroll, and the camera lingers at it
-    const segs = camKeys.length - 1;
     const raw = Math.min(0.9999, Math.max(0, current)) * segs;
     const seg = Math.floor(raw);
     const f = raw - seg;
     const eased = f < 0.35 ? 0 : f > 0.95 ? 1 : (f - 0.35) / 0.6;
     const smooth = eased * eased * (3 - 2 * eased);
     const u = (seg + smooth) / segs;
+
+    // a slow drift so the land never feels frozen
     camera.position.copy(camCurve.getPoint(u));
+    camera.position.x += Math.sin(t * 0.25) * 6;
     look.copy(lookCurve.getPoint(u));
     camera.lookAt(look);
 
-    // the stop we're closest to glows brighter
     const active = Math.round(u * segs) - 1;
     markers.forEach((m, i) => {
       const on = i === active;
-      const s = on ? 1.6 + Math.sin(t * 4) * 0.25 : 1;
-      m.base.scale.setScalar(s);
-      (m.pillar.material as THREE.MeshBasicMaterial).opacity = 0.18;
-      m.pillar.scale.y = on ? 1.4 : 1;
+      m.base.scale.setScalar(on ? 1.5 + Math.sin(t * 4) * 0.2 : 1);
+      m.pillar.scale.y = on ? 1.3 : 1;
     });
 
     renderer.render(scene, camera);
@@ -233,7 +234,7 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     },
     stopScreen: () =>
       stopPos.map((v) => {
-        tmp.copy(v).setY(v.y + 8).project(camera);
+        tmp.copy(v).setY(v.y + 7).project(camera);
         return {
           x: (tmp.x * 0.5 + 0.5) * canvas.clientWidth,
           y: (-tmp.y * 0.5 + 0.5) * canvas.clientHeight,
@@ -251,6 +252,8 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
         if (Array.isArray(mat)) mat.forEach((x) => x.dispose());
         else mat?.dispose?.();
       });
+      satellite.dispose();
+      sky.dispose();
       renderer.dispose();
     },
   };

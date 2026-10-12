@@ -143,6 +143,11 @@ export default function Journey3D({ open, onClose }: { open: boolean; onClose: (
         </div>
       </div>
 
+      {/* data credits (required by the licences) */}
+      <p className="pointer-events-none absolute bottom-2 right-3 text-[10px] text-white/45">
+        Imagery: contains modified Copernicus Sentinel data (2024) · Terrain: AWS Terrain Tiles · Border: Natural Earth
+      </p>
+
       {/* progress along the route */}
       <div className="pointer-events-none absolute right-5 top-1/2 hidden -translate-y-1/2 flex-col gap-2 md:flex">
         {JOURNEY.map((s, i) => (
