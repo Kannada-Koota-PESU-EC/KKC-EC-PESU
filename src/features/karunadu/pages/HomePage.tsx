@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { Award, Calendar, ChevronDown, ChevronUp, Heart, Users } from "lucide-react";
 import RepublicDayPopup from "@/features/home/components/RepublicDayPopup";
 import { CountUp, Letters, Magnetic, Reveal } from "@/features/karunadu/components/Motion";
-import { Bell, Gandaberunda, Roller } from "@/features/karunadu/components/Motifs";
-import KarnatakaMap from "@/features/karunadu/components/KarnatakaMap";
+import { Bell, Gandaberunda } from "@/features/karunadu/components/Motifs";
+import SatelliteTeaser from "@/features/karunadu/components/SatelliteTeaser";
+import ScrollBackdrop from "@/features/karunadu/components/ScrollBackdrop";
 import IconLauncher from "@/features/karunadu/components/IconLauncher";
 import Panorama from "@/features/karunadu/components/Panorama";
 import {
@@ -13,14 +14,17 @@ import {
 import { ringBell } from "@/features/karunadu/audio";
 import { reducedMotion, useScrollProgress } from "@/features/karunadu/hooks";
 
-/* ---------- time-of-day sky ---------- */
-function skyNow() {
-  const h = new Date().getHours();
-  if (h >= 5 && h < 8) return "dawn";
-  if (h >= 8 && h < 17) return "day";
-  if (h >= 17 && h < 19) return "dusk";
-  return "night";
-}
+/* ---------- real Karnataka behind the hero ---------- */
+const HERO_PLACES = [
+  { id: "hampi", kn: "ಹಂಪಿ", en: "Hampi" },
+  { id: "mysuru-palace", kn: "ಮೈಸೂರು ಅರಮನೆ", en: "Mysuru Palace" },
+  { id: "jog-falls", kn: "ಜೋಗ ಜಲಪಾತ", en: "Jog Falls" },
+  { id: "udupi-coast", kn: "ಕರಾವಳಿ", en: "Karavali" },
+  { id: "gol-gumbaz", kn: "ಗೋಳ ಗುಮ್ಮಟ", en: "Gol Gumbaz" },
+  { id: "coorg", kn: "ಕೊಡಗು", en: "Kodagu" },
+  { id: "badami", kn: "ಬಾದಾಮಿ", en: "Badami" },
+  { id: "vidhana-soudha", kn: "ವಿಧಾನ ಸೌಧ", en: "Vidhana Soudha" },
+];
 
 /* ---------- original hero carousel (MarqueeImages) ---------- */
 const HERO_IMAGES = ["/img4.jpg", "/img2.jpg", "/Hero/KKEC1.jpg", "/Hero/KKEC2.jpg"];
@@ -80,36 +84,44 @@ function TempleBell() {
 }
 
 function Hero() {
-  const [sky] = useState(skyNow);
+  const [slide, setSlide] = useState(0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const { ref, progress } = useScrollProgress<HTMLElement>();
   const scrollY = progress * 300;
 
+  useEffect(() => {
+    if (reducedMotion()) return;
+    const t = setInterval(() => setSlide((i) => (i + 1) % HERO_PLACES.length), 6500);
+    return () => clearInterval(t);
+  }, []);
+
   const scrollToAbout = () => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-  const dark = sky === "night" || sky === "dusk";
+  const place = HERO_PLACES[slide];
 
   return (
     <section
       ref={ref}
-      className={`sky-${sky} relative flex min-h-[100svh] items-center overflow-hidden pt-28`}
+      className="letterbox relative flex min-h-[100svh] items-center overflow-hidden bg-[#050203] pt-28"
       onPointerMove={(e) => {
         if (e.pointerType !== "mouse" || reducedMotion()) return;
         setMouse({ x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 });
       }}
       data-cursor="mallige"
+      data-tone="#12030a,#4a0d1e"
     >
-      {dark && <div className="stars-field" />}
-      {/* sun / moon */}
-      <div
-        className={`absolute right-[22%] top-[16%] h-32 w-32 rounded-full ${dark ? "bg-[#f3efe1] shadow-[0_0_80px_20px_rgba(255,255,255,.25)]" : "bg-[#ffe7a8] shadow-[0_0_120px_40px_rgba(255,214,140,.6)]"}`}
-        style={{ transform: `translate(${mouse.x * -20}px, ${scrollY * 0.4}px)` }}
-      />
-      {/* state bird flying past */}
-      {[{ top: "18%", dur: "30s", delay: "0s", s: 1 }, { top: "26%", dur: "36s", delay: "-12s", s: 0.7 }, { top: "12%", dur: "42s", delay: "-25s", s: 0.55 }].map((b, i) => (
-        <span key={i} className="bird" style={{ top: b.top, ["--dur" as string]: b.dur, ["--delay" as string]: b.delay, ["--s" as string]: b.s }}>
-          <Roller className="h-full w-full" />
-        </span>
-      ))}
+      {/* photographs, cross-fading with a slow push-in */}
+      <div className="absolute inset-[-3%]" style={{ transform: `translate(${mouse.x * -18}px, ${scrollY * 0.45 + mouse.y * -12}px)` }}>
+        {HERO_PLACES.map((p, i) => (
+          <div key={p.id} className={`hero-slide ${i === slide ? "on" : ""}`}>
+            <img src={`/karnataka/photos/${p.id}.jpg`} alt="" loading={i < 2 ? "eager" : "lazy"} />
+          </div>
+        ))}
+      </div>
+      {/* cinematic grade: deep silk shadows, warm highlights */}
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,3,6,.92)_0%,rgba(18,3,10,.7)_42%,rgba(18,3,10,.35)_70%,rgba(10,3,6,.6)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,#12030a_0%,transparent_30%,transparent_75%,rgba(5,2,3,.75)_100%)]" />
+      <div className="pano-glow" />
+
       {/* falling jasmine */}
       {Array.from({ length: 10 }).map((_, i) => (
         <span key={i} className="petal" style={{ left: `${(i * 97) % 100}%`, ["--d" as string]: `${i * -1.3}s`, ["--t" as string]: `${10 + (i % 4) * 2}s`, ["--x" as string]: `${(i % 2 ? 1 : -1) * 70}px` }}>
@@ -119,44 +131,41 @@ function Hero() {
         </span>
       ))}
 
-      {/* Western Ghats, layered parallax */}
-      {[
-        { c: dark ? "#2a1d4a" : "#7aa0a8", d: "M0 160 C 180 80 320 190 520 110 C 720 30 900 170 1100 90 C 1260 30 1380 100 1440 80 V320 H0Z", k: 0.3, h: "62%" },
-        { c: dark ? "#1f163a" : "#4f7f6a", d: "M0 200 C 220 120 420 240 640 160 C 860 80 1060 220 1260 150 C 1360 120 1420 140 1440 130 V320 H0Z", k: 0.55, h: "48%" },
-        { c: dark ? "#150f26" : "#1f4d2b", d: "M0 250 C 260 190 520 290 780 230 C 1040 170 1260 270 1440 220 V320 H0Z", k: 0.85, h: "34%" },
-      ].map((l, i) => (
-        <svg
-          key={i}
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-          className="absolute inset-x-[-4%] bottom-0 w-[108%]"
-          style={{ height: l.h, transform: `translate(${mouse.x * -30 * l.k}px, ${scrollY * l.k * 0.35}px)` }}
-          aria-hidden="true"
-        >
-          <path d={l.d} fill={l.c} />
-        </svg>
-      ))}
-      <div className="mist" style={{ bottom: "26%" }} />
-
       <Gandaberunda className="pointer-events-none absolute left-1/2 top-1/2 h-[80vh] w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.05]" stroke="#fff" />
       <TempleBell />
       <div className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2">
         <IconLauncher size="h-24 w-24 md:h-28 md:w-28" />
       </div>
 
+      {/* which place you are looking at */}
+      <div className="absolute bottom-10 left-6 z-20 hidden items-end gap-4 md:flex lg:left-10">
+        <span className="f-display text-5xl font-light tabular-nums text-[#f6dc8c]/80">{String(slide + 1).padStart(2, "0")}</span>
+        <div key={place.id} className="hero-caption pb-1" style={{ animation: "kd-card-in .9s cubic-bezier(.16,1,.3,1)" }}>
+          <p className="f-serif text-lg font-semibold text-white">{place.kn}</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-white/60">{place.en}</p>
+        </div>
+      </div>
+      <div className="absolute bottom-12 right-6 z-20 hidden gap-1.5 md:flex lg:right-10">
+        {HERO_PLACES.map((p, i) => (
+          <button key={p.id} type="button" onClick={() => setSlide(i)} aria-label={`Show ${p.en}`} className="group relative h-[3px] w-8 overflow-hidden rounded-full bg-white/25">
+            <span className={`absolute inset-y-0 left-0 bg-[#ffcc00] ${i === slide ? "w-full transition-[width] duration-[6500ms] ease-linear" : i < slide ? "w-full" : "w-0"}`} />
+          </button>
+        ))}
+      </div>
+
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-4 pb-24 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div className="space-y-8 text-center lg:text-left">
           <div className="space-y-4">
             <h1 className="f-serif text-5xl font-bold leading-[1.2] md:text-7xl">
-              <Letters text="ಕನ್ನಡ ಕೂಟ EC PES" glyphClassName="flag-text" className="drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]" step={70} />
+              <Letters text="ಕನ್ನಡ ಕೂಟ EC PES" glyphClassName="flag-text" className="drop-shadow-[0_6px_20px_rgba(0,0,0,0.5)]" step={70} />
             </h1>
             <Reveal delay={900}>
-              <p className={`mx-auto mt-4 max-w-xl text-xl lg:mx-0 ${dark ? "text-[#fbf3e2]/90" : "text-[#1a0a06]/85"}`}>
+              <p className="mx-auto mt-4 max-w-xl text-xl text-[#fbf3e2]/90 lg:mx-0">
                 Celebrating Kannada culture, language, and traditions at PES University Electronic City Campus
               </p>
             </Reveal>
             <Reveal delay={1100}>
-              <p className={`f-serif mx-auto max-w-xl text-sm lg:mx-0 ${dark ? "text-[#f6dc8c]" : "text-[#4a0d1e]"}`}>ಕನ್ನಡ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಭಾಷೆಯ ಸಂರಕ್ಷಣೆಗಾಗಿ ನಮ್ಮ ಪ್ರಯತ್ನ</p>
+              <p className="f-serif mx-auto max-w-xl text-sm text-[#f6dc8c] lg:mx-0">ಕನ್ನಡ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಭಾಷೆಯ ಸಂರಕ್ಷಣೆಗಾಗಿ ನಮ್ಮ ಪ್ರಯತ್ನ</p>
             </Reveal>
           </div>
 
@@ -170,17 +179,17 @@ function Hero() {
           </Reveal>
 
           <Reveal delay={1500}>
-            <div className={`grid grid-cols-3 gap-6 border-t pt-8 ${dark ? "border-white/20" : "border-black/15"}`}>
+            <div className="grid grid-cols-3 gap-6 border-t border-white/20 pt-8">
               {[
                 ["160+", "Active Members"],
                 ["5+", "Events"],
                 ["3", "Years Active"],
               ].map(([v, l]) => (
                 <div key={l} className="text-center">
-                  <div className={`f-display text-3xl font-bold md:text-4xl ${dark ? "text-[#ffcc00]" : "text-[#4a0d1e]"}`}>
+                  <div className="f-display text-3xl font-bold text-[#ffcc00] md:text-4xl">
                     <CountUp value={v} />
                   </div>
-                  <div className={`text-sm ${dark ? "text-[#fbf3e2]/75" : "text-[#1a0a06]/70"}`}>{l}</div>
+                  <div className="text-sm text-[#fbf3e2]/75">{l}</div>
                 </div>
               ))}
             </div>
@@ -216,7 +225,7 @@ function Gallery() {
   }, [current]);
 
   return (
-    <section className="relative bg-[#22060f] py-20" data-cursor="zari">
+    <section className="relative py-20" data-cursor="zari" data-tone="#1a050c,#4a0d1e">
       <div className="zari absolute inset-x-0 top-0" />
       <div className="mx-auto max-w-6xl px-4">
         <Reveal variant="wipe">
@@ -253,7 +262,7 @@ function About() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
 
   return (
-    <section id="about" ref={ref} className="relative overflow-hidden bg-[linear-gradient(180deg,#22060f,#3a0a17_60%,#22060f)] py-28" data-cursor="zari">
+    <section id="about" ref={ref} className="relative overflow-hidden py-28" data-cursor="zari" data-tone="#22060f,#6b1a2e">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           {/* Hoysala star-platform frame */}
@@ -371,10 +380,60 @@ function About() {
   );
 }
 
-/* ---------- Karnataka sections (visual + names) ---------- */
-function Band({ children, className = "", cursor }: { children: ReactNode; className?: string; cursor?: string }) {
+/* ---------- living arts, photographed ---------- */
+const LIVING = [
+  { id: "yakshagana", kn: "ಯಕ್ಷಗಾನ", en: "Yakshagana", line: "ಕರಾವಳಿಯ ರಾತ್ರಿಯಿಡೀ ನಡೆಯುವ ಬಯಲಾಟ" },
+  { id: "dollu-kunitha", kn: "ಡೊಳ್ಳು ಕುಣಿತ", en: "Dollu Kunitha", line: "ಡೊಳ್ಳಿನ ಸದ್ದಿಗೆ ನಡುಗುವ ನೆಲ" },
+  { id: "mysore-silk", kn: "ಮೈಸೂರು ರೇಷ್ಮೆ", en: "Mysore Silk", line: "ಚಿನ್ನದ ಜರಿಯ ನೇಯ್ಗೆ" },
+];
+
+function LivingArts() {
   return (
-    <section className={`relative overflow-hidden py-24 md:py-32 ${className}`} data-cursor={cursor}>
+    <div className="mb-16 grid gap-5 md:grid-cols-3">
+      {LIVING.map((a, i) => (
+        <Reveal key={a.id} delay={i * 120} variant="wipe">
+          <figure className="photo-card group h-[26rem] md:h-[34rem]" tabIndex={0}>
+            <img src={`/karnataka/photos/${a.id}.jpg`} alt={a.en} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#12030a] via-[#12030a]/30 to-transparent" />
+            <figcaption className="absolute inset-x-0 bottom-0 p-6">
+              <p className="text-xs uppercase tracking-[0.35em] text-[#f6dc8c]/80">{a.en}</p>
+              <p className="f-serif mt-1 text-4xl font-bold text-white">{a.kn}</p>
+              <p className="f-serif mt-2 max-h-0 overflow-hidden text-sm text-[#fbf3e2]/85 opacity-0 transition-all duration-700 group-hover:max-h-20 group-hover:opacity-100 group-focus:max-h-20 group-focus:opacity-100">{a.line}</p>
+            </figcaption>
+          </figure>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+/* Kambala: a full-bleed photograph with the name racing across */
+function KambalaStrip() {
+  const { ref, progress } = useScrollProgress<HTMLDivElement>();
+  return (
+    <div ref={ref} className="photo-card relative mt-16 h-[22rem] md:h-[28rem]">
+      <img src="/karnataka/photos/kambala.jpg" alt="Kambala buffalo race" loading="lazy" className="absolute inset-0 h-full w-full object-cover" style={{ transform: `scale(1.15) translateX(${(progress - 0.5) * -8}%)` }} />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#12030a]/90 via-[#12030a]/30 to-transparent" />
+      <p
+        className="f-serif pointer-events-none absolute bottom-6 left-0 whitespace-nowrap text-[18vw] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,204,0,.5)] md:text-[12vw]"
+        style={{ transform: `translateX(${(1 - progress) * 40 - 10}%)` }}
+        aria-hidden="true"
+      >
+        ಕಂಬಳ ಕಂಬಳ
+      </p>
+      <div className="absolute left-6 top-6 md:left-10 md:top-10">
+        <p className="text-xs uppercase tracking-[0.35em] text-[#f6dc8c]/80">Kambala</p>
+        <p className="f-serif mt-1 text-4xl font-bold text-white md:text-5xl">ಕಂಬಳ</p>
+        <p className="f-serif mt-2 text-sm text-[#fbf3e2]/80">ಕೆಸರು ಗದ್ದೆಯಲ್ಲಿ ಕೋಣಗಳ ಓಟ</p>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Karnataka sections (visual + names) ---------- */
+function Band({ children, tone, cursor }: { children: ReactNode; tone: string; cursor?: string }) {
+  return (
+    <section className="relative overflow-hidden py-24 md:py-32" data-cursor={cursor} data-tone={tone}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
     </section>
   );
@@ -382,63 +441,68 @@ function Band({ children, className = "", cursor }: { children: ReactNode; class
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="relative isolate">
+      <ScrollBackdrop />
       <RepublicDayPopup />
       <Hero />
       <Gallery />
       <About />
 
       <div className="ilkal-edge" />
-      <Band className="bg-[radial-gradient(circle_at_50%_30%,#3a0a17,#12030a_70%)]" cursor="compass">
+      <Band tone="#0a0b14,#1d3b5a" cursor="compass">
         <NameHeading kn="ಕರುನಾಡು" en="Karnataka" />
-        <KarnatakaMap />
+        <SatelliteTeaser />
       </Band>
 
-      <Panorama />
+      <div data-tone="#0a0b14,#1d3b5a">
+        <Panorama />
+      </div>
 
-      <Band className="bg-[#12030a]">
+      <Band tone="#0d1a12,#2f5d34">
         <NameHeading kn="ನಾಡಿನ ಲಾಂಛನಗಳು" en="State Symbols" />
         <StateSymbols />
       </Band>
 
       <div className="zari--pink zari" />
-      <Band className="bg-[linear-gradient(180deg,#22060f,#4a0d1e)]">
+      <Band tone="#2a0613,#b3134f">
         <NameHeading kn="ಕಲೆ ಮತ್ತು ಕರಕುಶಲ" en="Arts & Crafts" />
-        <ArtsGallery />
+        <LivingArts />
+        <ArtsGallery skip={["yakshagana", "dollu", "mysore-silk"]} />
       </Band>
 
-      <Band className="bg-[#14060c]" cursor="ink">
+      <Band tone="#0b0c18,#2a3a6a" cursor="ink">
         <NameHeading kn="ಕನ್ನಡ ವರ್ಣಮಾಲೆ" en="The Kannada Alphabet" />
         <AksharaWall />
       </Band>
 
-      <Band className="bg-[linear-gradient(180deg,#14060c,#2a1406)]" cursor="ink">
+      <Band tone="#1a0f08,#7a4b1f" cursor="ink">
         <NameHeading kn="ಸಾಹಿತ್ಯ" en="Literature" />
         <Literature />
       </Band>
 
-      <Band className="bg-[radial-gradient(circle_at_30%_50%,#3a1606,#12030a_70%)]" cursor="zari">
+      <Band tone="#220f05,#a8641c" cursor="zari">
         <NameHeading kn="ಸಂಗೀತ" en="Music" />
         <Veena />
       </Band>
 
       <div className="kasuti-line" />
-      <Band className="bg-[#12030a]" cursor="kumkuma">
+      <Band tone="#2a050a,#d6262b" cursor="kumkuma">
         <NameHeading kn="ಹಬ್ಬಗಳು" en="Festivals" />
         <FestivalWheel />
+        <KambalaStrip />
       </Band>
 
-      <Band className="bg-[linear-gradient(180deg,#12030a,#1f4d2b_140%)]" cursor="mallige">
+      <Band tone="#0a1a0e,#2f7d32" cursor="mallige">
         <NameHeading kn="ಬಾಳೆ ಎಲೆ ಊಟ" en="A Meal on a Banana Leaf" />
         <BananaLeafMeal />
       </Band>
 
-      <Band className="bg-[linear-gradient(180deg,#1a140e,#12030a)]" cursor="zari">
+      <Band tone="#16120d,#6b5a40" cursor="zari">
         <NameHeading kn="ಇತಿಹಾಸ" en="History" />
         <HeroStones />
       </Band>
 
-      <Band className="bg-[radial-gradient(circle_at_50%_40%,#4a0d1e,#12030a_70%)]" cursor="zari">
+      <Band tone="#2a0612,#d9a63a" cursor="zari">
         <NadaGeethe />
       </Band>
     </div>

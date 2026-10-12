@@ -46,11 +46,11 @@ export function StateSymbols() {
 }
 
 /* ---------- Arts ---------- */
-export function ArtsGallery() {
+export function ArtsGallery({ skip = [] }: { skip?: string[] }) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {ARTS.map((a, i) => (
-        <Reveal key={a.en} delay={(i % 4) * 90}>
+    <div className="flex flex-wrap justify-center gap-5">
+      {ARTS.filter((a) => !skip.includes(a.style)).map((a, i) => (
+        <Reveal key={a.en} delay={(i % 4) * 90} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]">
           <ArtCard {...a} />
         </Reveal>
       ))}

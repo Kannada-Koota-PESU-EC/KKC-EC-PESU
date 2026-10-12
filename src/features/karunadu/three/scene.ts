@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { MAP, KARNATAKA_PATH } from "@/features/karunadu/data/map-path";
-import { project } from "@/features/karunadu/data/karnataka";
+import { RIVERS, project } from "@/features/karunadu/data/karnataka";
 import type { Stop } from "@/features/karunadu/data/journey";
 
 /* Real Karnataka in 3D
@@ -100,7 +100,7 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
+  renderer.toneMappingExposure = 1.35;
 
   satellite.colorSpace = THREE.SRGBColorSpace;
   satellite.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
@@ -113,8 +113,8 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   const camera = new THREE.PerspectiveCamera(40, 1, 1, 5000);
 
   /* light: late-afternoon sun from the north-west, soft sky fill */
-  scene.add(new THREE.HemisphereLight("#d6e6ff", "#2a2016", 1.1));
-  const sun = new THREE.DirectionalLight("#fff0d8", 2.6);
+  scene.add(new THREE.HemisphereLight("#e4efff", "#3a2a18", 1.5));
+  const sun = new THREE.DirectionalLight("#fff0d8", 3.0);
   sun.position.set(-500, 650, -350);
   scene.add(sun);
 
@@ -147,6 +147,38 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     )
   );
 
+  /* the great rivers, glowing softly as they flow */
+  const riverMats: THREE.LineDashedMaterial[] = [];
+  RIVERS.forEach((r) => {
+    const pts = r.points.map(([lat, lon]) => {
+      const p = project(lat, lon);
+      return new THREE.Vector3(p.x, 0, p.y);
+    });
+    const curve = new THREE.CatmullRomCurve3(pts);
+    const dense = curve.getSpacedPoints(160).map((v) => v.setY(heightAt(terrain, v.x, v.z) + 0.9));
+    const g = new THREE.BufferGeometry().setFromPoints(dense);
+    const glowLine = new THREE.Line(g, new THREE.LineBasicMaterial({ color: "#4fd6e6", transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending }));
+    const flow = new THREE.LineDashedMaterial({ color: "#c8fbff", dashSize: 4, gapSize: 5, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
+    const flowLine = new THREE.Line(g.clone(), flow);
+    flowLine.computeLineDistances();
+    riverMats.push(flow);
+    scene.add(glowLine, flowLine);
+  });
+
+  /* soft glow texture for markers */
+  const glowTex = (() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 64;
+    const g = c.getContext("2d")!;
+    const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, "rgba(255,230,150,1)");
+    rg.addColorStop(0.3, "rgba(255,200,80,0.55)");
+    rg.addColorStop(1, "rgba(255,180,40,0)");
+    g.fillStyle = rg;
+    g.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  })();
+
   /* stop markers: a slim light pillar + glowing base */
   const stopPos = stops.map((s) => {
     const p = project(s.lat, s.lon);
@@ -162,8 +194,11 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     base.position.copy(v).setY(v.y + 1.8);
     const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 70, 8, 1, true), pillarMat);
     pillar.position.copy(v).setY(v.y + 37);
-    scene.add(base, pillar);
-    return { base, pillar };
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: home ? "#ff6b6b" : "#ffd56a", transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+    halo.position.copy(v).setY(v.y + 2);
+    halo.scale.setScalar(16);
+    scene.add(base, pillar, halo);
+    return { base, pillar, halo };
   });
 
   /* camera path: overview → each stop, seen from the south-west and above */
@@ -220,6 +255,10 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
       const on = i === active;
       m.base.scale.setScalar(on ? 1.5 + Math.sin(t * 4) * 0.2 : 1);
       m.pillar.scale.y = on ? 1.3 : 1;
+      m.halo.scale.setScalar(on ? 30 + Math.sin(t * 3) * 4 : 14);
+    });
+    riverMats.forEach((mat) => {
+      (mat as unknown as { dashOffset: number }).dashOffset = -t * 6;
     });
 
     renderer.render(scene, camera);
@@ -253,6 +292,7 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
         else mat?.dispose?.();
       });
       satellite.dispose();
+      glowTex.dispose();
       sky.dispose();
       renderer.dispose();
     },

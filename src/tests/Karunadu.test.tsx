@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import HomePage from '../features/karunadu/pages/HomePage';
 import TeamPage from '../features/karunadu/pages/TeamPage';
-import { DISTRICTS } from '../features/karunadu/data/karnataka';
+import { JOURNEY } from '../features/karunadu/data/journey';
 
 const renderInRouter = (ui: React.ReactElement) =>
   render(<MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>{ui}</MemoryRouter>);
@@ -20,13 +20,13 @@ describe('Karunadu redesign', () => {
     expect(screen.getByText('Meet Our Team')).toBeInTheDocument();
   });
 
-  it('marks all 31 districts of Karnataka on the map', () => {
+  it('lists every stop of the 3D journey and offers to open it', () => {
     renderInRouter(<HomePage />);
 
-    expect(DISTRICTS).toHaveLength(31);
-    DISTRICTS.forEach((d) => {
-      expect(screen.getByRole('button', { name: `${d.kn} – ${d.en}` })).toBeInTheDocument();
+    JOURNEY.forEach((s) => {
+      expect(screen.getAllByText(s.kn).length).toBeGreaterThan(0);
     });
+    expect(screen.getByRole('button', { name: 'Fly across Karnataka in 3D' })).toBeInTheDocument();
   });
 
   it('team page keeps the original headings', () => {
