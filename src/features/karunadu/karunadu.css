@@ -1,0 +1,555 @@
+/* ==================================================================
+ * ಕರುನಾಡು – Kannada Koota EC PES
+ * A visual language built from Karnataka itself: Mysore silk & zari,
+ * sandalwood, Western Ghats green, Kaveri teal, the flag's yellow-red,
+ * Bidri silver, Hampi granite.
+ * ================================================================== */
+
+.kd {
+  --silk: #4a0d1e;            /* Mysore silk maroon */
+  --silk-deep: #22060f;
+  --silk-pink: #b3134f;       /* Mysore silk magenta */
+  --zari: #d9a63a;            /* gold zari */
+  --zari-light: #f6dc8c;
+  --sandal: #e9d3a6;          /* sandalwood */
+  --sandal-deep: #b98a52;
+  --ghats: #1f4d2b;           /* Western Ghats */
+  --ghats-light: #5c9a4a;
+  --kaveri: #1d7f86;          /* Kaveri teal */
+  --flag-yellow: #ffcc00;
+  --flag-red: #d6262b;
+  --bidri: #17191c;           /* Bidriware gunmetal */
+  --silver: #d6dde3;
+  --granite: #a59886;         /* Hampi granite */
+  --ink: #1a0a06;
+  --cream: #fbf3e2;
+
+  --serif-kn: "Noto Serif Kannada", "Tiro Kannada", serif;
+  --calligraphy-kn: "Tiro Kannada", "Noto Serif Kannada", serif;
+  --display: "Fraunces", "Noto Serif Kannada", Georgia, serif;
+  --body: "Manrope", "Noto Sans Kannada", system-ui, sans-serif;
+
+  font-family: var(--body);
+  color: var(--cream);
+  background: var(--silk-deep);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+.kd ::selection { background: var(--zari); color: var(--ink); }
+
+.kd .f-serif { font-family: var(--serif-kn); }
+.kd .f-cal { font-family: var(--calligraphy-kn); }
+.kd .f-display { font-family: var(--display); }
+
+/* Kannada vowel signs and ottaksharas need room */
+.kd h1, .kd h2, .kd h3 { line-height: 1.25; }
+
+/* film grain over everything */
+.kd-grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 2%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------- gold foil / flag text ---------- */
+.gold-foil {
+  background: linear-gradient(110deg, #8a5a14 0%, var(--zari) 20%, var(--zari-light) 32%, var(--zari) 44%, #8a5a14 60%, var(--zari) 78%, var(--zari-light) 90%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: foil 7s linear infinite;
+}
+@keyframes foil { to { background-position: -250% 0; } }
+
+.flag-text {
+  background: linear-gradient(180deg, var(--flag-yellow) 0 50%, var(--flag-red) 50% 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- zari border: woven gold band with temple-arch motif ---------- */
+.zari {
+  height: 22px;
+  background:
+    radial-gradient(circle at 10px 22px, transparent 7px, var(--zari) 7.5px 9px, transparent 9.5px) 0 0 / 20px 22px repeat-x,
+    linear-gradient(90deg, transparent 0 8px, var(--zari-light) 8px 12px, transparent 12px) 0 3px / 20px 3px repeat-x,
+    linear-gradient(180deg, var(--silk) 0 2px, var(--zari) 2px 4px, var(--silk) 4px 18px, var(--zari) 18px 20px, var(--silk) 20px);
+}
+.zari--pink {
+  background:
+    radial-gradient(circle at 10px 22px, transparent 7px, var(--zari) 7.5px 9px, transparent 9.5px) 0 0 / 20px 22px repeat-x,
+    linear-gradient(90deg, transparent 0 8px, var(--zari-light) 8px 12px, transparent 12px) 0 3px / 20px 3px repeat-x,
+    linear-gradient(180deg, var(--silk-pink) 0 2px, var(--zari) 2px 4px, var(--silk-pink) 4px 18px, var(--zari) 18px 20px, var(--silk-pink) 20px);
+}
+
+/* Ilkal saree "tope teni" toothed border */
+.ilkal-edge {
+  height: 16px;
+  background:
+    linear-gradient(135deg, var(--flag-red) 25%, transparent 25%) -8px 0 / 16px 16px,
+    linear-gradient(225deg, var(--flag-red) 25%, transparent 25%) -8px 0 / 16px 16px,
+    linear-gradient(180deg, #2a0c06, #2a0c06);
+}
+
+/* Kasuti cross-stitch line */
+.kasuti-line {
+  height: 10px;
+  background:
+    linear-gradient(45deg, transparent 42%, var(--flag-red) 42% 58%, transparent 58%) 0 0 / 10px 10px,
+    linear-gradient(-45deg, transparent 42%, var(--flag-red) 42% 58%, transparent 58%) 0 0 / 10px 10px;
+}
+
+/* ---------- reveals ---------- */
+.rv {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1), filter 1s ease;
+}
+.rv.in { opacity: 1; transform: none; }
+.rv--wipe { opacity: 1; transform: none; clip-path: inset(100% 0 0 0); }
+.rv--wipe.in { clip-path: inset(0 0 0 0); }
+.rv--side { transform: translateX(-60px); }
+.rv--side-r { transform: translateX(60px); }
+.rv--scale { transform: scale(0.85) rotate(-2deg); }
+.rv--focus { filter: blur(18px); transform: scale(1.06); }
+.rv--focus.in { filter: none; transform: none; }
+.rv--rise { transform: translateY(110%); opacity: 1; }
+
+/* letters (graphemes) */
+.glyph {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.6em) rotate(6deg);
+  filter: blur(6px);
+  transition: opacity 0.9s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s ease;
+}
+.in .glyph { opacity: 1; transform: none; filter: none; }
+
+/* SVG stroke drawing (needs pathLength="1") */
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.in .draw, .draw.in { stroke-dashoffset: 0; }
+
+/* ---------- buttons ---------- */
+.btn-silk {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.7rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--zari-light), var(--zari) 55%, #b07a1c);
+  box-shadow: 0 10px 30px -10px rgb(217 166 58 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.6);
+  overflow: hidden;
+  isolation: isolate;
+  transition: box-shadow 0.4s;
+}
+.btn-silk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.7) 48%, transparent 66%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-silk:hover::after { transform: translateX(120%); }
+.btn-silk:hover { box-shadow: 0 16px 44px -10px rgb(217 166 58 / 0.95), inset 0 1px 0 rgb(255 255 255 / 0.6); }
+.btn-silk:focus-visible, .btn-line:focus-visible { outline: 2px solid var(--zari-light); outline-offset: 4px; }
+
+.btn-line {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--cream);
+  border: 1.5px solid rgb(246 220 140 / 0.55);
+  background: rgb(255 255 255 / 0.03);
+  backdrop-filter: blur(6px);
+  transition: background 0.4s, border-color 0.4s, color 0.4s;
+}
+.btn-line:hover { background: rgb(246 220 140 / 0.12); border-color: var(--zari-light); }
+
+/* stitched underline that sews itself on hover (Kasuti) */
+.stitch {
+  position: relative;
+  padding-bottom: 4px;
+}
+.stitch::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  background:
+    linear-gradient(45deg, transparent 40%, currentColor 40% 60%, transparent 60%) 0 0 / 6px 6px,
+    linear-gradient(-45deg, transparent 40%, currentColor 40% 60%, transparent 60%) 0 0 / 6px 6px;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.6s steps(14);
+}
+.stitch:hover::after, .stitch[aria-current="page"]::after { clip-path: inset(0 0 0 0); }
+
+/* ---------- glass panels ---------- */
+.glass {
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02));
+  border: 1px solid rgb(246 220 140 / 0.18);
+  backdrop-filter: blur(14px);
+  border-radius: 28px;
+}
+
+/* ---------- arch frames (Mysore palace / temple doorway) ---------- */
+.arch {
+  border-radius: 999px 999px 18px 18px;
+  overflow: hidden;
+}
+.arch-frame {
+  padding: 10px;
+  border-radius: 999px 999px 24px 24px;
+  background: conic-gradient(from 180deg, var(--zari), var(--zari-light), var(--zari), #8a5a14, var(--zari));
+  box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.8), 0 0 0 1px rgb(255 255 255 / 0.15) inset;
+}
+
+/* ---------- the hero sky (changes with the real time of day) ---------- */
+.sky-dawn { background: linear-gradient(180deg, #2b1a4a 0%, #a2456e 38%, #f39c6b 66%, #ffd89a 100%); }
+.sky-day { background: linear-gradient(180deg, #2e7fb8 0%, #73b9df 45%, #c8e6f2 75%, #f7eccf 100%); }
+.sky-dusk { background: linear-gradient(180deg, #1a1440 0%, #6b2a5e 35%, #e0613f 68%, #ffb25e 100%); }
+.sky-night { background: linear-gradient(180deg, #05030f 0%, #12103a 45%, #2a1a4a 75%, #4a0d1e 100%); }
+
+.stars-field {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.4px 1.4px at 8% 12%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 30%, #ffe9a8 50%, transparent 51%),
+    radial-gradient(1.6px 1.6px at 37% 9%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 52% 24%, #fff 50%, transparent 51%),
+    radial-gradient(1.8px 1.8px at 66% 14%, #ffe9a8 50%, transparent 51%),
+    radial-gradient(1px 1px at 81% 33%, #fff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 93% 8%, #fff 50%, transparent 51%);
+  background-size: 640px 420px;
+  animation: twinkle 3.5s ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity: 0.45; } to { opacity: 1; } }
+
+/* birds (Indian roller – the state bird) */
+.bird {
+  position: absolute;
+  width: 34px;
+  height: 18px;
+  animation: fly var(--dur, 26s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+.bird path { animation: flap 0.55s ease-in-out infinite alternate; transform-origin: 50% 60%; }
+@keyframes fly {
+  from { transform: translate(-10vw, 0) scale(var(--s, 1)); }
+  50% { transform: translate(50vw, -40px) scale(var(--s, 1)); }
+  to { transform: translate(115vw, 10px) scale(var(--s, 1)); }
+}
+@keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(-0.6); } }
+
+/* mist drifting across the ghats */
+.mist {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  height: 120px;
+  background: radial-gradient(ellipse at center, rgb(255 255 255 / 0.35), transparent 70%);
+  filter: blur(8px);
+  animation: mist 18s ease-in-out infinite alternate;
+}
+@keyframes mist { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
+
+/* ---------- motion helpers ---------- */
+.sway { transform-origin: 50% 0; animation: sway 4.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+.float { animation: float 6s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.spin-slow { animation: spin 40s linear infinite; }
+.spin-rev { animation: spin 60s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.flicker { transform-origin: 50% 100%; animation: flicker 1.3s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes flicker {
+  0%, 100% { transform: scale(1, 1) rotate(-1deg); }
+  30% { transform: scale(0.9, 1.1) rotate(2deg); }
+  60% { transform: scale(1.06, 0.94) rotate(-2deg); }
+}
+.pulse-ring { animation: pulse-ring 2.6s ease-out infinite; animation-delay: var(--d, 0s); transform-origin: center; transform-box: fill-box; }
+@keyframes pulse-ring { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(2.6); opacity: 0; } }
+
+.flow { stroke-dasharray: 8 10; animation: flow 1.6s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -36; } }
+
+.fall { stroke-dasharray: 18 14; animation: fall 0.7s linear infinite; }
+@keyframes fall { to { stroke-dashoffset: -64; } }
+
+.waves { animation: waves 6s ease-in-out infinite alternate; }
+@keyframes waves { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
+
+.steam path { stroke-dasharray: 40; animation: steam 2.8s ease-in-out infinite; }
+.steam path:nth-child(2) { animation-delay: 0.6s; }
+.steam path:nth-child(3) { animation-delay: 1.2s; }
+@keyframes steam {
+  0% { stroke-dashoffset: 40; opacity: 0; }
+  40% { opacity: 0.8; }
+  100% { stroke-dashoffset: -40; opacity: 0; }
+}
+
+.walk { animation: walk 1.4s ease-in-out infinite; }
+@keyframes walk { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+.rain {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(105deg, transparent 0 14px, rgb(200 230 255 / 0.25) 14px 15px, transparent 15px 34px);
+  background-size: 300px 300px;
+  animation: rain 0.5s linear infinite;
+}
+@keyframes rain { to { background-position: -40px 300px; } }
+
+.firefly {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #e9ff7a;
+  box-shadow: 0 0 10px 3px rgb(233 255 122 / 0.8);
+  animation: firefly var(--t, 7s) ease-in-out infinite alternate, blink 1.8s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes firefly {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(40px, -30px); }
+  66% { transform: translate(-20px, -60px); }
+  100% { transform: translate(30px, -20px); }
+}
+@keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+.petal {
+  position: absolute;
+  top: -20px;
+  animation: petal var(--t, 11s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes petal {
+  0% { transform: translate(0, -5vh) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(var(--x, 60px), 105vh) rotate(540deg); opacity: 0.8; }
+}
+
+.ken-burns { animation: ken 18s ease-in-out infinite alternate; }
+@keyframes ken { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.14) translate(-2%, -2%); } }
+
+.bell-swing { transform-origin: 50% 0; }
+.bell-swing.ringing { animation: bell 1.6s cubic-bezier(0.36, 0, 0.3, 1); }
+@keyframes bell {
+  0% { transform: rotate(0); }
+  15% { transform: rotate(22deg); }
+  32% { transform: rotate(-16deg); }
+  48% { transform: rotate(10deg); }
+  64% { transform: rotate(-6deg); }
+  80% { transform: rotate(3deg); }
+  100% { transform: rotate(0); }
+}
+
+/* ---------- Togalu Gombeyata (shadow puppet) screen ---------- */
+.puppet-screen {
+  background:
+    radial-gradient(60% 70% at 50% 45%, rgb(255 196 92 / 0.95) 0%, rgb(232 120 40 / 0.85) 45%, rgb(80 20 6 / 0.95) 100%);
+}
+.puppet { animation: puppet 5s ease-in-out infinite; transform-origin: 50% 10%; animation-delay: var(--d, 0s); }
+@keyframes puppet {
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(-8px); }
+}
+.shadow-img { filter: grayscale(1) brightness(0.55) sepia(0.6) contrast(1.2); transition: filter 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.group:hover .shadow-img, .shadow-img.lit { filter: none; transform: scale(1.04); }
+
+/* ---------- Bidriware (black metal with silver inlay) ---------- */
+.bidri {
+  background:
+    radial-gradient(120% 80% at 30% 0%, #2b2f34 0%, var(--bidri) 60%),
+    var(--bidri);
+  border: 1px solid #3b4148;
+}
+.bidri-inlay {
+  stroke: var(--silver);
+  fill: none;
+  stroke-width: 1.4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.group:hover .bidri-inlay, .in .bidri-inlay { stroke-dashoffset: 0; }
+.silver-sheen {
+  background: linear-gradient(110deg, transparent 30%, rgb(214 221 227 / 0.25) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 1.1s ease;
+}
+.group:hover .silver-sheen { transform: translateX(120%); }
+
+/* ---------- Sandalwood cinema (film) ---------- */
+.film-holes {
+  height: 26px;
+  background:
+    radial-gradient(circle, transparent 0, transparent 0) ,
+    linear-gradient(90deg, #f7ecd0 0 14px, transparent 14px 28px) 7px 7px / 28px 12px repeat-x,
+    #0d0806;
+}
+.projector-beam {
+  background: conic-gradient(from 160deg at 50% 0%, transparent 0deg, rgb(255 236 180 / 0.22) 12deg, rgb(255 236 180 / 0.06) 28deg, transparent 40deg);
+  animation: beam 0.18s steps(2) infinite;
+}
+@keyframes beam { 50% { opacity: 0.85; } }
+.film-scratch {
+  background: repeating-linear-gradient(90deg, transparent 0 140px, rgb(255 255 255 / 0.05) 140px 141px, transparent 141px 320px);
+  animation: scratch 0.4s steps(3) infinite;
+}
+@keyframes scratch { 50% { transform: translateX(40px); } }
+
+/* ---------- Mysore silk loom (contact) ---------- */
+.loom {
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.05) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(0deg, rgb(0 0 0 / 0.12) 0 2px, transparent 2px 6px),
+    linear-gradient(135deg, #6b0f3a, var(--silk-pink) 50%, #7a1240);
+}
+.weave { animation: weave 3s linear infinite; }
+@keyframes weave { to { background-position: 60px 0, 0 60px, 0 0; } }
+
+/* ---------- page curtain between routes ---------- */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.curtain > span {
+  background: linear-gradient(180deg, var(--flag-yellow) 0 50%, var(--flag-red) 50% 100%);
+  transform: scaleX(0);
+}
+.curtain > span:first-child { transform-origin: left; }
+.curtain > span:last-child { transform-origin: right; }
+.curtain.run > span { animation: curtain 1s cubic-bezier(0.77, 0, 0.18, 1); }
+@keyframes curtain {
+  0% { transform: scaleX(0); }
+  45%, 55% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+.curtain__mark {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 201;
+  pointer-events: none;
+  opacity: 0;
+}
+.curtain.run + .curtain__mark { animation: mark 1s ease; }
+@keyframes mark { 0%, 30% { opacity: 0; transform: scale(0.6); } 50% { opacity: 1; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.3); } }
+
+/* ---------- intro (ಅಕ್ಷರ – the letter, then the land) ---------- */
+.kd-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 50%, #3a0a17 0%, #12030a 70%);
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+  clip-path: circle(150% at 50% 50%);
+}
+.kd-intro.leave { clip-path: circle(0% at 50% 50%); }
+.kd-intro__letter {
+  font-family: var(--serif-kn);
+  font-weight: 700;
+  fill: transparent;
+  stroke: var(--zari-light);
+  stroke-width: 2;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: write 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards, fill-gold 0.8s ease 2s forwards;
+}
+@keyframes write { to { stroke-dashoffset: 0; } }
+@keyframes fill-gold { to { fill: var(--zari); } }
+.kd-intro__map { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw-map 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.6s forwards; }
+@keyframes draw-map { to { stroke-dashoffset: 0; } }
+.kd-intro__dot { opacity: 0; animation: dot-on 0.4s ease forwards; }
+@keyframes dot-on { to { opacity: 1; } }
+
+/* ---------- map ---------- */
+.ka-district { cursor: pointer; }
+.ka-district circle.core { transition: r 0.3s, fill 0.3s; }
+.ka-district:hover circle.core, .ka-district.active circle.core { fill: var(--flag-red); }
+
+/* ---------- banana leaf ---------- */
+.banana-leaf {
+  background:
+    repeating-linear-gradient(100deg, rgb(255 255 255 / 0.06) 0 2px, transparent 2px 22px),
+    linear-gradient(180deg, #3f8f3a 0%, #2f7a2e 45%, #2b6b28 55%, #3c8c37 100%);
+  border-radius: 40px 400px 40px 400px / 40px 120px 40px 120px;
+  box-shadow: inset 0 0 60px rgb(0 0 0 / 0.25), 0 30px 60px -30px rgb(0 0 0 / 0.7);
+}
+.food-item { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.food-item:hover, .food-item:focus-visible { transform: scale(1.15) rotate(-6deg); }
+
+/* ---------- alphabet wall ---------- */
+.akshara {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s, text-shadow 0.3s, background 0.3s;
+}
+.akshara:hover, .akshara:focus-visible {
+  transform: translateY(-6px) scale(1.25);
+  color: var(--flag-yellow);
+  text-shadow: 0 0 18px rgb(255 204 0 / 0.75);
+  background: rgb(255 255 255 / 0.06);
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .kd *, .kd *::before, .kd *::after, .kd-intro, .kd-intro *, .curtain * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .rv, .glyph { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
+  .draw { stroke-dashoffset: 0 !important; }
+}
+
+/* ---------- custom cursor: hide the system one (desktop only) ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .kd.cursor-on,
+  .kd.cursor-on a,
+  .kd.cursor-on button,
+  .kd.cursor-on [role="button"] {
+    cursor: none;
+  }
+  .kd.cursor-on input,
+  .kd.cursor-on textarea {
+    cursor: text;
+  }
+}

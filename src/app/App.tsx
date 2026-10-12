@@ -5,15 +5,15 @@ import { Toaster as Sonner } from "@/shared/components/ui/sonner";
 import { TooltipProvider } from "@/shared/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Blogs from "@/features/blogs/pages/BlogsPage";
-import Index from "@/features/home/pages/IndexPage";
-import Events from "@/features/events/pages/EventsPage";
-import Team from "@/features/team/pages/TeamPage";
-import Contact from "@/features/contact/pages/ContactPage";
-import NotFound from "@/app/pages/NotFoundPage";
-import Navbar from "@/shared/components/layout/Navbar";
-import Footer from "@/shared/components/layout/Footer";
-import Recruitment from "@/features/Recruitment/Recruitment";
+// "ಕರುನಾಡು" redesign – the website as a journey through Karnataka.
+// The previous pages are still in src/features/* for comparison.
+import Layout from "@/features/karunadu/Layout";
+import Index from "@/features/karunadu/pages/HomePage";
+import Events from "@/features/karunadu/pages/EventsPage";
+import Team from "@/features/karunadu/pages/TeamPage";
+import Blogs from "@/features/karunadu/pages/BlogsPage";
+import Contact from "@/features/karunadu/pages/ContactPage";
+import NotFound from "@/features/karunadu/pages/NotFoundPage";
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -36,22 +36,17 @@ const AppContent = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/blogs" element={<Blogs />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/team" element={<Team />} />
-              {/* <Route path="/upis" element={<Upis />} /> */}
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/recruitment" element={<Recruitment />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/team" element={<Team />} />
+            {/* <Route path="/upis" element={<Upis />} /> */}
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
