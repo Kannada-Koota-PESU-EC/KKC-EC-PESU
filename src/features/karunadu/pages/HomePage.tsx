@@ -5,6 +5,7 @@ import RepublicDayPopup from "@/features/home/components/RepublicDayPopup";
 import { CountUp, Letters, Magnetic, Reveal } from "@/features/karunadu/components/Motion";
 import { Bell, Gandaberunda, Roller } from "@/features/karunadu/components/Motifs";
 import KarnatakaMap from "@/features/karunadu/components/KarnatakaMap";
+import IconLauncher from "@/features/karunadu/components/IconLauncher";
 import Panorama from "@/features/karunadu/components/Panorama";
 import {
   AksharaWall, ArtsGallery, BananaLeafMeal, FestivalWheel, HeroStones, Literature, NadaGeethe, NameHeading, StateSymbols, Veena,
@@ -139,6 +140,9 @@ function Hero() {
 
       <Gandaberunda className="pointer-events-none absolute left-1/2 top-1/2 h-[80vh] w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.05]" stroke="#fff" />
       <TempleBell />
+      <div className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2">
+        <IconLauncher size="h-24 w-24 md:h-28 md:w-28" />
+      </div>
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-4 pb-24 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div className="space-y-8 text-center lg:text-left">

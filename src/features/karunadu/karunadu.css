@@ -553,3 +553,13 @@
     cursor: text;
   }
 }
+
+@keyframes kd-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* the Karnataka icon: breathes, glows on hover */
+.kd-icon-btn { transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.6s; filter: drop-shadow(0 10px 30px rgb(0 0 0 / 0.5)); }
+.kd-icon-btn:hover, .kd-icon-btn:focus-visible { transform: scale(1.08) rotate(-4deg); filter: drop-shadow(0 0 30px rgb(255 204 0 / 0.55)); }
+.kd-icon-halo { animation: pulse-ring 3s ease-out infinite; }
