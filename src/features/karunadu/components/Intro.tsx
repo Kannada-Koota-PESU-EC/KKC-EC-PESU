@@ -155,9 +155,12 @@ export default function Intro() {
         <div className="kd-doors__jamb kd-doors__jamb--r" />
 
         {/* the name, shining across both doors */}
+        {/* a brass name-plate hung across the doors, so the name always reads clearly */}
         <div className="kd-doors__title">
-          <p className="f-serif gold-foil whitespace-nowrap text-6xl font-bold md:text-9xl">ಕನ್ನಡ ಕೂಟ</p>
-          <p className="mt-3 text-center text-xs font-semibold uppercase tracking-[0.6em] text-[#f6dc8c]/80 md:text-sm">EC · PES University</p>
+          <div className="kd-doors__plate">
+            <p className="kd-doors__name f-serif whitespace-nowrap font-bold">ಕನ್ನಡ ಕೂಟ</p>
+            <p className="mt-1 whitespace-nowrap text-center text-[11px] font-bold uppercase tracking-[0.3em] text-[#ffe9a8] md:text-sm md:tracking-[0.45em]">EC · PES University</p>
+          </div>
         </div>
 
         {/* oil lamp at the threshold */}

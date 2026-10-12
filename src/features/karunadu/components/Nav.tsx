@@ -5,10 +5,10 @@ import { usePageProgress } from "@/features/karunadu/hooks";
 // Original navigation (Recruitment removed as requested) plus the 3D map of Karnataka.
 const NAV = [
   { name: "Home", path: "/" },
-  { name: "Karunadu 3D", path: "/karunadu" },
   { name: "Events", path: "/events" },
   { name: "Blogs", path: "/blogs" },
   { name: "Team", path: "/team" },
+  { name: "Karunadu 3D", path: "/karunadu" },
   { name: "Contact", path: "/contact" },
 ];
 

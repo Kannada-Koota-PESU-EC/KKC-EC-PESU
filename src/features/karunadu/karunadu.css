@@ -573,10 +573,41 @@
   top: 34%;
   transform: translate(-50%, -50%);
   z-index: 4;
-  filter: drop-shadow(0 0 24px rgb(255 200 90 / 0.55)) drop-shadow(0 6px 12px rgb(0 0 0 / 0.9));
   animation: title-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
-@keyframes title-in { from { opacity: 0; letter-spacing: 0.3em; filter: blur(12px); } to { opacity: 1; letter-spacing: 0; } }
+.kd-doors__plate {
+  position: relative;
+  padding: clamp(0.9rem, 2.4vw, 1.6rem) clamp(1.4rem, 4vw, 3.2rem) clamp(1rem, 2.6vw, 1.8rem);
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 50% 30%, rgb(58 20 8 / 0.96), rgb(20 7 3 / 0.97));
+  border: 2px solid #d9a63a;
+  box-shadow: 0 0 0 6px rgb(20 7 3 / 0.85), 0 0 0 8px rgb(217 166 58 / 0.55), 0 20px 60px rgb(0 0 0 / 0.8), 0 0 60px rgb(255 190 80 / 0.25);
+}
+.kd-doors__plate::before, .kd-doors__plate::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff2b8, #d9a63a 50%, #6b4410);
+}
+.kd-doors__plate::before { left: 10px; }
+.kd-doors__plate::after { right: 10px; }
+.kd-doors__name {
+  /* room above and below for Kannada vowel signs and conjuncts */
+  font-size: clamp(2.6rem, 10vw, 7.5rem);
+  line-height: 1.45;
+  padding: 0.08em 0.1em 0.12em;
+  color: #ffd86b;
+  background: linear-gradient(180deg, #fff6cf 0%, #ffd86b 45%, #e0a53a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 0 #5a3208) drop-shadow(0 0 18px rgb(255 200 90 / 0.55));
+}
+@keyframes title-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
 .kd-doors.open .kd-doors__title { animation: title-out 0.7s ease forwards; }
 @keyframes title-out { to { opacity: 0; transform: translate(-50%, -50%) scale(1.25); filter: blur(8px); } }
 .kd-doors__lamp {
