@@ -14,7 +14,7 @@ const photo = (id: string) => `/karnataka/photos/${id}.jpg`;
 
 export const JOURNEY: Stop[] = [
   { id: "bidar", kn: "ಬೀದರ್ ಕೋಟೆ", en: "Bidar Fort", lat: 17.92, lon: 77.53, photo: photo("bidar") },
-  { id: "gol-gumbaz", kn: "ಗೋಳ ಗುಮ್ಮಟ", en: "Gol Gumbaz, Vijayapura", lat: 16.83, lon: 75.73, photo: photo("gol-gumbaz") },
+  { id: "gol-gumbaz", kn: "ಗೋಲ್ ಗುಂಬಜ್", en: "Gol Gumbaz, Vijayapura", lat: 16.83, lon: 75.73, photo: photo("gol-gumbaz") },
   { id: "badami", kn: "ಬಾದಾಮಿ", en: "Badami Cave Temples", lat: 15.92, lon: 75.68, photo: photo("badami") },
   { id: "hampi", kn: "ಹಂಪಿ", en: "Hampi", lat: 15.335, lon: 76.46, photo: photo("hampi") },
   { id: "jog-falls", kn: "ಜೋಗ ಜಲಪಾತ", en: "Jog Falls", lat: 14.23, lon: 74.81, photo: photo("jog-falls") },

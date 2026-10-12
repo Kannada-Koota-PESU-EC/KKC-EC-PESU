@@ -6,7 +6,6 @@ import { CountUp, Letters, Magnetic, Reveal } from "@/features/karunadu/componen
 import { Bell, Gandaberunda } from "@/features/karunadu/components/Motifs";
 import ScrollBackdrop from "@/features/karunadu/components/ScrollBackdrop";
 import IconLauncher from "@/features/karunadu/components/IconLauncher";
-import Journey3D from "@/features/karunadu/components/Journey3D";
 import { ringBell } from "@/features/karunadu/audio";
 import { reducedMotion, useScrollProgress } from "@/features/karunadu/hooks";
 
@@ -16,7 +15,7 @@ const HERO_PLACES = [
   { id: "mysuru-palace", kn: "ಮೈಸೂರು ಅರಮನೆ", en: "Mysuru Palace" },
   { id: "jog-falls", kn: "ಜೋಗ ಜಲಪಾತ", en: "Jog Falls" },
   { id: "udupi-coast", kn: "ಕರಾವಳಿ", en: "Karavali" },
-  { id: "gol-gumbaz", kn: "ಗೋಳ ಗುಮ್ಮಟ", en: "Gol Gumbaz" },
+  { id: "gol-gumbaz", kn: "ಗೋಲ್ ಗುಂಬಜ್", en: "Gol Gumbaz" },
   { id: "coorg", kn: "ಕೊಡಗು", en: "Kodagu" },
   { id: "badami", kn: "ಬಾದಾಮಿ", en: "Badami" },
   { id: "vidhana-soudha", kn: "ವಿಧಾನ ಸೌಧ", en: "Vidhana Soudha" },
@@ -81,9 +80,6 @@ function TempleBell() {
 
 function Hero() {
   const [slide, setSlide] = useState(0);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const { ref, progress } = useScrollProgress<HTMLElement>();
-  const scrollY = progress * 300;
 
   useEffect(() => {
     if (reducedMotion()) return;
@@ -96,17 +92,12 @@ function Hero() {
 
   return (
     <section
-      ref={ref}
       className="letterbox relative flex min-h-[100svh] items-center overflow-hidden bg-[#050203] pt-28"
-      onPointerMove={(e) => {
-        if (e.pointerType !== "mouse" || reducedMotion()) return;
-        setMouse({ x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 });
-      }}
       data-cursor="mallige"
       data-tone="#12030a,#4a0d1e"
     >
-      {/* photographs, cross-fading with a slow push-in */}
-      <div className="absolute inset-[-3%]" style={{ transform: `translate(${mouse.x * -18}px, ${scrollY * 0.45 + mouse.y * -12}px)` }}>
+      {/* photographs, cross-fading; they stay still behind the text */}
+      <div className="absolute inset-0">
         {HERO_PLACES.map((p, i) => (
           <div key={p.id} className={`hero-slide ${i === slide ? "on" : ""}`}>
             <img src={`/karnataka/photos/${p.id}.jpg`} alt="" loading={i < 2 ? "eager" : "lazy"} />
@@ -384,8 +375,6 @@ export default function HomePage() {
       <Hero />
       <Gallery />
       <About />
-      <div className="ilkal-edge" />
-      <Journey3D />
     </div>
   );
 }

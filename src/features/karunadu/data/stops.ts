@@ -10,7 +10,7 @@ export interface StopInfo {
   about: string;
   facts: [string, string][];
   culture: { kind: CultureKind; kn: string; en: string }[];
-  play: string; // label of the hands-on activity
+  play: string; // name of the place's game
   quiz: { q: string; options: string[]; answer: number; why: string };
 }
 
@@ -68,7 +68,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "history", kn: "ಇಬ್ರಾಹಿಂ ರೋಜಾ", en: "Ibrahim Rauza" },
       { kind: "food", kn: "ಜೋಳದ ರೊಟ್ಟಿ", en: "Jolada Rotti" },
     ],
-    play: "Clap in the whispering gallery",
+    play: "Count the echoes",
     quiz: {
       q: "How many times does a clap echo in the whispering gallery?",
       options: ["Once", "Three times", "Seven times"],
@@ -95,7 +95,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "people", kn: "ಕಿತ್ತೂರು ರಾಣಿ ಚೆನ್ನಮ್ಮ", en: "Kittur Rani Chennamma" },
       { kind: "food", kn: "ಧಾರವಾಡ ಪೇಡ", en: "Dharwad Peda" },
     ],
-    play: "Stitch a Kasuti pattern",
+    play: "Kasuti stitch match",
     quiz: {
       q: "Which Chalukya king stopped Harshavardhana at the Narmada?",
       options: ["Pulakeshi II", "Krishnadevaraya", "Vishnuvardhana"],
@@ -121,7 +121,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "festival", kn: "ಹಂಪಿ ಉತ್ಸವ", en: "Hampi Utsava" },
       { kind: "nature", kn: "ತುಂಗಭದ್ರಾ", en: "Tungabhadra" },
     ],
-    play: "Play the musical pillars",
+    play: "Musical pillars",
     quiz: {
       q: "Who is called the father of Carnatic music, and sang in Hampi?",
       options: ["Kuvempu", "Purandara Dasa", "Pampa"],
@@ -146,7 +146,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "people", kn: "ಕೆಳದಿ ಚೆನ್ನಮ್ಮ", en: "Keladi Chennamma" },
       { kind: "food", kn: "ಚಿಕ್ಕಮಗಳೂರು ಕಾಫಿ", en: "Chikkamagaluru coffee" },
     ],
-    play: "Drop a pebble from the top",
+    play: "Stop at the pool",
     quiz: {
       q: "Which river forms Jog Falls?",
       options: ["Kaveri", "Sharavati", "Krishna"],
@@ -173,7 +173,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "people", kn: "ರಾಣಿ ಅಬ್ಬಕ್ಕ", en: "Rani Abbakka" },
       { kind: "words", kn: "ಶಿವರಾಮ ಕಾರಂತ", en: "Shivaram Karanth" },
     ],
-    play: "Beat the Yakshagana chande",
+    play: "Kambala race",
     quiz: {
       q: "In Kambala, what races through the slushy paddy field?",
       options: ["Horses", "Buffaloes", "Elephants"],
@@ -197,7 +197,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "art", kn: "ಬೇಲೂರು, ಹಳೇಬೀಡು", en: "Hoysala temples (UNESCO 2023)" },
       { kind: "words", kn: "ಕನ್ನಡ ಲಿಪಿ", en: "Kannada script" },
     ],
-    play: "Write with Kannada letters",
+    play: "Read the old letters",
     quiz: {
       q: "About how old is the Halmidi inscription?",
       options: ["About 1,575 years", "About 500 years", "About 200 years"],
@@ -221,7 +221,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "words", kn: "ಪಂಪ, ಪೊನ್ನ, ರನ್ನ", en: "Three gems of Kannada poetry" },
       { kind: "words", kn: "ಚಾವುಂಡರಾಯ ಪುರಾಣ", en: "Chavundaraya Purana" },
     ],
-    play: "Perform the abhisheka",
+    play: "Climb Vindhyagiri",
     quiz: {
       q: "How often is the Mahamastakabhisheka held?",
       options: ["Every year", "Every 12 years", "Every 100 years"],
@@ -249,7 +249,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "nature", kn: "ಶ್ರೀಗಂಧ", en: "Sandalwood" },
       { kind: "history", kn: "ಗಂಡಭೇರುಂಡ", en: "Gandaberunda, the state emblem" },
     ],
-    play: "Light up the palace",
+    play: "Dasara lights",
     quiz: {
       q: "Where was Mysore Pak first made?",
       options: ["A Bengaluru café", "The Mysuru palace kitchen", "A temple in Udupi"],
@@ -274,7 +274,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "nature", kn: "ದುಬಾರೆ ಆನೆ ಶಿಬಿರ", en: "Dubare elephant camp" },
       { kind: "food", kn: "ಅಕ್ಕಿ ರೊಟ್ಟಿ", en: "Akki Rotti" },
     ],
-    play: "Pour a filter coffee",
+    play: "Coffee picking",
     quiz: {
       q: "Which river begins at Talakaveri in Kodagu?",
       options: ["Tungabhadra", "Kaveri", "Sharavati"],
@@ -300,7 +300,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "people", kn: "ಸರ್ ಎಂ. ವಿಶ್ವೇಶ್ವರಯ್ಯ", en: "Sir M. Visvesvaraya" },
       { kind: "nature", kn: "ಲಾಲ್‌ಬಾಗ್", en: "Lalbagh" },
     ],
-    play: "Sing the Nada Geethe",
+    play: "Nada Geethe in order",
     quiz: {
       q: "When is Kannada Rajyotsava celebrated?",
       options: ["15 August", "1 November", "26 January"],

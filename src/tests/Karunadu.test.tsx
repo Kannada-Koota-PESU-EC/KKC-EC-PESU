@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import HomePage from '../features/karunadu/pages/HomePage';
 import TeamPage from '../features/karunadu/pages/TeamPage';
+import KarunaduPage from '../features/karunadu/pages/KarunaduPage';
 import { JOURNEY } from '../features/karunadu/data/journey';
 
 const renderInRouter = (ui: React.ReactElement) =>
@@ -20,13 +21,18 @@ describe('Karunadu redesign', () => {
     expect(screen.getByText('Meet Our Team')).toBeInTheDocument();
   });
 
-  it('lists every stop of the 3D journey and offers to open it', () => {
+  it('home page links to the 3D map of Karnataka', () => {
     renderInRouter(<HomePage />);
+
+    expect(screen.getByRole('button', { name: 'Open the 3D journey across Karnataka' })).toBeInTheDocument();
+  });
+
+  it('3D map page lists every stop of the journey', () => {
+    renderInRouter(<KarunaduPage />);
 
     JOURNEY.forEach((s) => {
       expect(screen.getAllByText(s.kn).length).toBeGreaterThan(0);
     });
-    expect(screen.getByRole('button', { name: 'Open the 3D journey across Karnataka' })).toBeInTheDocument();
     expect(screen.getByText('Start the journey', { exact: false })).toBeInTheDocument();
   });
 

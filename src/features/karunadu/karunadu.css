@@ -474,33 +474,166 @@
 @keyframes mark { 0%, 30% { opacity: 0; transform: scale(0.6); } 50% { opacity: 1; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.3); } }
 
 /* ---------- intro (ಅಕ್ಷರ – the letter, then the land) ---------- */
-.kd-intro {
+/* ---------- opening: temple doors ---------- */
+.kd-doors {
   position: fixed;
   inset: 0;
   z-index: 300;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(circle at 50% 50%, #3a0a17 0%, #12030a 70%);
-  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1);
-  clip-path: circle(150% at 50% 50%);
+  overflow: hidden;
+  cursor: pointer;
+  background: #050203;
+  animation: doors-bg 2.3s ease forwards paused;
 }
-.kd-intro.leave { clip-path: circle(0% at 50% 50%); }
-.kd-intro__letter {
-  font-family: var(--serif-kn);
-  font-weight: 700;
-  fill: transparent;
-  stroke: var(--zari-light);
-  stroke-width: 2;
-  stroke-dasharray: 900;
-  stroke-dashoffset: 900;
-  animation: write 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards, fill-gold 0.8s ease 2s forwards;
+.kd-doors.open { animation-play-state: running; }
+@keyframes doors-bg { 0%, 35% { background: #050203; } 100% { background: transparent; } }
+.kd-doors__world {
+  position: absolute;
+  inset: 0;
+  perspective: 1500px;
+  animation: doors-in 1s ease both;
 }
-@keyframes write { to { stroke-dashoffset: 0; } }
-@keyframes fill-gold { to { fill: var(--zari); } }
-.kd-intro__map { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw-map 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.6s forwards; }
-@keyframes draw-map { to { stroke-dashoffset: 0; } }
-.kd-intro__dot { opacity: 0; animation: dot-on 0.4s ease forwards; }
-@keyframes dot-on { to { opacity: 1; } }
+@keyframes doors-in { from { opacity: 0; filter: brightness(0.2); } to { opacity: 1; filter: none; } }
+.kd-doors.open .kd-doors__world { animation: doors-walk 2.3s cubic-bezier(0.6, 0, 0.3, 1) forwards; }
+@keyframes doors-walk {
+  0%, 30% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.kd-doors__inner-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 55%, #fff6d8 0%, #ffd27a 25%, #d9822b 55%, rgb(80 20 10 / 0) 80%);
+  opacity: 0;
+}
+.kd-doors.open .kd-doors__inner-light { animation: inner-light 2.3s ease forwards; }
+@keyframes inner-light { 0% { opacity: 0; } 25% { opacity: 1; } 70% { opacity: 0.9; } 100% { opacity: 0; } }
+.kd-doors__leaf {
+  position: absolute;
+  top: 9vh;
+  bottom: 0;
+  width: calc(50% - 4vw);
+  box-shadow: inset 0 0 120px rgb(0 0 0 / 0.75);
+  transition: transform 1.9s cubic-bezier(0.55, 0, 0.25, 1);
+  backface-visibility: hidden;
+}
+.kd-doors__leaf--l { left: 4vw; transform-origin: left center; }
+.kd-doors__leaf--r { right: 4vw; transform-origin: right center; }
+.kd-doors.open .kd-doors__leaf--l { transform: rotateY(-112deg); }
+.kd-doors.open .kd-doors__leaf--r { transform: rotateY(112deg); }
+.kd-doors__seam {
+  position: absolute;
+  left: 50%;
+  top: 9vh;
+  bottom: 0;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, transparent, #ffd27a 30%, #fff1c4 60%, #ffb347);
+  box-shadow: 0 0 30px 8px rgb(255 190 80 / 0.55);
+  animation: seam 1.2s ease-in-out infinite alternate;
+}
+@keyframes seam { from { opacity: 0.55; } to { opacity: 1; } }
+.kd-doors.open .kd-doors__seam { animation: seam-burst 0.6s ease forwards; }
+@keyframes seam-burst { to { width: 60vw; opacity: 0; } }
+.kd-doors__lintel {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 9vh;
+  background: linear-gradient(180deg, #4a4239, #7a6e5f 55%, #3a332c);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.7);
+  z-index: 3;
+}
+.kd-doors__jamb {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4vw;
+  background: linear-gradient(90deg, #3a332c, #7a6e5f 50%, #3a332c);
+  z-index: 3;
+}
+.kd-doors__jamb::after {
+  content: "";
+  position: absolute;
+  inset: 0 35%;
+  background: repeating-linear-gradient(180deg, transparent 0 18px, rgb(201 183 154 / 0.35) 18px 20px);
+}
+.kd-doors__jamb--l { left: 0; }
+.kd-doors__jamb--r { right: 0; }
+.kd-doors__bell {
+  position: relative;
+  display: block;
+  width: 2px;
+  background: linear-gradient(180deg, #8a6a2a, #d9a63a);
+  transform-origin: top center;
+  animation: bell-sway 2.4s ease-in-out infinite alternate;
+}
+@keyframes bell-sway { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+.kd-doors.open .kd-doors__bell { animation-duration: 0.35s; }
+.kd-doors__title {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  filter: drop-shadow(0 0 24px rgb(255 200 90 / 0.55)) drop-shadow(0 6px 12px rgb(0 0 0 / 0.9));
+  animation: title-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+@keyframes title-in { from { opacity: 0; letter-spacing: 0.3em; filter: blur(12px); } to { opacity: 1; letter-spacing: 0; } }
+.kd-doors.open .kd-doors__title { animation: title-out 0.7s ease forwards; }
+@keyframes title-out { to { opacity: 0; transform: translate(-50%, -50%) scale(1.25); filter: blur(8px); } }
+.kd-doors__lamp {
+  position: absolute;
+  left: 50%;
+  bottom: 4vh;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.kd-doors__lamp::before {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 180 70 / 0.35), transparent);
+  pointer-events: none;
+}
+.kd-doors__flame {
+  width: 14px;
+  height: 30px;
+  margin-bottom: -6px;
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  background: radial-gradient(ellipse at 50% 75%, #fff8d6, #ffcc4d 40%, #ff7a1a 75%, transparent);
+  box-shadow: 0 0 30px 10px rgb(255 170 60 / 0.6);
+  animation: flame 0.18s ease-in-out infinite alternate;
+}
+@keyframes flame { from { transform: scaleY(1) rotate(-2deg); } to { transform: scaleY(1.15) rotate(2deg); } }
+.kd-doors__dust {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff1c4;
+  box-shadow: 0 0 8px #ffd27a;
+  opacity: 0;
+  z-index: 5;
+}
+.kd-doors.open .kd-doors__dust { animation: dust-fly 1.8s ease-out forwards; }
+@keyframes dust-fly { 0% { opacity: 0; transform: translate(0, 0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(calc((var(--dx, 1) * 40px)), -120px) scale(1.6); } }
+.kd-doors__skip {
+  position: absolute;
+  right: 6vw;
+  bottom: 3vh;
+  z-index: 6;
+  border-radius: 9999px;
+  border: 1px solid rgb(246 220 140 / 0.4);
+  background: rgb(0 0 0 / 0.4);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #f6dc8c;
+}
+.kd-doors.open .kd-doors__skip, .kd-doors.open .kd-doors__lamp { opacity: 0; transition: opacity 0.4s; }
 
 /* ---------- map ---------- */
 .ka-district { cursor: pointer; }
@@ -531,7 +664,7 @@
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .kd *, .kd *::before, .kd *::after, .kd-intro, .kd-intro *, .curtain * {
+  .kd *, .kd *::before, .kd *::after, .kd-doors, .kd-doors *, .curtain * {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -606,9 +739,7 @@
 /* hero: cross-fading photographs of Karnataka */
 .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.8s ease; }
 .hero-slide.on { opacity: 1; }
-.hero-slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.05); }
-.hero-slide.on img { animation: hero-ken 9s ease-out forwards; }
-@keyframes hero-ken { from { transform: scale(1.18) translate(1.5%, 1%); } to { transform: scale(1.04) translate(0, 0); } }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; }
 .hero-caption { transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
 
 /* letterbox bars that open when the page loads */
@@ -641,7 +772,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pano-dust, .pano-glow, .hero-slide.on img, .letterbox::before, .letterbox::after { animation: none; }
+  .pano-dust, .pano-glow, .letterbox::before, .letterbox::after { animation: none; }
   .letterbox::before, .letterbox::after { display: none; }
 }
 
@@ -669,6 +800,7 @@
   box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.85), inset 0 1px 0 rgb(255 255 255 / 0.06);
   backdrop-filter: blur(14px);
 }
+.kd-stop-card.wide::after { display: none; }
 .kd-stop-card::after {
   content: "";
   position: absolute;
@@ -681,6 +813,22 @@
   border-right: 1px solid rgb(246 220 140 / 0.3);
   border-bottom: 1px solid rgb(246 220 140 / 0.3);
 }
+.kd-link-line { stroke-dasharray: 6 6; animation: link-flow 1s linear infinite; }
+@keyframes link-flow { to { stroke-dashoffset: -12; } }
 @media (prefers-reduced-motion: reduce) {
-  .abhisheka, .kd-pin, .kd-pin-drop { animation: none; }
+  .abhisheka, .kd-pin, .kd-pin-drop, .kd-link-line { animation: none; }
 }
+
+/* team page: Bidri jaali lattice, slowly breathing */
+.team-jaali {
+  opacity: 0.09;
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 9px, #d6dde3 10px, transparent 11px),
+    linear-gradient(45deg, transparent 48%, #d6dde3 49%, #d6dde3 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, #d6dde3 49%, #d6dde3 51%, transparent 52%);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 10%, transparent 70%);
+  animation: jaali 9s ease-in-out infinite alternate;
+}
+@keyframes jaali { from { opacity: 0.05; background-position: 0 0; } to { opacity: 0.12; background-position: 22px 22px; } }
+@media (prefers-reduced-motion: reduce) { .team-jaali { animation: none; } }

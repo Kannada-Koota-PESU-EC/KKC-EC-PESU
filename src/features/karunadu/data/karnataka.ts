@@ -65,7 +65,7 @@ export const LANDMARKS: Landmark[] = [
   { kn: "ಬೇಲೂರು", en: "Belur", lat: 13.16, lon: 75.86, kind: "temple" },
   { kn: "ಹಳೇಬೀಡು", en: "Halebidu", lat: 13.21, lon: 75.99, kind: "temple" },
   { kn: "ಶ್ರವಣಬೆಳಗೊಳ", en: "Shravanabelagola", lat: 12.86, lon: 76.48, kind: "statue" },
-  { kn: "ಗೋಳ ಗುಮ್ಮಟ", en: "Gol Gumbaz", lat: 16.83, lon: 75.73, kind: "dome" },
+  { kn: "ಗೋಲ್ ಗುಂಬಜ್", en: "Gol Gumbaz", lat: 16.83, lon: 75.73, kind: "dome" },
   { kn: "ಮೈಸೂರು ಅರಮನೆ", en: "Mysuru Palace", lat: 12.305, lon: 76.655, kind: "palace" },
   { kn: "ಜೋಗ ಜಲಪಾತ", en: "Jog Falls", lat: 14.23, lon: 74.81, kind: "falls" },
   { kn: "ಚಿತ್ರದುರ್ಗದ ಕೋಟೆ", en: "Chitradurga Fort", lat: 14.22, lon: 76.4, kind: "fort" },

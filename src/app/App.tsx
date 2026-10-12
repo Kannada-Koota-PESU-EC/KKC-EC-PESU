@@ -14,6 +14,7 @@ import Team from "@/features/karunadu/pages/TeamPage";
 import Blogs from "@/features/karunadu/pages/BlogsPage";
 import Contact from "@/features/karunadu/pages/ContactPage";
 import NotFound from "@/features/karunadu/pages/NotFoundPage";
+import Karunadu from "@/features/karunadu/pages/KarunaduPage";
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const AppContent = () => (
         <Layout>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/karunadu" element={<Karunadu />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/events" element={<Events />} />
             <Route path="/team" element={<Team />} />

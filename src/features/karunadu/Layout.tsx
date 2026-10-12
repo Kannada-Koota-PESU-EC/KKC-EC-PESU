@@ -27,7 +27,7 @@ function PageCurtain() {
         <span />
       </div>
       <div key={`m${run}`} className="curtain__mark" aria-hidden="true">
-        <span className="f-serif text-8xl font-bold text-[#1a0a06]">ಕ</span>
+        <span className="f-serif whitespace-nowrap text-5xl font-bold text-[#1a0a06] drop-shadow-[0_2px_0_rgba(255,255,255,.35)] md:text-8xl">ಕನ್ನಡ ಕೂಟ</span>
       </div>
     </>
   );

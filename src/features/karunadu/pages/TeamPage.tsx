@@ -4,6 +4,7 @@ import { Crown, ExternalLink, Github, Instagram, Linkedin, Star, Users } from "l
 import { getAllYears, getClubHeads, getDomainHeads, type Member } from "@/features/team/data/team";
 import { Letters, Magnetic, Reveal } from "@/features/karunadu/components/Motion";
 import { useTilt } from "@/features/karunadu/hooks";
+import TeamBackdrop from "@/features/karunadu/components/TeamBackdrop";
 
 /* Bidriware: black metal, silver inlay that draws itself on hover */
 function BidriCard({ member }: { member: Member }) {
@@ -98,7 +99,8 @@ export default function TeamPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_50%_0%,#2b2f34,#0d0e10_60%)]" data-cursor="silver">
+    <div className="relative isolate min-h-screen" data-cursor="silver">
+      <TeamBackdrop />
       <section className="relative overflow-hidden px-4 pb-16 pt-40 text-center">
         <svg viewBox="0 0 400 400" className="spin-rev pointer-events-none absolute left-1/2 top-24 h-[620px] w-[620px] -translate-x-1/2 opacity-20" aria-hidden="true">
           {Array.from({ length: 12 }).map((_, i) => (
@@ -120,7 +122,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-      <section className="sticky top-[60px] z-20 border-y border-[#d6dde3]/10 bg-[#0d0e10]/80 py-5 backdrop-blur-xl">
+      <section className="sticky top-[60px] z-20 border-y border-[#d6dde3]/10 bg-[#0b0c0e]/70 py-5 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 px-4 sm:flex-row">
           <span className="text-[#d6dde3]/70">Batch of:</span>
           <div className="flex flex-wrap justify-center gap-2">
@@ -156,7 +158,7 @@ export default function TeamPage() {
       </section>
 
       <section className="relative overflow-hidden py-24">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#17191c,#2b2f34_50%,#17191c)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(23,25,28,.85),rgba(43,47,52,.7)_50%,rgba(23,25,28,.85))]" />
         <Reveal className="relative mx-auto max-w-4xl px-4 text-center">
           <h2 className="f-display text-4xl font-semibold text-[#eef2f5]">Interested in Joining Our Team?</h2>
           <p className="mb-8 mt-4 text-lg text-[#d6dde3]/80">We are always looking for passionate individuals to contribute to our mission.</p>

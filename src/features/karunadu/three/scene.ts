@@ -71,15 +71,62 @@ function skyTexture() {
   c.height = 256;
   const g = c.getContext("2d")!;
   const grad = g.createLinearGradient(0, 0, 0, 256);
-  grad.addColorStop(0, "#050914");
-  grad.addColorStop(0.55, "#101b33");
-  grad.addColorStop(0.8, "#24314f");
-  grad.addColorStop(1, "#3a3346");
+  grad.addColorStop(0, "#03050d");
+  grad.addColorStop(0.45, "#0b1636");
+  grad.addColorStop(0.7, "#2a2a5a");
+  grad.addColorStop(0.86, "#7a3f5e");
+  grad.addColorStop(1, "#e08a4f");
   g.fillStyle = grad;
   g.fillRect(0, 0, 4, 256);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   return t;
+}
+
+/* India's west coast, north to south (lat, lon) – where the sea begins */
+const SEA_COAST: [number, number][] = [
+  [19.5, 72.75], [18.5, 72.85], [17.5, 73.15], [16.5, 73.35], [16.0, 73.5], [15.5, 73.8], [15.0, 74.05],
+  [14.5, 74.35], [14.0, 74.5], [13.5, 74.68], [13.0, 74.78], [12.5, 74.95], [12.0, 75.2], [11.5, 75.55],
+  [11.0, 75.85], [10.5, 76.0], [9.5, 76.3],
+];
+
+function noiseNormalTexture() {
+  const size = 128;
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const g = c.getContext("2d")!;
+  const img = g.createImageData(size, size);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const a = Math.sin((x / size) * Math.PI * 6 + Math.sin((y / size) * Math.PI * 4) * 1.5);
+      const b = Math.cos((y / size) * Math.PI * 8 + Math.sin((x / size) * Math.PI * 2) * 2);
+      const i = (y * size + x) * 4;
+      img.data[i] = 128 + a * 50 + (Math.random() - 0.5) * 20;
+      img.data[i + 1] = 128 + b * 50 + (Math.random() - 0.5) * 20;
+      img.data[i + 2] = 255;
+      img.data[i + 3] = 255;
+    }
+  }
+  g.putImageData(img, 0, 0);
+  return new THREE.CanvasTexture(c);
+}
+
+function cloudTexture() {
+  const c = document.createElement("canvas");
+  c.width = 256;
+  c.height = 128;
+  const g = c.getContext("2d")!;
+  for (let i = 0; i < 14; i++) {
+    const x = 40 + Math.random() * 176;
+    const y = 44 + Math.random() * 40;
+    const r = 26 + Math.random() * 30;
+    const rg = g.createRadialGradient(x, y, 0, x, y, r);
+    rg.addColorStop(0, "rgba(255,255,255,.55)");
+    rg.addColorStop(1, "rgba(255,255,255,0)");
+    g.fillStyle = rg;
+    g.fillRect(0, 0, 256, 128);
+  }
+  return new THREE.CanvasTexture(c);
 }
 
 export interface KarnatakaScene {
@@ -88,6 +135,8 @@ export interface KarnatakaScene {
   setPointer: (x: number, y: number) => void;
   /** pause rendering while the map is off screen */
   setRunning: (on: boolean) => void;
+  /** shift the picture (fractions of the screen) so a stop sits where the card leaves room */
+  setFraming: (x: number, y: number) => void;
   /** where the (smoothed) camera is: the stop it is at, or -1 for the overview */
   status: () => { active: number; settled: boolean };
   /** screen positions (px) of every stop, for HTML labels */
@@ -114,9 +163,11 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   const scene = new THREE.Scene();
   const sky = skyTexture();
   scene.background = sky;
-  scene.fog = new THREE.Fog("#1a2440", 700, 2100);
+  scene.fog = new THREE.Fog("#1d2140", 800, 2400);
 
-  const camera = new THREE.PerspectiveCamera(40, 1, 1, 5000);
+  const camera = new THREE.PerspectiveCamera(40, 1, 1, 6000);
+  const centreX = MAP.width / 2;
+  const centreZ = MAP.height / 2;
 
   /* light: late-afternoon sun from the north-west, soft sky fill */
   scene.add(new THREE.HemisphereLight("#e4efff", "#3a2a18", 1.5));
@@ -135,14 +186,45 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   geo.computeVertexNormals();
   scene.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: satellite, roughness: 0.92, metalness: 0 })));
 
-  /* ground beyond the map */
+  /* the rest of India: dark land, faintly warm */
   const ground = new THREE.Mesh(
     new THREE.PlaneGeometry(MAP.width * 8, MAP.height * 8),
-    new THREE.MeshStandardMaterial({ color: "#0d1422", roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: "#1b1820", roughness: 1 })
   );
   ground.rotation.x = -Math.PI / 2;
   ground.position.set(MAP.width / 2, -3, MAP.height / 2);
   scene.add(ground);
+
+  /* the Arabian Sea, shimmering along the west coast */
+  const waterNormals = noiseNormalTexture();
+  waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+  waterNormals.repeat.set(18, 18);
+  const coast = SEA_COAST.map(([lat, lon]) => project(lat, lon + 0.06));
+  const seaShape = new THREE.Shape();
+  seaShape.moveTo(-MAP.width * 3, coast[0].y);
+  coast.forEach((c) => seaShape.lineTo(c.x, c.y));
+  seaShape.lineTo(-MAP.width * 3, coast[coast.length - 1].y);
+  seaShape.closePath();
+  const seaGeo = new THREE.ShapeGeometry(seaShape);
+  seaGeo.rotateX(Math.PI / 2); // shape y → world z
+  const sea = new THREE.Mesh(
+    seaGeo,
+    new THREE.MeshStandardMaterial({ color: "#0e4a66", roughness: 0.18, metalness: 0.2, normalMap: waterNormals, normalScale: new THREE.Vector2(0.6, 0.6), side: THREE.DoubleSide })
+  );
+  sea.position.y = -1.5;
+  scene.add(sea);
+
+  /* stars and a rising moon */
+  const starGeo = new THREE.BufferGeometry();
+  const starPos = new Float32Array(1800 * 3);
+  for (let i = 0; i < 1800; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const e = 0.08 + Math.random() * 1.2;
+    starPos.set([centreX + Math.cos(a) * Math.cos(e) * 3200, Math.sin(e) * 3200, centreZ + Math.sin(a) * Math.cos(e) * 3200], i * 3);
+  }
+  starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+  const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: "#fff6e0", size: 2, sizeAttenuation: false, fog: false, transparent: true, opacity: 0.85 }));
+  scene.add(stars);
 
   /* state border in zari gold, draped over the terrain */
   const border = outlinePoints().map((p) => new THREE.Vector3(p.x, heightAt(terrain, p.x, p.y) + 1.2, p.y));
@@ -184,6 +266,38 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     g.fillRect(0, 0, 64, 64);
     return new THREE.CanvasTexture(c);
   })();
+  const discTex = (() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 64;
+    const g = c.getContext("2d")!;
+    const rg = g.createRadialGradient(28, 28, 2, 32, 32, 30);
+    rg.addColorStop(0, "#fffef6");
+    rg.addColorStop(0.85, "#f3ead2");
+    rg.addColorStop(1, "rgba(243,234,210,0)");
+    g.fillStyle = rg;
+    g.beginPath();
+    g.arc(32, 32, 30, 0, Math.PI * 2);
+    g.fill();
+    return new THREE.CanvasTexture(c);
+  })();
+
+  const moon = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: "#fff4d6", fog: false, transparent: true, depthWrite: false }));
+  moon.position.set(centreX + 1600, 900, centreZ - 2400);
+  moon.scale.setScalar(520);
+  const moonDisc = new THREE.Sprite(new THREE.SpriteMaterial({ map: discTex, color: "#fffaf0", fog: false, transparent: true, depthWrite: false }));
+  moonDisc.position.copy(moon.position);
+  moonDisc.scale.setScalar(120);
+  scene.add(moon, moonDisc);
+
+  /* slow monsoon clouds drifting over the land */
+  const cloudTex = cloudTexture();
+  const clouds = Array.from({ length: 16 }, (_, i) => {
+    const c = new THREE.Sprite(new THREE.SpriteMaterial({ map: cloudTex, color: "#cfd6ea", transparent: true, opacity: 0.18 + (i % 3) * 0.05, depthWrite: false }));
+    c.position.set(Math.random() * MAP.width * 1.4 - MAP.width * 0.2, 110 + Math.random() * 60, Math.random() * MAP.height);
+    c.scale.set(180 + Math.random() * 160, 70 + Math.random() * 50, 1);
+    scene.add(c);
+    return { c, speed: 2 + Math.random() * 4 };
+  });
 
   /* stop markers: a slim light pillar + glowing base */
   const stopPos = stops.map((s) => {
@@ -214,8 +328,7 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   stopPos.forEach((v, i) => {
     const last = i === stopPos.length - 1;
     camKeys.push(new THREE.Vector3(v.x - 75, v.y + (last ? 230 : 175), v.z + 200));
-    // aim past the stop so it sits low on screen, leaving room for its card above
-    lookKeys.push(v.clone().add(new THREE.Vector3(last ? 52 : 41, 0, last ? -140 : -110)));
+    lookKeys.push(v.clone().setY(v.y + 4));
   });
   const camCurve = new THREE.CatmullRomCurve3(camKeys, false, "centripetal");
   const lookCurve = new THREE.CatmullRomCurve3(lookKeys, false, "centripetal");
@@ -231,6 +344,8 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   let drift = 1;
   const pointer = new THREE.Vector2();
   const pointerNow = new THREE.Vector2();
+  const framing = new THREE.Vector2();
+  let frameMix = 0;
   const look = new THREE.Vector3();
   const clock = new THREE.Clock();
 
@@ -240,6 +355,12 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+  };
+  const applyFraming = () => {
+    const { clientWidth: w, clientHeight: h } = canvas;
+    if (!w || !h) return;
+    // a lens shift: the land slides on screen without the camera turning
+    camera.setViewOffset(w, h, framing.x * w * frameMix, framing.y * h * frameMix, w, h);
   };
   resize();
 
@@ -281,6 +402,13 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
       m.pillar.scale.y = on ? 1.3 : 1;
       m.halo.scale.setScalar(on ? 30 + Math.sin(t * 3) * 4 : 14);
     });
+    frameMix += ((active >= 0 ? 1 : 0) - frameMix) * (1 - Math.exp(-dt * 2.5));
+    applyFraming();
+    waterNormals.offset.set(t * 0.012, t * 0.008);
+    clouds.forEach(({ c, speed }) => {
+      c.position.x += speed * dt;
+      if (c.position.x > MAP.width * 1.3) c.position.x = -MAP.width * 0.3;
+    });
     riverMats.forEach((mat) => {
       (mat as unknown as { dashOffset: number }).dashOffset = -t * 6;
     });
@@ -300,6 +428,9 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     },
     setRunning: (on) => {
       visible = on;
+    },
+    setFraming: (x, y) => {
+      framing.set(x, y);
     },
     status: () => ({ active, settled }),
     stopScreen: () =>
@@ -324,6 +455,9 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
       });
       satellite.dispose();
       glowTex.dispose();
+      discTex.dispose();
+      cloudTex.dispose();
+      waterNormals.dispose();
       sky.dispose();
       renderer.dispose();
     },
