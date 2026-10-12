@@ -6,7 +6,8 @@ import Intro from "@/features/karunadu/components/Intro";
 import Nav from "@/features/karunadu/components/Nav";
 import Footer from "@/features/karunadu/components/Footer";
 
-/* The Kannada flag sweeps across like cloth when the page changes */
+/* Between pages the Kannada flag is hoisted, whole, up a golden flagpole –
+ * as at a Rajyotsava flag hoisting – then the new page appears. */
 function PageCurtain() {
   const { pathname } = useLocation();
   const first = useRef(true);
@@ -22,21 +23,24 @@ function PageCurtain() {
 
   return (
     <>
-      {/* the cloth ripple used by the flag */}
+      {/* a gentle ripple, so the flag flutters like cloth */}
       <svg width="0" height="0" className="absolute" aria-hidden="true">
-        <filter id="kd-flag-wave" x="-5%" y="-5%" width="110%" height="110%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.003 0.011" numOctaves="2" seed="7">
-            <animate attributeName="baseFrequency" dur="1.2s" values="0.003 0.011;0.0045 0.015;0.003 0.011" repeatCount="indefinite" />
+        <filter id="kd-flag-ripple" x="-10%" y="-20%" width="120%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="1" seed="4">
+            <animate attributeName="baseFrequency" dur="1.4s" values="0.012 0.02;0.016 0.026;0.012 0.02" repeatCount="indefinite" />
           </feTurbulence>
-          <feDisplacementMap in="SourceGraphic" scale="26" xChannelSelector="R" yChannelSelector="G" />
+          <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G" />
         </filter>
       </svg>
-      <div key={run} className={`curtain ${run ? "run" : ""}`} aria-hidden="true">
-        <span />
-        <span />
-      </div>
-      <div key={`m${run}`} className="curtain__mark" aria-hidden="true">
-        <span className="f-serif whitespace-nowrap text-5xl font-bold text-[#1a0a06] drop-shadow-[0_2px_0_rgba(255,255,255,.35)] md:text-8xl">ಕನ್ನಡ ಕೂಟ</span>
+      <div key={run} className={`hoist ${run ? "run" : ""}`} aria-hidden="true">
+        <div className="hoist__stage">
+          <span className="hoist__glow" />
+          <span className="hoist__pole" />
+          <span className="hoist__finial" />
+          <span className="hoist__base" />
+          <span className="hoist__flag" />
+        </div>
+        <p className="hoist__name f-serif">ಕನ್ನಡ ಕೂಟ</p>
       </div>
     </>
   );
@@ -48,7 +52,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const onActive = useCallback((on: boolean) => setCursorOn(on), []);
 
   useEffect(() => {
-    // jump to the top after the curtain has closed over the old page
+    // jump to the top once the hoisting screen has covered the old page
     const t = setTimeout(() => window.scrollTo(0, 0), 420);
     return () => clearTimeout(t);
   }, [pathname]);
