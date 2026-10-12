@@ -5,7 +5,6 @@ import Cursor from "@/features/karunadu/components/Cursor";
 import Intro from "@/features/karunadu/components/Intro";
 import Nav from "@/features/karunadu/components/Nav";
 import Footer from "@/features/karunadu/components/Footer";
-import { JourneyHost } from "@/features/karunadu/components/IconLauncher";
 
 /* Flag-coloured curtain that sweeps across when the page changes */
 function PageCurtain() {
@@ -54,7 +53,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Nav />
       <main className="flex-1">{children}</main>
       <Footer />
-      <JourneyHost />
     </div>
   );
 }

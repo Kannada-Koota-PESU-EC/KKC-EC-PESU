@@ -84,6 +84,12 @@ function skyTexture() {
 
 export interface KarnatakaScene {
   setProgress: (p: number) => void;
+  /** -0.5..0.5 pointer offset, for a gentle look-around */
+  setPointer: (x: number, y: number) => void;
+  /** pause rendering while the map is off screen */
+  setRunning: (on: boolean) => void;
+  /** where the (smoothed) camera is: the stop it is at, or -1 for the overview */
+  status: () => { active: number; settled: boolean };
   /** screen positions (px) of every stop, for HTML labels */
   stopScreen: () => { x: number; y: number; visible: boolean }[];
   resize: () => void;
@@ -208,7 +214,8 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   stopPos.forEach((v, i) => {
     const last = i === stopPos.length - 1;
     camKeys.push(new THREE.Vector3(v.x - 75, v.y + (last ? 230 : 175), v.z + 200));
-    lookKeys.push(v.clone().setY(v.y + 4));
+    // aim past the stop so it sits low on screen, leaving room for its card above
+    lookKeys.push(v.clone().add(new THREE.Vector3(last ? 52 : 41, 0, last ? -140 : -110)));
   });
   const camCurve = new THREE.CatmullRomCurve3(camKeys, false, "centripetal");
   const lookCurve = new THREE.CatmullRomCurve3(lookKeys, false, "centripetal");
@@ -218,6 +225,12 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   let current = 0;
   let frame = 0;
   let running = true;
+  let visible = true;
+  let active = -1;
+  let settled = false;
+  let drift = 1;
+  const pointer = new THREE.Vector2();
+  const pointerNow = new THREE.Vector2();
   const look = new THREE.Vector3();
   const clock = new THREE.Clock();
 
@@ -232,6 +245,11 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
 
   const tick = () => {
     if (!running) return;
+    if (!visible) {
+      clock.getDelta();
+      frame = requestAnimationFrame(tick);
+      return;
+    }
     const dt = Math.min(0.1, clock.getDelta());
     const t = clock.elapsedTime;
     current += (target - current) * (1 - Math.exp(-dt * 3.5));
@@ -246,11 +264,17 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
 
     // a slow drift so the land never feels frozen
     camera.position.copy(camCurve.getPoint(u));
-    camera.position.x += Math.sin(t * 0.25) * 6;
+    drift += ((settled ? 0.25 : 1) - drift) * (1 - Math.exp(-dt * 2));
+    camera.position.x += Math.sin(t * 0.25) * 6 * drift;
+    // look around with the mouse while flying; hold almost still at a stop so its card can be used
+    pointerNow.lerp(settled ? pointer.clone().multiplyScalar(0.1) : pointer, 1 - Math.exp(-dt * 3));
+    camera.position.x += pointerNow.x * 40;
+    camera.position.y += -pointerNow.y * 25;
     look.copy(lookCurve.getPoint(u));
     camera.lookAt(look);
 
-    const active = Math.round(u * segs) - 1;
+    active = Math.round(u * segs) - 1;
+    settled = active >= 0 && (f < 0.4 || f > 0.9);
     markers.forEach((m, i) => {
       const on = i === active;
       m.base.scale.setScalar(on ? 1.5 + Math.sin(t * 4) * 0.2 : 1);
@@ -271,9 +295,16 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
     setProgress: (p) => {
       target = p;
     },
+    setPointer: (x, y) => {
+      pointer.set(x, y);
+    },
+    setRunning: (on) => {
+      visible = on;
+    },
+    status: () => ({ active, settled }),
     stopScreen: () =>
       stopPos.map((v) => {
-        tmp.copy(v).setY(v.y + 7).project(camera);
+        tmp.copy(v).setY(v.y + 2).project(camera);
         return {
           x: (tmp.x * 0.5 + 0.5) * canvas.clientWidth,
           y: (-tmp.y * 0.5 + 0.5) * canvas.clientHeight,

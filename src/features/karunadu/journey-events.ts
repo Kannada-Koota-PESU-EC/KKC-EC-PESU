@@ -1,6 +1,6 @@
-export const OPEN_JOURNEY_EVENT = "kd:open-journey";
-
-/** Open the 3D journey from anywhere on the site */
+/** Fly to the 3D map of Karnataka on the home page */
 export function openJourney() {
-  window.dispatchEvent(new Event(OPEN_JOURNEY_EVENT));
+  const el = document.getElementById("karunadu");
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+  else window.location.assign("/#karunadu");
 }

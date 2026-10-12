@@ -26,7 +26,8 @@ describe('Karunadu redesign', () => {
     JOURNEY.forEach((s) => {
       expect(screen.getAllByText(s.kn).length).toBeGreaterThan(0);
     });
-    expect(screen.getByRole('button', { name: 'Fly across Karnataka in 3D' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Open the 3D journey across Karnataka' })).toBeInTheDocument();
+    expect(screen.getByText('Start the journey', { exact: false })).toBeInTheDocument();
   });
 
   it('team page keeps the original headings', () => {

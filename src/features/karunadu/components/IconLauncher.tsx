@@ -1,29 +1,5 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import KarnatakaIcon from "@/features/karunadu/components/KarnatakaIcon";
-import { OPEN_JOURNEY_EVENT as EVENT, openJourney } from "@/features/karunadu/journey-events";
-
-const Journey3D = lazy(() => import("@/features/karunadu/components/Journey3D"));
-
-
-/** Mounted once in the layout: renders the 3D journey when asked */
-export function JourneyHost() {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onOpen = () => setOpen(true);
-    window.addEventListener(EVENT, onOpen);
-    return () => window.removeEventListener(EVENT, onOpen);
-  }, []);
-  if (!open) return null;
-  return createPortal(
-    <div className="kd">
-      <Suspense fallback={null}>
-        <Journey3D open={open} onClose={() => setOpen(false)} />
-      </Suspense>
-    </div>,
-    document.body
-  );
-}
+import { openJourney } from "@/features/karunadu/journey-events";
 
 /* The one icon that holds all of Karnataka – click to fly across it in 3D */
 export default function IconLauncher({ className = "", size = "h-40 w-40", label = true }: { className?: string; size?: string; label?: boolean }) {

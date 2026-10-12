@@ -1,16 +1,12 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Award, Calendar, ChevronDown, ChevronUp, Heart, Users } from "lucide-react";
 import RepublicDayPopup from "@/features/home/components/RepublicDayPopup";
 import { CountUp, Letters, Magnetic, Reveal } from "@/features/karunadu/components/Motion";
 import { Bell, Gandaberunda } from "@/features/karunadu/components/Motifs";
-import SatelliteTeaser from "@/features/karunadu/components/SatelliteTeaser";
 import ScrollBackdrop from "@/features/karunadu/components/ScrollBackdrop";
 import IconLauncher from "@/features/karunadu/components/IconLauncher";
-import Panorama from "@/features/karunadu/components/Panorama";
-import {
-  AksharaWall, ArtsGallery, BananaLeafMeal, FestivalWheel, HeroStones, Literature, NadaGeethe, NameHeading, StateSymbols, Veena,
-} from "@/features/karunadu/components/Culture";
+import Journey3D from "@/features/karunadu/components/Journey3D";
 import { ringBell } from "@/features/karunadu/audio";
 import { reducedMotion, useScrollProgress } from "@/features/karunadu/hooks";
 
@@ -380,65 +376,6 @@ function About() {
   );
 }
 
-/* ---------- living arts, photographed ---------- */
-const LIVING = [
-  { id: "yakshagana", kn: "ಯಕ್ಷಗಾನ", en: "Yakshagana", line: "ಕರಾವಳಿಯ ರಾತ್ರಿಯಿಡೀ ನಡೆಯುವ ಬಯಲಾಟ" },
-  { id: "dollu-kunitha", kn: "ಡೊಳ್ಳು ಕುಣಿತ", en: "Dollu Kunitha", line: "ಡೊಳ್ಳಿನ ಸದ್ದಿಗೆ ನಡುಗುವ ನೆಲ" },
-  { id: "mysore-silk", kn: "ಮೈಸೂರು ರೇಷ್ಮೆ", en: "Mysore Silk", line: "ಚಿನ್ನದ ಜರಿಯ ನೇಯ್ಗೆ" },
-];
-
-function LivingArts() {
-  return (
-    <div className="mb-16 grid gap-5 md:grid-cols-3">
-      {LIVING.map((a, i) => (
-        <Reveal key={a.id} delay={i * 120} variant="wipe">
-          <figure className="photo-card group h-[26rem] md:h-[34rem]" tabIndex={0}>
-            <img src={`/karnataka/photos/${a.id}.jpg`} alt={a.en} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#12030a] via-[#12030a]/30 to-transparent" />
-            <figcaption className="absolute inset-x-0 bottom-0 p-6">
-              <p className="text-xs uppercase tracking-[0.35em] text-[#f6dc8c]/80">{a.en}</p>
-              <p className="f-serif mt-1 text-4xl font-bold text-white">{a.kn}</p>
-              <p className="f-serif mt-2 max-h-0 overflow-hidden text-sm text-[#fbf3e2]/85 opacity-0 transition-all duration-700 group-hover:max-h-20 group-hover:opacity-100 group-focus:max-h-20 group-focus:opacity-100">{a.line}</p>
-            </figcaption>
-          </figure>
-        </Reveal>
-      ))}
-    </div>
-  );
-}
-
-/* Kambala: a full-bleed photograph with the name racing across */
-function KambalaStrip() {
-  const { ref, progress } = useScrollProgress<HTMLDivElement>();
-  return (
-    <div ref={ref} className="photo-card relative mt-16 h-[22rem] md:h-[28rem]">
-      <img src="/karnataka/photos/kambala.jpg" alt="Kambala buffalo race" loading="lazy" className="absolute inset-0 h-full w-full object-cover" style={{ transform: `scale(1.15) translateX(${(progress - 0.5) * -8}%)` }} />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#12030a]/90 via-[#12030a]/30 to-transparent" />
-      <p
-        className="f-serif pointer-events-none absolute bottom-6 left-0 whitespace-nowrap text-[18vw] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,204,0,.5)] md:text-[12vw]"
-        style={{ transform: `translateX(${(1 - progress) * 40 - 10}%)` }}
-        aria-hidden="true"
-      >
-        ಕಂಬಳ ಕಂಬಳ
-      </p>
-      <div className="absolute left-6 top-6 md:left-10 md:top-10">
-        <p className="text-xs uppercase tracking-[0.35em] text-[#f6dc8c]/80">Kambala</p>
-        <p className="f-serif mt-1 text-4xl font-bold text-white md:text-5xl">ಕಂಬಳ</p>
-        <p className="f-serif mt-2 text-sm text-[#fbf3e2]/80">ಕೆಸರು ಗದ್ದೆಯಲ್ಲಿ ಕೋಣಗಳ ಓಟ</p>
-      </div>
-    </div>
-  );
-}
-
-/* ---------- Karnataka sections (visual + names) ---------- */
-function Band({ children, tone, cursor }: { children: ReactNode; tone: string; cursor?: string }) {
-  return (
-    <section className="relative overflow-hidden py-24 md:py-32" data-cursor={cursor} data-tone={tone}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
-    </section>
-  );
-}
-
 export default function HomePage() {
   return (
     <div className="relative isolate">
@@ -447,64 +384,8 @@ export default function HomePage() {
       <Hero />
       <Gallery />
       <About />
-
       <div className="ilkal-edge" />
-      <Band tone="#0a0b14,#1d3b5a" cursor="compass">
-        <NameHeading kn="ಕರುನಾಡು" en="Karnataka" />
-        <SatelliteTeaser />
-      </Band>
-
-      <div data-tone="#0a0b14,#1d3b5a">
-        <Panorama />
-      </div>
-
-      <Band tone="#0d1a12,#2f5d34">
-        <NameHeading kn="ನಾಡಿನ ಲಾಂಛನಗಳು" en="State Symbols" />
-        <StateSymbols />
-      </Band>
-
-      <div className="zari--pink zari" />
-      <Band tone="#2a0613,#b3134f">
-        <NameHeading kn="ಕಲೆ ಮತ್ತು ಕರಕುಶಲ" en="Arts & Crafts" />
-        <LivingArts />
-        <ArtsGallery skip={["yakshagana", "dollu", "mysore-silk"]} />
-      </Band>
-
-      <Band tone="#0b0c18,#2a3a6a" cursor="ink">
-        <NameHeading kn="ಕನ್ನಡ ವರ್ಣಮಾಲೆ" en="The Kannada Alphabet" />
-        <AksharaWall />
-      </Band>
-
-      <Band tone="#1a0f08,#7a4b1f" cursor="ink">
-        <NameHeading kn="ಸಾಹಿತ್ಯ" en="Literature" />
-        <Literature />
-      </Band>
-
-      <Band tone="#220f05,#a8641c" cursor="zari">
-        <NameHeading kn="ಸಂಗೀತ" en="Music" />
-        <Veena />
-      </Band>
-
-      <div className="kasuti-line" />
-      <Band tone="#2a050a,#d6262b" cursor="kumkuma">
-        <NameHeading kn="ಹಬ್ಬಗಳು" en="Festivals" />
-        <FestivalWheel />
-        <KambalaStrip />
-      </Band>
-
-      <Band tone="#0a1a0e,#2f7d32" cursor="mallige">
-        <NameHeading kn="ಬಾಳೆ ಎಲೆ ಊಟ" en="A Meal on a Banana Leaf" />
-        <BananaLeafMeal />
-      </Band>
-
-      <Band tone="#16120d,#6b5a40" cursor="zari">
-        <NameHeading kn="ಇತಿಹಾಸ" en="History" />
-        <HeroStones />
-      </Band>
-
-      <Band tone="#2a0612,#d9a63a" cursor="zari">
-        <NadaGeethe />
-      </Band>
+      <Journey3D />
     </div>
   );
 }

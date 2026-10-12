@@ -644,3 +644,43 @@
   .pano-dust, .pano-glow, .hero-slide.on img, .letterbox::before, .letterbox::after { animation: none; }
   .letterbox::before, .letterbox::after { display: none; }
 }
+
+/* abhisheka: offerings pour down over Bahubali and leave their colour */
+.abhisheka {
+  mix-blend-mode: screen;
+  filter: blur(6px);
+  transform-origin: top;
+  animation: pour 2.4s cubic-bezier(0.3, 0.6, 0.4, 1) forwards;
+}
+@keyframes pour {
+  0% { transform: scaleY(0); opacity: 1; }
+  60% { transform: scaleY(1); opacity: 0.9; }
+  100% { transform: scaleY(1) scaleX(1.6); opacity: 0.35; }
+}
+
+/* 3D map: location pin and its story card */
+.kd-pin { animation: pin-bob 2.6s ease-in-out infinite; }
+@keyframes pin-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.kd-pin-drop { animation: pin-drop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes pin-drop { from { transform: translateY(-60px) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.kd-stop-card {
+  background: linear-gradient(180deg, rgb(26 14 18 / 0.92), rgb(14 10 16 / 0.94));
+  border: 1px solid rgb(246 220 140 / 0.3);
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.85), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  backdrop-filter: blur(14px);
+}
+.kd-stop-card::after {
+  content: "";
+  position: absolute;
+  left: var(--tip, 50%);
+  bottom: -9px;
+  width: 16px;
+  height: 16px;
+  transform: translateX(-50%) rotate(45deg);
+  background: rgb(14 10 16 / 0.94);
+  border-right: 1px solid rgb(246 220 140 / 0.3);
+  border-bottom: 1px solid rgb(246 220 140 / 0.3);
+}
+@media (prefers-reduced-motion: reduce) {
+  .abhisheka, .kd-pin, .kd-pin-drop { animation: none; }
+}

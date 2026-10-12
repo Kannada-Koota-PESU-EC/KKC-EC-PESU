@@ -76,3 +76,78 @@ export const MAYAMALAVAGOWLA = [
 export function swaraFreq(semitone: number, sa = 196) {
   return sa * Math.pow(2, semitone / 12);
 }
+
+function noiseBuffer(ac: AudioContext, seconds: number) {
+  const b = ac.createBuffer(1, Math.floor(ac.sampleRate * seconds), ac.sampleRate);
+  const d = b.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3);
+  return b;
+}
+
+/** A clap under the Gol Gumbaz dome: the sound comes back seven times */
+export function echoClap(echoes = 7, gap = 0.42) {
+  const ac = audio();
+  if (!ac) return;
+  const buf = noiseBuffer(ac, 0.08);
+  for (let k = 0; k <= echoes; k++) {
+    const src = ac.createBufferSource();
+    src.buffer = buf;
+    const f = ac.createBiquadFilter();
+    f.type = "lowpass";
+    f.frequency.value = 5000 * Math.pow(0.72, k);
+    const g = ac.createGain();
+    g.gain.value = 0.8 * Math.pow(0.68, k);
+    src.connect(f).connect(g).connect(ac.destination);
+    src.start(ac.currentTime + k * gap);
+  }
+}
+
+/** A struck granite pillar (Vittala temple): bright attack, inharmonic ring */
+export function stoneNote(freq: number) {
+  const ac = audio();
+  if (!ac) return;
+  const now = ac.currentTime;
+  const master = ac.createGain();
+  master.gain.setValueAtTime(0.0001, now);
+  master.gain.exponentialRampToValueAtTime(0.4, now + 0.005);
+  master.gain.exponentialRampToValueAtTime(0.0001, now + 1.6);
+  master.connect(ac.destination);
+  [1, 2.76, 5.4].forEach((r, i) => {
+    const o = ac.createOscillator();
+    const g = ac.createGain();
+    o.frequency.value = freq * r;
+    g.gain.value = [0.7, 0.25, 0.1][i];
+    o.connect(g).connect(master);
+    o.start(now);
+    o.stop(now + 1.7);
+  });
+}
+
+/** Yakshagana chande: a deep "dhim" or a sharp stick "taka" */
+export function drum(low: boolean) {
+  const ac = audio();
+  if (!ac) return;
+  const now = ac.currentTime;
+  if (low) {
+    const o = ac.createOscillator();
+    const g = ac.createGain();
+    o.frequency.setValueAtTime(170, now);
+    o.frequency.exponentialRampToValueAtTime(55, now + 0.35);
+    g.gain.setValueAtTime(0.9, now);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+    o.connect(g).connect(ac.destination);
+    o.start(now);
+    o.stop(now + 0.55);
+  } else {
+    const src = ac.createBufferSource();
+    src.buffer = noiseBuffer(ac, 0.12);
+    const f = ac.createBiquadFilter();
+    f.type = "bandpass";
+    f.frequency.value = 2400;
+    f.Q.value = 2;
+    const g = ac.createGain();
+    g.gain.value = 1.2;
+    src.connect(f).connect(g).connect(ac.destination);
+    src.start(now);
+  }
+}
