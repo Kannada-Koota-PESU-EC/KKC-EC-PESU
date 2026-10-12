@@ -597,47 +597,155 @@ function ClimbGame({ setPoints, end }: GameApi) {
   );
 }
 
-/* ---- Mysuru: keep the Dasara lights burning ---- */
-const BULBS = 20;
-function LightsGame({ setPoints }: GameApi) {
-  const [on, setOn] = useState<boolean[]>(() => Array(BULBS).fill(false));
-  const live = useRef(on);
-  live.current = on;
+/* ---- Mysuru: Jamboo Savari – lead the Dasara elephant up the palace road ---- */
+type Thing = { id: number; lane: number; y: number; garland: boolean; hit?: boolean };
+function JambooGame({ setPoints }: GameApi) {
+  const [lane, setLane] = useState(1);
+  const [things, setThings] = useState<Thing[]>([]);
+  const [score, setScore] = useState({ garlands: 0, bumps: 0 });
+  const [stumble, setStumble] = useState(false);
+  const [near, setNear] = useState(0); // 0 → 1 as the palace comes closer
+  const game = useRef({ lane: 1, things: [] as Thing[], id: 0, garlands: 0, bumps: 0, spawn: 0, start: 0 });
+
+  const move = useCallback((d: number) => {
+    const g = game.current;
+    g.lane = Math.max(0, Math.min(2, g.lane + d));
+    setLane(g.lane);
+  }, []);
+
   useEffect(() => {
-    const samples: number[] = [];
-    const id = window.setInterval(() => {
-      const lit = live.current.map((v, i) => (v ? i : -1)).filter((i) => i >= 0);
-      const off = new Set<number>();
-      for (let k = 0; k < 2 && lit.length; k++) off.add(lit.splice(Math.floor(Math.random() * lit.length), 1)[0]);
-      if (off.size) setOn((cur) => cur.map((v, i) => (off.has(i) ? false : v)));
-    }, 650);
-    const sample = window.setInterval(() => {
-      samples.push(live.current.filter(Boolean).length / BULBS);
-      setPoints((samples.reduce((a, b) => a + b, 0) / samples.length) * 13);
-    }, 250);
-    return () => {
-      clearInterval(id);
-      clearInterval(sample);
+    const g = game.current;
+    let raf = 0;
+    let last = performance.now();
+    g.start = last;
+    const step = (now: number) => {
+      // real elapsed time, so the procession moves at the same pace on slow devices
+      const dt = Math.min(0.25, (now - last) / 1000);
+      last = now;
+      const t = (now - g.start) / 1000;
+      const speed = 0.42 + t * 0.018; // the procession picks up pace
+      g.spawn -= dt;
+      if (g.spawn <= 0) {
+        g.spawn = 0.55 - Math.min(0.2, t * 0.008);
+        g.things.push({ id: g.id++, lane: Math.floor(Math.random() * 3), y: -0.1, garland: Math.random() < 0.68 });
+      }
+      g.things.forEach((th) => {
+        th.y += speed * dt;
+        // the elephant walks at y ≈ 0.82
+        if (!th.hit && th.lane === g.lane && th.y > 0.74 && th.y < 0.9) {
+          th.hit = true;
+          if (th.garland) {
+            g.garlands++;
+            pluck(swaraFreq([0, 4, 7, 12][g.garlands % 4], 262));
+          } else {
+            g.bumps++;
+            drum(true);
+            setStumble(true);
+            window.setTimeout(() => setStumble(false), 300);
+          }
+          setScore({ garlands: g.garlands, bumps: g.bumps });
+          setPoints(Math.max(0, g.garlands - g.bumps * 2) / 2);
+        }
+      });
+      g.things = g.things.filter((th) => th.y < 1.1 && !(th.hit && th.garland));
+      setThings([...g.things]);
+      setNear(Math.min(1, t / 25));
+      raf = requestAnimationFrame(step);
     };
-  }, [setPoints]);
-  const lit = on.filter(Boolean).length / BULBS;
+    raf = requestAnimationFrame(step);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
+        e.preventDefault();
+        move(-1);
+      }
+      if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
+        e.preventDefault();
+        move(1);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [move, setPoints]);
+
+  const laneX = (l: number) => `${18 + l * 32}%`;
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2">
-      <div className="relative h-52 w-full max-w-md overflow-hidden rounded-xl md:h-72">
-        <img src="/karnataka/photos/mysuru-palace.jpg" alt="" className="absolute inset-0 h-full w-full object-cover transition-[filter] duration-300" style={{ filter: `grayscale(${1 - lit}) brightness(${0.2 + lit * 0.85})` }} />
-        <div className="absolute inset-x-4 bottom-6 top-8 grid grid-cols-5 grid-rows-4 place-items-center">
-          {on.map((v, i) => (
-            <button
-              key={i}
-              type="button"
-              onPointerDown={() => setOn((cur) => cur.map((x, k) => (k === i ? true : x)))}
-              className={`h-7 w-7 rounded-full border-2 transition-all md:h-9 md:w-9 duration-150 ${v ? "border-[#fff2b8] bg-[#ffd24a] shadow-[0_0_18px_6px_rgba(255,200,60,.7)]" : "border-white/40 bg-black/40"}`}
-              aria-label={`Bulb ${i + 1}`}
-            />
+      <div
+        className="relative h-56 w-full max-w-md touch-none select-none overflow-hidden rounded-xl md:h-72"
+        onPointerDown={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          move(e.clientX - r.left < r.width / 2 ? -1 : 1);
+        }}
+      >
+        {/* the palace at the end of the road, coming closer */}
+        <img
+          src="/karnataka/photos/mysuru-palace.jpg"
+          alt=""
+          className="absolute inset-x-0 top-0 h-[45%] w-full object-cover"
+          style={{ transform: `scale(${1 + near * 0.35})`, transformOrigin: "50% 30%", filter: `brightness(${0.55 + near * 0.5})` }}
+        />
+        <div className="absolute inset-x-0 top-[38%] h-[10%] bg-gradient-to-b from-transparent to-[#3a2416]" />
+        {/* the road, with lamp posts */}
+        <div className="absolute inset-x-0 bottom-0 top-[45%] bg-gradient-to-b from-[#3a2416] to-[#5a3a22]">
+          {[1, 2].map((k) => (
+            <span key={k} className="absolute inset-y-0 w-px bg-[repeating-linear-gradient(180deg,#f6dc8c_0_10px,transparent_10px_22px)] opacity-40" style={{ left: `${2 + k * 32}%` }} />
           ))}
         </div>
+        {[0, 1].map((side) => (
+          <span key={side} className="absolute top-[46%] h-2 w-2 rounded-full bg-[#ffd24a] shadow-[0_0_12px_4px_rgba(255,200,60,.7)]" style={{ [side ? "right" : "left"]: "3%" }} />
+        ))}
+        {things.map((th) =>
+          th.y < 0.45 && th.y > -0.05 ? null : (
+            <span key={th.id} className="absolute -translate-x-1/2 -translate-y-1/2 transition-opacity" style={{ left: laneX(th.lane), top: `${th.y * 100}%`, opacity: th.hit ? 0.3 : 1 }}>
+              {th.garland ? (
+                <svg viewBox="0 0 40 40" className="h-9 w-9" aria-label="Marigold garland">
+                  {Array.from({ length: 12 }).map((_, k) => (
+                    <circle key={k} cx={20 + 13 * Math.cos((k * Math.PI) / 6)} cy={20 + 13 * Math.sin((k * Math.PI) / 6)} r="5" fill={k % 2 ? "#ff9f1c" : "#ffcc00"} stroke="#c25e00" strokeWidth=".8" />
+                  ))}
+                </svg>
+              ) : (
+                <svg viewBox="0 0 60 30" className="h-7 w-14" aria-label="Barrier">
+                  <rect x="2" y="6" width="56" height="10" rx="2" fill="#fff" />
+                  {[0, 1, 2, 3].map((k) => (
+                    <rect key={k} x={4 + k * 14} y="6" width="7" height="10" fill="#d6262b" />
+                  ))}
+                  <rect x="8" y="16" width="4" height="12" fill="#6b4a2a" />
+                  <rect x="48" y="16" width="4" height="12" fill="#6b4a2a" />
+                </svg>
+              )}
+            </span>
+          )
+        )}
+        {/* the elephant with the golden howdah */}
+        <span className={`absolute top-[82%] -translate-x-1/2 -translate-y-1/2 transition-[left] duration-150 ${stumble ? "animate-pulse" : ""}`} style={{ left: laneX(lane) }}>
+          <span className="relative block">
+            <svg viewBox="0 0 40 28" className="absolute -top-5 left-1/2 h-6 w-8 -translate-x-1/2" aria-hidden="true">
+              <path d="M6 26 V14 Q20 -2 34 14 V26 Z" fill="#ffcc00" stroke="#8a5a14" strokeWidth="2" />
+              <path d="M20 2 V-4" stroke="#ffcc00" strokeWidth="2" />
+              <rect x="4" y="22" width="32" height="5" fill="#d6262b" />
+            </svg>
+            <span className="block text-4xl md:text-5xl" style={{ transform: "scaleX(-1)" }}>
+              🐘
+            </span>
+          </span>
+        </span>
+        <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[11px] text-[#ffcc00]">
+          🌼 {score.garlands}
+          {score.bumps ? <span className="ml-2 text-[#ff5a4f]">✕ {score.bumps}</span> : null}
+        </span>
       </div>
-      <p className="text-[11px] text-[#fbf3e2]/60">Tap dark bulbs to light them – keep the palace glowing for Dasara</p>
+      <div className="flex items-center gap-3">
+        <button type="button" onPointerDown={() => move(-1)} className="h-10 w-14 select-none rounded-full border border-white/20 bg-white/5 text-[#fbf3e2]" aria-label="Move left">
+          ◀
+        </button>
+        <p className="text-[11px] text-[#fbf3e2]/60">Collect garlands, dodge barriers</p>
+        <button type="button" onPointerDown={() => move(1)} className="h-10 w-14 select-none rounded-full border border-white/20 bg-white/5 text-[#fbf3e2]" aria-label="Move right">
+          ▶
+        </button>
+      </div>
     </div>
   );
 }
@@ -761,7 +869,12 @@ const GAMES: Record<string, { title: string; rules: string; seconds?: number; Ga
   "udupi-coast": { title: "Kambala race", rules: "Drive your buffalo pair through the slushy paddy field. Tap as fast as you can and beat the rival to the flag!", Game: KambalaGame },
   halmidi: { title: "Read the old letters", rules: "Kannada letters grew from the script carved on the Halmidi stone. Match each sound to its letter – 10 questions.", seconds: 30, Game: LetterGame },
   shravanabelagola: { title: "Climb Vindhyagiri", rules: "About 620 rock-cut steps lead up to Bahubali. Tap left, right, left, right to climb before time runs out.", seconds: 20, Game: ClimbGame },
-  "mysuru-palace": { title: "Dasara lights", rules: "Keep the palace glowing! Bulbs keep going out – tap them to light them again. The brighter you keep it, the more you score.", seconds: 20, Game: LightsGame },
+  "mysuru-palace": {
+    title: "Jamboo Savari",
+    rules: "Lead the Dasara elephant with the golden howdah up the road to the palace. Move left and right (tap, ◀ ▶ or arrow keys) to collect marigold garlands and dodge the barriers!",
+    seconds: 25,
+    Game: JambooGame,
+  },
   coorg: { title: "Coffee picking", rules: "Pick only the ripe red coffee cherries. Green ones cost you points!", seconds: 20, Game: CoffeeGame },
   home: { title: "Nada Geethe in order", rules: "Put the opening words of our state song back in order. Each right word plays a note.", seconds: 30, Game: GeetheGame },
 };

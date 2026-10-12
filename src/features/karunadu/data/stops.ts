@@ -249,7 +249,7 @@ export const STOP_INFO: Record<string, StopInfo> = {
       { kind: "nature", kn: "ಶ್ರೀಗಂಧ", en: "Sandalwood" },
       { kind: "history", kn: "ಗಂಡಭೇರುಂಡ", en: "Gandaberunda, the state emblem" },
     ],
-    play: "Dasara lights",
+    play: "Jamboo Savari",
     quiz: {
       q: "Where was Mysore Pak first made?",
       options: ["A Bengaluru café", "The Mysuru palace kitchen", "A temple in Udupi"],

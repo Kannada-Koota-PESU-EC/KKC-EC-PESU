@@ -366,7 +366,8 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
 
   const tick = () => {
     if (!running) return;
-    if (!visible) {
+    // paused while off screen, or while a game in a card is being played
+    if (!visible || document.body.dataset.kdGame === "on") {
       clock.getDelta();
       frame = requestAnimationFrame(tick);
       return;
