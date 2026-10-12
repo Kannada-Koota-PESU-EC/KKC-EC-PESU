@@ -83,6 +83,7 @@ function DoorLeaf({ side }: { side: "left" | "right" }) {
  * gap and ಕನ್ನಡ ಕೂಟ shining on them – then the doors swing open, light
  * pours out and you walk through into the home page. */
 export default function Intro() {
+  const [fontReady, setFontReady] = useState(false);
   const [stage, setStage] = useState<"closed" | "open" | "done">(() => (seen() || reducedMotion() ? "done" : "closed"));
 
   useEffect(() => {
@@ -109,6 +110,22 @@ export default function Intro() {
     window.addEventListener("keydown", skip);
     return () => window.removeEventListener("keydown", skip);
   }, [stage]);
+
+  // show the name only once the Kannada font is in, so it never jumps or reflows
+  useEffect(() => {
+    let alive = true;
+    const done = () => alive && setFontReady(true);
+    const fallback = setTimeout(done, 900);
+    if (document.fonts?.load) {
+      document.fonts
+        .load('700 64px "Noto Serif Kannada"', "ಕನ್ನಡ ಕೂಟ")
+        .then(done, done);
+    } else done();
+    return () => {
+      alive = false;
+      clearTimeout(fallback);
+    };
+  }, []);
 
   if (stage === "done") return null;
 
@@ -156,7 +173,7 @@ export default function Intro() {
 
         {/* the name, shining across both doors */}
         {/* a brass name-plate hung across the doors, so the name always reads clearly */}
-        <div className="kd-doors__title">
+        <div className={`kd-doors__title ${fontReady ? "ready" : ""}`}>
           <div className="kd-doors__plate">
             <p className="kd-doors__name f-serif whitespace-nowrap font-bold">ಕನ್ನಡ ಕೂಟ</p>
             <p className="mt-1 whitespace-nowrap text-center text-[11px] font-bold uppercase tracking-[0.3em] text-[#ffe9a8] md:text-sm md:tracking-[0.45em]">EC · PES University</p>

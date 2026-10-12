@@ -6,7 +6,7 @@ import Intro from "@/features/karunadu/components/Intro";
 import Nav from "@/features/karunadu/components/Nav";
 import Footer from "@/features/karunadu/components/Footer";
 
-/* Flag-coloured curtain that sweeps across when the page changes */
+/* The Kannada flag sweeps across like cloth when the page changes */
 function PageCurtain() {
   const { pathname } = useLocation();
   const first = useRef(true);
@@ -22,6 +22,15 @@ function PageCurtain() {
 
   return (
     <>
+      {/* the cloth ripple used by the flag */}
+      <svg width="0" height="0" className="absolute" aria-hidden="true">
+        <filter id="kd-flag-wave" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.003 0.011" numOctaves="2" seed="7">
+            <animate attributeName="baseFrequency" dur="1.2s" values="0.003 0.011;0.0045 0.015;0.003 0.011" repeatCount="indefinite" />
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" scale="26" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
       <div key={run} className={`curtain ${run ? "run" : ""}`} aria-hidden="true">
         <span />
         <span />

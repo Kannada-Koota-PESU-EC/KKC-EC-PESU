@@ -448,19 +448,42 @@
   pointer-events: none;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  overflow: hidden;
 }
+/* each half is a piece of the Kannada flag: woven cloth, yellow over red,
+ * with folds that ripple as it is pulled across the screen */
 .curtain > span {
-  background: linear-gradient(180deg, var(--flag-yellow) 0 50%, var(--flag-red) 50% 100%);
-  transform: scaleX(0);
+  position: relative;
+  transform: translateX(var(--from));
+  filter: url(#kd-flag-wave);
+  background:
+    linear-gradient(90deg, rgb(0 0 0 / 0.28), rgb(255 255 255 / 0.16) 7%, rgb(0 0 0 / 0.1) 15%, rgb(255 255 255 / 0.12) 24%, rgb(0 0 0 / 0.26) 34%, rgb(255 255 255 / 0.18) 46%, rgb(0 0 0 / 0.08) 58%, rgb(255 255 255 / 0.12) 70%, rgb(0 0 0 / 0.22) 84%, rgb(255 255 255 / 0.08) 100%),
+    repeating-linear-gradient(0deg, rgb(0 0 0 / 0.06) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #ffd21f 0%, #f5c000 49.7%, #c81a22 50.3%, #a90f19 100%);
+  background-size: 160% 100%, auto, auto, auto;
 }
-.curtain > span:first-child { transform-origin: left; }
-.curtain > span:last-child { transform-origin: right; }
-.curtain.run > span { animation: curtain 1s cubic-bezier(0.77, 0, 0.18, 1); }
+.curtain > span:first-child { --from: -104%; box-shadow: inset -14px 0 22px rgb(0 0 0 / 0.35); }
+.curtain > span:last-child { --from: 104%; box-shadow: inset 14px 0 22px rgb(0 0 0 / 0.35); }
+/* stitched hem along the leading edge */
+.curtain > span::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.25), rgb(255 255 255 / 0.12), rgb(0 0 0 / 0.25));
+  border-left: 2px dashed rgb(255 255 255 / 0.25);
+}
+.curtain > span:first-child::after { right: 0; }
+.curtain > span:last-child::after { left: 0; }
+.curtain.run > span { animation: curtain 1s cubic-bezier(0.77, 0, 0.18, 1), folds 1s linear; }
 @keyframes curtain {
-  0% { transform: scaleX(0); }
-  45%, 55% { transform: scaleX(1); }
-  100% { transform: scaleX(0); }
+  0% { transform: translateX(var(--from)); }
+  45%, 55% { transform: translateX(0); }
+  100% { transform: translateX(var(--from)); }
 }
+@keyframes folds { from { background-position: 0 0, 0 0, 0 0, 0 0; } to { background-position: 60% 0, 0 0, 0 0, 0 0; } }
 .curtain__mark {
   position: fixed;
   inset: 0;
@@ -567,14 +590,19 @@
 }
 @keyframes bell-sway { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
 .kd-doors.open .kd-doors__bell { animation-duration: 0.35s; }
+/* full-width row, so the plate is centred from the very first frame */
 .kd-doors__title {
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
   top: 34%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  transform: translateY(-50%);
   z-index: 4;
-  animation: title-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  opacity: 0;
 }
+.kd-doors__title.ready { animation: title-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
 .kd-doors__plate {
   position: relative;
   padding: clamp(0.9rem, 2.4vw, 1.6rem) clamp(1.4rem, 4vw, 3.2rem) clamp(1rem, 2.6vw, 1.8rem);
@@ -607,9 +635,9 @@
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 0 #5a3208) drop-shadow(0 0 18px rgb(255 200 90 / 0.55));
 }
-@keyframes title-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-.kd-doors.open .kd-doors__title { animation: title-out 0.7s ease forwards; }
-@keyframes title-out { to { opacity: 0; transform: translate(-50%, -50%) scale(1.25); filter: blur(8px); } }
+@keyframes title-in { from { opacity: 0; transform: translateY(-50%) scale(0.9); } to { opacity: 1; transform: translateY(-50%) scale(1); } }
+.kd-doors.open .kd-doors__title { opacity: 1; animation: title-out 0.7s ease forwards; }
+@keyframes title-out { from { opacity: 1; transform: translateY(-50%) scale(1); } to { opacity: 0; transform: translateY(-50%) scale(1.25); filter: blur(8px); } }
 .kd-doors__lamp {
   position: absolute;
   left: 50%;
