@@ -14,6 +14,7 @@ import Recruitment from "@/features/Recruitment/Recruitment";
 import NotFound from "@/app/pages/NotFoundPage";
 import Navbar from "@/shared/components/layout/Navbar";
 import Footer from "@/shared/components/layout/Footer";
+import Recruitment from "@/features/Recruitment/Recruitment";
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const AppContent = () => (
               <Route path="/recruitments" element={<Recruitment />} />
               {/* <Route path="/upis" element={<Upis />} /> */}
               <Route path="/contact" element={<Contact />} />
+              <Route path="/recruitment" element={<Recruitment />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
