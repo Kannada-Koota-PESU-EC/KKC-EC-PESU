@@ -14,7 +14,6 @@ import Recruitment from "@/features/Recruitment/Recruitment";
 import NotFound from "@/app/pages/NotFoundPage";
 import Navbar from "@/shared/components/layout/Navbar";
 import Footer from "@/shared/components/layout/Footer";
-import Recruitment from "@/features/Recruitment/Recruitment";
 
 // Create a query client instance
 const queryClient = new QueryClient();
