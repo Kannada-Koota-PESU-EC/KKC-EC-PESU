@@ -1,0 +1,212 @@
+/* Intro / splash overlay. Phase lengths come from introTimings (intro.ts) as inline variables. */
+.intro-overlay {
+  /* Tribute screen */
+  --intro-photo-fade: 1400ms;
+  --intro-line-start: 700ms; /* first text line starts */
+  --intro-line-stagger: 300ms; /* gap between text lines */
+  --intro-line-fade: 800ms;
+
+  /* Logos screen */
+  --intro-bg-fade: 1200ms; /* black to flag gradient */
+  --intro-logo-slide: 1300ms; /* logos glide in from the screen edges */
+  --intro-glow-pulse: 1400ms; /* soft glow once the logos meet */
+  --intro-title-fade: 800ms; /* Kannada text fades in after the logos meet */
+  --intro-logo-size: min(36vw, 210px);
+
+  /* Set inline from introTimings */
+  --intro-transition: 1000ms;
+  --intro-reveal: 600ms;
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: #000;
+  color: #f5f5f5;
+  transition:
+    opacity var(--intro-reveal) ease,
+    transform var(--intro-reveal) ease;
+}
+
+.intro-overlay[data-phase='reveal'] {
+  opacity: 0;
+  transform: translateY(-2%);
+  pointer-events: none;
+}
+
+/* Kannada flag gradient, faded in behind the logos */
+.intro-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(170deg, #f7c600 0%, #e8a317 42%, #d43a1f 72%, #b3141c 100%);
+  opacity: 0;
+  transition: opacity var(--intro-bg-fade) ease;
+}
+
+.intro-overlay[data-phase='logos'] .intro-gradient,
+.intro-overlay[data-phase='reveal'] .intro-gradient {
+  opacity: 1;
+}
+
+.intro-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* Tribute screen */
+.intro-tribute {
+  transition: opacity var(--intro-transition) ease;
+}
+
+.intro-tribute.is-leaving {
+  opacity: 0;
+}
+
+.intro-photo {
+  width: clamp(140px, 34vmin, 240px);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  object-fit: cover;
+  filter: grayscale(1);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.12),
+    0 0 40px 6px rgba(255, 236, 200, 0.14);
+  opacity: 0;
+  animation: intro-fade-in var(--intro-photo-fade) ease-out forwards;
+}
+
+.intro-line {
+  opacity: 0;
+  animation: intro-fade-in var(--intro-line-fade) ease-out forwards;
+  animation-delay: calc(var(--intro-line-start) + var(--line-index) * var(--intro-line-stagger));
+}
+
+/* Logos screen */
+.intro-logo-circle {
+  width: var(--intro-logo-size);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+  /* 16% of the circle keeps every corner of a square logo inside it */
+  padding: calc(var(--intro-logo-size) * 0.16);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.25),
+    0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.intro-logo-circle img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Full-bleed logo (club flag): fills the circle; slight zoom hides the square's black border */
+.intro-logo-fill {
+  padding: 0;
+}
+
+.intro-logo-fill img {
+  object-fit: cover;
+  transform: scale(1.06);
+}
+
+.intro-slide-left,
+.intro-slide-right {
+  animation:
+    intro-slide-in var(--intro-logo-slide) cubic-bezier(0.22, 1, 0.36, 1) both,
+    intro-glow var(--intro-glow-pulse) ease-in-out var(--intro-logo-slide) forwards;
+}
+
+/* Start just past the screen edge */
+.intro-slide-left {
+  --intro-slide-from: calc(-50vw - 100%);
+}
+
+.intro-slide-right {
+  --intro-slide-from: calc(50vw + 100%);
+}
+
+.intro-title {
+  font-family: 'Noto Sans Kannada', 'Tunga', 'Nirmala UI', 'Kannada Sangam MN', 'Kannada MN', system-ui, sans-serif;
+  opacity: 0;
+  animation: intro-fade-in var(--intro-title-fade) ease-out forwards;
+  animation-delay: var(--intro-logo-slide);
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.intro-skip {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 9999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.25);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.intro-skip:hover,
+.intro-skip:focus-visible {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+@keyframes intro-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes intro-slide-in {
+  from { transform: translateX(var(--intro-slide-from)); }
+  to { transform: translateX(0); }
+}
+
+@keyframes intro-glow {
+  0% {
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.25),
+      0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(255, 255, 255, 0.45),
+      0 0 38px 10px rgba(255, 244, 200, 0.6);
+  }
+  100% {
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.3),
+      0 0 24px 4px rgba(255, 244, 200, 0.35);
+  }
+}
+
+/* Reduced motion: show everything at once, keep only the closing fade */
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay {
+    transition: opacity var(--intro-reveal) ease;
+  }
+
+  .intro-overlay[data-phase='reveal'] {
+    transform: none;
+  }
+
+  .intro-photo,
+  .intro-line {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -217,7 +217,7 @@ const GaneshChaturthiAnimation = () => {
           opacity: 0.7,
           fontWeight: 600,
         }}>
-          Kannada Koota EC PES
+          Kannada Koota EC PESU
         </div>
 
         {/* Decorative divider */}

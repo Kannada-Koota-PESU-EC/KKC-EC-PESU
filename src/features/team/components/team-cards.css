@@ -1,0 +1,196 @@
+/* Year-wise team: portrait photo cards */
+.team-group {
+  --team-stagger: 80ms;
+  --team-enter: 550ms;
+}
+
+/* Rows stay centred even with 1–2 people */
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.team-grid > * {
+  width: calc(50% - 0.5rem);
+}
+
+@media (min-width: 768px) {
+  .team-grid {
+    gap: 1.5rem;
+  }
+
+  .team-grid > * {
+    width: calc(33.333% - 1rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-grid > * {
+    width: calc(25% - 1.125rem);
+  }
+
+  /* Club heads: slightly larger cards */
+  .team-grid-large > * {
+    width: min(calc(33.333% - 1rem), 320px);
+  }
+}
+
+/* Entrance: fade up one after another when the group scrolls into view or the year changes */
+.team-card-slot {
+  opacity: 0;
+}
+
+.team-group.is-visible .team-card-slot {
+  animation: team-card-in var(--team-enter) ease-out both;
+  animation-delay: calc(var(--i) * var(--team-stagger));
+}
+
+@keyframes team-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Card */
+.team-card {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 18px;
+  overflow: hidden;
+  background: hsl(var(--muted));
+  box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.7);
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.team-card-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 500ms ease;
+}
+
+.team-card-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5rem 1rem 1rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 40%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+/* Gradient border, shown on hover */
+.team-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #ffd700, #e3242b);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+/* Social icons */
+.team-card-socials {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.team-card-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(4px);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.team-card-social:hover,
+.team-card-social:focus-visible {
+  background: #ffd23f;
+  color: #1a1a1a;
+}
+
+@media (hover: hover) {
+  .team-card-socials {
+    opacity: 0;
+    transform: translateY(120%);
+    transition:
+      opacity 300ms ease,
+      transform 300ms ease;
+  }
+
+  .team-card:hover,
+  .team-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px -14px rgba(255, 170, 40, 0.35);
+  }
+
+  .team-card:hover .team-card-photo {
+    transform: scale(1.05);
+  }
+
+  .team-card:hover::after,
+  .team-card:focus-within::after {
+    opacity: 1;
+  }
+
+  .team-card:hover .team-card-socials,
+  .team-card:focus-within .team-card-socials {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Touch screens: icons always visible, a bit smaller */
+@media (hover: none) {
+  .team-card-social {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-card-slot,
+  .team-group.is-visible .team-card-slot {
+    opacity: 1;
+    animation: none;
+  }
+
+  .team-card,
+  .team-card-photo,
+  .team-card-socials {
+    transition: none;
+  }
+
+  .team-card:hover .team-card-photo {
+    transform: none;
+  }
+}

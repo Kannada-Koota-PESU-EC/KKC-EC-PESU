@@ -2,6 +2,7 @@ import Hero from "@/features/home/components/Hero";
 import AboutSection from "@/features/home/components/AboutSection";
 import RepublicDayPopup from "@/features/home/components/RepublicDayPopup";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/shared/i18n/useLanguage";
 
 const slides = [
   "/img1.jpg",
@@ -11,6 +12,7 @@ const slides = [
 const Index = () => {
   const [current, setCurrent] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
+  const { t } = useLanguage();
 
   const nextSlide = () => {
     setFadeIn(false);
@@ -52,7 +54,7 @@ const Index = () => {
             {/* Image */}
             <img
               src={slides[current]}
-              alt="Homepage gallery"
+              alt={t("home.galleryAlt")}
               className={`w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
                 fadeIn ? "opacity-100" : "opacity-0"
               }`}
@@ -62,7 +64,7 @@ const Index = () => {
             <button
               onClick={prevSlide}
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full text-xl hover:bg-black/80"
-              aria-label="Previous slide"
+              aria-label={t("home.prevSlide")}
             >
               ‹
             </button>
@@ -71,7 +73,7 @@ const Index = () => {
             <button
               onClick={nextSlide}
               className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full text-xl hover:bg-black/80"
-              aria-label="Next slide"
+              aria-label={t("home.nextSlide")}
             >
               ›
             </button>

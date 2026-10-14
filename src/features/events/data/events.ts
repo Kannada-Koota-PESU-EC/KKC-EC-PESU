@@ -1,10 +1,12 @@
+import type { Localized } from '@/shared/i18n/translations';
+
 export interface Event {
   id: string;
-  title: string;
+  title: Localized;
   date: string; // ISO date (YYYY-MM-DD)
-  teaser: string;
+  teaser: Localized;
   image: string;
-  location?: string;
+  location?: Localized;
   gallery?: string[];
   registerLink?: string;
 }
@@ -13,17 +15,23 @@ export interface Event {
  * Date-based logic:
  * - Upcoming events: event.date >= today
  * - Past events:     event.date < today
+ *
+ * Every title, teaser and location needs both a Kannada (kn) and an English (en) version.
  */
+
+const MRD: Localized = { kn: 'ಪಿ.ಇ.ಎಸ್. ವಿಶ್ವವಿದ್ಯಾಲಯ ಇ.ಸಿ., ಎಂ.ಆರ್.ಡಿ.', en: 'PES University EC MRD' };
 
 export const events: Event[] = [
   {
     id: '1',
-    title: 'ಕನ್ನಡ ರಾಜ್ಯೋತ್ಸವ Celebration 2025',
+    title: { kn: 'ಕನ್ನಡ ರಾಜ್ಯೋತ್ಸವ ಆಚರಣೆ 2025', en: 'Kannada Rajyotsava Celebration 2025' },
     date: '2025-11-07',
-    teaser:
-      'Join us in commemorating the proud occasion of Karnataka Formation Day with a vibrant and memorable celebration. The event will feature a rich showcase of cultural performances, authentic traditional cuisine, and a warm community gathering.',
+    teaser: {
+      kn: 'ಕರ್ನಾಟಕ ರಾಜ್ಯೋತ್ಸವದ ಹೆಮ್ಮೆಯ ಸಂದರ್ಭವನ್ನು ವರ್ಣರಂಜಿತ ಹಾಗೂ ಸ್ಮರಣೀಯ ಆಚರಣೆಯೊಂದಿಗೆ ಸ್ಮರಿಸಲು ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ. ಸಾಂಸ್ಕೃತಿಕ ಪ್ರದರ್ಶನಗಳು, ಅಪ್ಪಟ ಸಾಂಪ್ರದಾಯಿಕ ಭೋಜನ ಮತ್ತು ಆತ್ಮೀಯ ಸಮುದಾಯ ಸಮ್ಮಿಲನ ಈ ಕಾರ್ಯಕ್ರಮದ ವಿಶೇಷ.',
+      en: 'Join us in commemorating the proud occasion of Karnataka Formation Day with a vibrant and memorable celebration. The event will feature a rich showcase of cultural performances, authentic traditional cuisine, and a warm community gathering.',
+    },
     image: '/Events/202k 1.png',
-    location: 'PES University EC MRD',
+    location: MRD,
     gallery: [
       '/Events/BK1.png',
       '/Events/BK2.png',
@@ -33,12 +41,14 @@ export const events: Event[] = [
 
   {
     id: '2',
-    title: 'ಕನ್ನಡ ರಾಜ್ಯೋತ್ಸವ Celebration 2024',
+    title: { kn: 'ಕನ್ನಡ ರಾಜ್ಯೋತ್ಸವ ಆಚರಣೆ 2024', en: 'Kannada Rajyotsava Celebration 2024' },
     date: '2024-11-01',
-    teaser:
-      'Join us for a grand celebration of Karnataka Formation Day with cultural performances, traditional food, and community gathering.',
+    teaser: {
+      kn: 'ಸಾಂಸ್ಕೃತಿಕ ಪ್ರದರ್ಶನಗಳು, ಸಾಂಪ್ರದಾಯಿಕ ಭೋಜನ ಮತ್ತು ಸಮುದಾಯ ಸಮ್ಮಿಲನದೊಂದಿಗೆ ಕರ್ನಾಟಕ ರಾಜ್ಯೋತ್ಸವದ ಅದ್ದೂರಿ ಆಚರಣೆಗೆ ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ.',
+      en: 'Join us for a grand celebration of Karnataka Formation Day with cultural performances, traditional food, and community gathering.',
+    },
     image: '/Events/2024.jpeg',
-    location: 'PES University EC MRD',
+    location: MRD,
     gallery: [
       '/Events/BK1.png',
       '/Events/BK2.png',
@@ -48,12 +58,14 @@ export const events: Event[] = [
 
   {
     id: '3',
-    title: 'Kannada Koota X Rotaract',
+    title: { kn: 'ಕನ್ನಡ ಕೂಟ X ರೋಟರಾಕ್ಟ್', en: 'Kannada Koota X Rotaract' },
     date: '2025-09-03',
-    teaser:
-      'Learn Kannada with us in a fun and engaging way through games, drama, and interactive activities.',
+    teaser: {
+      kn: 'ಆಟಗಳು, ನಾಟಕ ಮತ್ತು ಸಂವಾದಾತ್ಮಕ ಚಟುವಟಿಕೆಗಳ ಮೂಲಕ ಮೋಜಿನ ಹಾಗೂ ಆಸಕ್ತಿದಾಯಕ ರೀತಿಯಲ್ಲಿ ನಮ್ಮೊಂದಿಗೆ ಕನ್ನಡ ಕಲಿಯಿರಿ.',
+      en: 'Learn Kannada with us in a fun and engaging way through games, drama, and interactive activities.',
+    },
     image: '/Events/KKEC X RT 1.JPG',
-    location: 'Seminar Hall 2',
+    location: { kn: 'ಸೆಮಿನಾರ್ ಸಭಾಂಗಣ 2', en: 'Seminar Hall 2' },
     gallery: [
       '/Events/KKEC X RT 4.JPG',
       '/Events/KKEC X RT 3.JPG',
@@ -63,12 +75,14 @@ export const events: Event[] = [
 
   {
     id: '4',
-    title: 'Quadrangle Dance',
+    title: { kn: 'ಪ್ರಾಂಗಣ ನೃತ್ಯ', en: 'Quadrangle Dance' },
     date: '2025-09-10',
-    teaser:
-      'We performed a lively dance in the quadrangle to welcome the new students and showcase our rich Kannada culture.',
+    teaser: {
+      kn: 'ಹೊಸ ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ಸ್ವಾಗತಿಸಲು ಮತ್ತು ನಮ್ಮ ಶ್ರೀಮಂತ ಕನ್ನಡ ಸಂಸ್ಕೃತಿಯನ್ನು ಪ್ರದರ್ಶಿಸಲು ನಾವು ಪ್ರಾಂಗಣದಲ್ಲಿ ಉತ್ಸಾಹಭರಿತ ನೃತ್ಯ ಪ್ರದರ್ಶನ ನೀಡಿದೆವು.',
+      en: 'We performed a lively dance in the quadrangle to welcome the new students and showcase our rich Kannada culture.',
+    },
     image: '/Events/KKEC DC 1.jpg',
-    location: 'Quadrangle PES EC',
+    location: { kn: 'ಪ್ರಾಂಗಣ, ಪಿ.ಇ.ಎಸ್.ಯು. ಇ.ಸಿ.', en: 'Quadrangle PESU EC' },
     gallery: [
       '/Events/KKEC DC 2.jpg',
       '/Events/KKEC DC 3.png',
@@ -78,19 +92,23 @@ export const events: Event[] = [
 
   {
     id: 'club-head',
-    title: 'ಹೊಸ ಚಿಗುರು New Crew for 2026',
+    title: { kn: 'ಹೊಸ ಚಿಗುರು: 2026ರ ಹೊಸ ತಂಡ', en: 'Hosa Chiguru: New Crew for 2026' },
     date: '2026-02-04',
-    teaser:
-      'We are thrilled to announce a new leadership structure for our club. As we continue to push the boundaries of cultural and community engagement, we welcome a fresh board of Heads and Domain Heads.',
+    teaser: {
+      kn: 'ನಮ್ಮ ಕೂಟದ ಹೊಸ ನಾಯಕತ್ವ ರಚನೆಯನ್ನು ಘೋಷಿಸಲು ನಮಗೆ ಅತ್ಯಂತ ಸಂತಸವಾಗುತ್ತಿದೆ. ಸಾಂಸ್ಕೃತಿಕ ಮತ್ತು ಸಮುದಾಯ ಚಟುವಟಿಕೆಗಳ ಎಲ್ಲೆಗಳನ್ನು ವಿಸ್ತರಿಸುತ್ತಾ ಸಾಗುತ್ತಿರುವ ನಾವು, ಮುಖ್ಯಸ್ಥರು ಮತ್ತು ವಿಭಾಗಗಳ ಮುಖ್ಯಸ್ಥರ ಹೊಸ ತಂಡವನ್ನು ಸ್ವಾಗತಿಸುತ್ತೇವೆ.',
+      en: 'We are thrilled to announce a new leadership structure for our club. As we continue to push the boundaries of cultural and community engagement, we welcome a fresh board of Heads and Domain Heads.',
+    },
     image: '/Events/club-head.jpg',
   },
 
   {
     id: 'mahashivratri-dance',
-    title: 'ಮಹಾ ಶಿವರಾತ್ರಿ ನೃತ್ಯ ಪ್ರದರ್ಶನು Mahashivratri Dance Performance',
+    title: { kn: 'ಮಹಾ ಶಿವರಾತ್ರಿ ನೃತ್ಯ ಪ್ರದರ್ಶನ', en: 'Mahashivratri Dance Performance' },
     date: '2026-02-13',
-    teaser:
-      'From silence to resonance, from resonance to rhythm 🎼🎼, from rhythm to dance, from dance to devotion 🌟 The Kannada Koota presents a special dance performance for Mahashivratri 🌀',
+    teaser: {
+      kn: 'ಮೌನದಿಂದ ನಿನಾದಕ್ಕೆ, ನಿನಾದದಿಂದ ಲಯಕ್ಕೆ 🎼🎼, ಲಯದಿಂದ ನೃತ್ಯಕ್ಕೆ, ನೃತ್ಯದಿಂದ ಭಕ್ತಿಗೆ 🌟 ಮಹಾ ಶಿವರಾತ್ರಿಯಂದು ಕನ್ನಡ ಕೂಟದಿಂದ ವಿಶೇಷ ನೃತ್ಯ ಪ್ರದರ್ಶನ 🌀',
+      en: 'From silence to resonance, from resonance to rhythm 🎼🎼, from rhythm to dance, from dance to devotion 🌟 The Kannada Koota presents a special dance performance for Mahashivratri 🌀',
+    },
     image: '/Events/mahashivratri-dance1.jpeg',
     gallery: [
       '/Events/mahashivratri-dance2.jpeg',
@@ -99,10 +117,12 @@ export const events: Event[] = [
 
   {
     id: 'blood-donation',
-    title: 'ರಕ್ತ ಸ್ಪಂದನು Raktha Spandana',
+    title: { kn: 'ರಕ್ತ ಸ್ಪಂದನ', en: 'Raktha Spandana' },
     date: '2026-03-17',
-    teaser:
-      '“Raktha Spandana” — A drop of blood can save a life. A blood donation camp organized by Kannada Koota. Blood donation is the noblest of all donations.',
+    teaser: {
+      kn: '“ರಕ್ತ ಸ್ಪಂದನ” — ಒಂದು ಹನಿ ರಕ್ತ ಒಂದು ಜೀವವನ್ನು ಉಳಿಸಬಲ್ಲದು. ಕನ್ನಡ ಕೂಟದಿಂದ ಆಯೋಜಿಸಲಾದ ರಕ್ತದಾನ ಶಿಬಿರ. ರಕ್ತದಾನವೇ ಎಲ್ಲ ದಾನಗಳಲ್ಲಿ ಶ್ರೇಷ್ಠ ದಾನ.',
+      en: '“Raktha Spandana” — A drop of blood can save a life. A blood donation camp organized by Kannada Koota. Blood donation is the noblest of all donations.',
+    },
     image: '/Events/blood-donation.jpeg',
     gallery: [
       '/Events/blood-donation.jpeg',
@@ -111,10 +131,12 @@ export const events: Event[] = [
 
   {
     id: 'Kalantaranga',
-    title: 'ಕಲಾಂತರಂಗ Kalantaranga',
+    title: { kn: 'ಕಲಾಂತರಂಗ', en: 'Kalantaranga' },
     date: '2026-04-08',
-    teaser:
-      'Kalantaranga - A wave of art, a celebration of your talent. This is your moment to shine. Before the art within you fades, let it surge into a flowing stream — come, make this stage yours ✨ Venue: Seminar Hall 2 Time: 2:30 PM – 4:30 PM Prize pool: ₹3000',
+    teaser: {
+      kn: 'ಕಲಾಂತರಂಗ - ಕಲೆಯ ಅಲೆ, ನಿಮ್ಮ ಪ್ರತಿಭೆಯ ಸಂಭ್ರಮ. ನೀವು ಮಿಂಚುವ ಕ್ಷಣ ಇದು. ನಿಮ್ಮೊಳಗಿನ ಕಲೆ ಮಾಸುವ ಮುನ್ನ, ಅದು ಹರಿಯುವ ಹೊಳೆಯಾಗಿ ಉಕ್ಕಲಿ — ಬನ್ನಿ, ಈ ವೇದಿಕೆಯನ್ನು ನಿಮ್ಮದಾಗಿಸಿಕೊಳ್ಳಿ ✨ ಸ್ಥಳ: ಸೆಮಿನಾರ್ ಸಭಾಂಗಣ 2 ಸಮಯ: ಮಧ್ಯಾಹ್ನ 2:30 – ಸಂಜೆ 4:30 ಬಹುಮಾನ ಮೊತ್ತ: ₹3000',
+      en: 'Kalantaranga - A wave of art, a celebration of your talent. This is your moment to shine. Before the art within you fades, let it surge into a flowing stream — come, make this stage yours ✨ Venue: Seminar Hall 2 Time: 2:30 PM – 4:30 PM Prize pool: ₹3000',
+    },
     image: '/Events/Kalantaranga1.jpeg',
     gallery: [
       '/Events/Kalantaranga1.jpeg',
@@ -123,10 +145,12 @@ export const events: Event[] = [
 
   {
     id: 'Nritya_Lahari',
-    title: 'ನೃತ್ಯ ಲಹರಿ Nritya Lahari',
+    title: { kn: 'ನೃತ್ಯ ಲಹರಿ', en: 'Nritya Lahari' },
     date: '2026-08-19',
-    teaser:
-      'Nritya Lahari — The rhythm of Kannada in every step! Dance is not merely about steps… It is emotion, rhythm, grace, and celebration! Get ready to experience the essence of Kannada, the colours of our culture, and the spirit of dance — all coming alive on a single stage! Venue: Quadrangle, PES EC Campus Time: 10:00 AM',
+    teaser: {
+      kn: 'ನೃತ್ಯ ಲಹರಿ — ಪ್ರತಿ ಹೆಜ್ಜೆಯಲ್ಲೂ ಕನ್ನಡದ ಲಯ! ನೃತ್ಯವೆಂದರೆ ಕೇವಲ ಹೆಜ್ಜೆಗಳಲ್ಲ… ಅದು ಭಾವ, ಲಯ, ಲಾಲಿತ್ಯ ಮತ್ತು ಸಂಭ್ರಮ! ಕನ್ನಡದ ಸಾರ, ನಮ್ಮ ಸಂಸ್ಕೃತಿಯ ಬಣ್ಣಗಳು ಮತ್ತು ನೃತ್ಯದ ಚೈತನ್ಯ — ಎಲ್ಲವೂ ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ ಜೀವ ತಳೆಯುವುದನ್ನು ಅನುಭವಿಸಲು ಸಿದ್ಧರಾಗಿ! ಸ್ಥಳ: ಪ್ರಾಂಗಣ, ಪಿ.ಇ.ಎಸ್.ಯು. ಇ.ಸಿ. ಆವರಣ ಸಮಯ: ಬೆಳಿಗ್ಗೆ 10:00',
+      en: 'Nritya Lahari — The rhythm of Kannada in every step! Dance is not merely about steps… It is emotion, rhythm, grace, and celebration! Get ready to experience the essence of Kannada, the colours of our culture, and the spirit of dance — all coming alive on a single stage! Venue: Quadrangle, PESU EC Campus Time: 10:00 AM',
+    },
     image: '/Events/Nritya_Lahari.png',
     gallery: [
       '/Events/Nritya_Lahari.png',
