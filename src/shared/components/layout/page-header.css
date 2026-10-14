@@ -1,0 +1,250 @@
+/* Shared inner-page header and section titles */
+.page-header {
+  --ph-gold: #c9a24a;
+  --ph-step: 180ms; /* gap between the entrance steps */
+  --ph-extend: 160px; /* how far the background runs below the header before fading out */
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem 2.5rem;
+  text-align: center;
+  /* No fill of its own: the page background shows through, so there is no visible box */
+}
+
+/* Glows, pattern and watermark. Sits behind the page content (z-index -1),
+   runs below the header and fades out, so header and page read as one background. */
+.page-header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--ph-extend) * -1);
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 50% 65% at 12% 38%, rgba(255, 210, 63, 0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 65% at 88% 38%, rgba(227, 36, 43, 0.14) 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+
+/* Faint ornamental pattern */
+.page-header-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M28 8 L36 28 L28 48 L20 28 Z'/%3E%3Ccircle cx='28' cy='28' r='3'/%3E%3Cpath d='M0 28 Q14 20 28 28 T56 28'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='56' cy='0' r='5'/%3E%3Ccircle cx='0' cy='56' r='5'/%3E%3Ccircle cx='56' cy='56' r='5'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Large "ಕ" watermark, moved slightly on scroll (--ph-parallax set from JS) */
+.page-header-watermark {
+  position: absolute;
+  left: 50%;
+  /* Centred on the header itself, not the extended background */
+  top: calc((100% - var(--ph-extend)) * 0.58);
+  font-family: 'Noto Sans Kannada', sans-serif;
+  font-weight: 800;
+  font-size: clamp(7rem, 15vw, 11rem);
+  line-height: 1;
+  color: #ffd23f;
+  opacity: 0.05;
+  transform: translate(-50%, calc(-50% + var(--ph-parallax, 0px)));
+  pointer-events: none;
+  user-select: none;
+}
+
+.page-header-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 56rem;
+}
+
+/* Eyebrow with a short line each side */
+.page-header-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ph-gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Wide spacing breaks up Kannada letters, so keep it tight there */
+.page-header-eyebrow.kannada-text {
+  letter-spacing: 0.06em;
+}
+
+.page-header-eyebrow::before,
+.page-header-eyebrow::after {
+  content: '';
+  width: 1.75rem;
+  height: 1px;
+  background: var(--ph-gold);
+  opacity: 0.7;
+}
+
+.page-header-title {
+  margin-top: 0.5rem;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.25;
+  background: linear-gradient(90deg, #ffd23f 0%, #f7931e 35%, #e3242b 60%, #f7931e 80%, #ffd23f 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(255, 170, 40, 0.25));
+  overflow-wrap: anywhere;
+}
+
+/* Diamond divider */
+.page-header-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.625rem;
+}
+
+.page-header-divider span:first-child,
+.page-header-divider span:last-child {
+  width: 3.5rem;
+  height: 1px;
+}
+
+.page-header-divider span:first-child {
+  background: linear-gradient(90deg, transparent, var(--ph-gold));
+  transform-origin: right center;
+}
+
+.page-header-divider span:last-child {
+  background: linear-gradient(90deg, var(--ph-gold), transparent);
+  transform-origin: left center;
+}
+
+.page-header-divider span:nth-child(2) {
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: var(--ph-gold);
+}
+
+.page-header-subtitle {
+  margin-top: 0.75rem;
+  max-width: 600px;
+  color: #ece7dc;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.7;
+}
+
+/* Page-load entrance */
+.page-header-eyebrow {
+  animation: ph-fade 600ms ease-out both;
+}
+
+.page-header-title {
+  animation:
+    ph-rise 700ms ease-out var(--ph-step) both,
+    ph-shimmer 10s ease-in-out 1s infinite alternate;
+}
+
+.page-header-divider span:first-child,
+.page-header-divider span:last-child {
+  animation: ph-draw 600ms ease-out calc(var(--ph-step) * 3) both;
+}
+
+.page-header-divider span:nth-child(2) {
+  animation: ph-fade 400ms ease-out calc(var(--ph-step) * 3) both;
+}
+
+.page-header-subtitle {
+  animation: ph-fade 700ms ease-out calc(var(--ph-step) * 4) both;
+}
+
+@keyframes ph-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ph-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ph-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes ph-shimmer {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@media (max-width: 640px) {
+  .page-header {
+    padding: 2rem 1rem 1.75rem;
+  }
+
+  .page-header-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* Section titles */
+.section-title {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 600ms ease-out,
+    transform 600ms ease-out;
+}
+
+.section-title.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.section-title-bar {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #ffd700, #e3242b);
+}
+
+.section-title-meta {
+  color: #c9a24a;
+}
+
+/* Events empty state */
+.empty-state {
+  border: 1px dashed rgba(201, 162, 74, 0.55);
+  border-radius: 16px;
+  background: rgba(201, 162, 74, 0.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header-eyebrow,
+  .page-header-title,
+  .page-header-divider span,
+  .page-header-subtitle {
+    animation: none;
+  }
+
+  .page-header-watermark {
+    transform: translate(-50%, -50%);
+  }
+
+  .section-title {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

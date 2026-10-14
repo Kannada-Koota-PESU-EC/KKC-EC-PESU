@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/shared/i18n/useLanguage";
 
 export default function RepublicDayPopup() {
   const [show, setShow] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const today = new Date();
@@ -27,6 +29,7 @@ export default function RepublicDayPopup() {
         {/* Close button */}
         <button
   onClick={() => setShow(false)}
+  aria-label={t("common.close")}
   className="absolute top-2 right-2 bg-white/80 text-black text-xl font-bold rounded-full w-8 h-8 flex items-center justify-center hover:bg-white"
 >
   ×
@@ -34,17 +37,17 @@ export default function RepublicDayPopup() {
         {/* Image */}
         <img
           src="/republic-day.jpg"
-          alt="Happy Republic Day"
+          alt={t("republic.imageAlt")}
           className="w-full object-cover"
         />
 
         {/* Text */}
         <div className="p-4 text-center">
           <h2 className="text-xl font-bold text-yellow-400">
-            🇮🇳 Happy Republic Day 🇮🇳
+            {t("republic.title")}
           </h2>
           <p className="text-sm text-muted-foreground mt-2">
-            ಸಂವಿಧಾನ ನಮ್ಮ ಶಕ್ತಿ, ನಮ್ಮ ಹೆಮ್ಮೆ
+            {t("republic.message")}
           </p>
         </div>
       </div>

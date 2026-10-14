@@ -3,6 +3,7 @@ import { Button } from '@/shared/components/ui/button';
 import { Calendar, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { Event } from '@/features/events/data/events';
+import { useLanguage } from '@/shared/i18n/useLanguage';
 
 interface EventCardProps {
   event: Event;
@@ -12,11 +13,13 @@ interface EventCardProps {
 export default function EventCard({ event, featured = false }: EventCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { lang, t, l } = useLanguage();
+  const title = l(event.title);
   const isUpcoming = new Date(event.date).getTime() >= new Date().setHours(0, 0, 0, 0);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-IN', {
+    return date.toLocaleDateString(lang === 'kn' ? 'kn-IN' : 'en-IN', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -41,14 +44,14 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
         <div className={`relative overflow-hidden rounded-lg ${featured ? 'md:w-[46%] md:flex-shrink-0' : ''}`}>
           <img
             src={event.image}
-            alt={event.title}
+            alt={title}
             className={`w-full object-cover transition-transform duration-300 ${
               featured ? 'h-64 md:h-[320px] lg:h-[360px]' : 'h-48'
             }`}
             loading="lazy"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = '/api/placeholder/600/400';
+              target.src = '/placeholder.svg';
             }}
           />
 
@@ -56,7 +59,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
           {isUpcoming && (
             <div className="absolute top-3 right-3">
               <span className="px-3 py-1 rounded-full text-xs font-medium bg-success text-success-foreground">
-                Upcoming
+                {t('events.badgeUpcoming')}
               </span>
             </div>
           )}
@@ -65,7 +68,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
           {featured && (
             <div className="absolute top-3 left-3">
               <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground">
-                Featured Event
+                {t('events.badgeFeatured')}
               </span>
             </div>
           )}
@@ -81,7 +84,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
                 featured ? 'text-2xl md:text-3xl' : 'text-xl'
               }`}
             >
-              {event.title}
+              {title}
             </h3>
 
             {/* Date + Location */}
@@ -94,7 +97,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
               {event.location && (
                 <div className="flex items-center space-x-1">
                   <MapPin className="h-4 w-4" />
-                  <span>{event.location}</span>
+                  <span>{l(event.location)}</span>
                 </div>
               )}
             </div>
@@ -102,7 +105,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
 
           {/* Description */}
           <p className={`text-muted-foreground leading-relaxed ${featured ? 'text-lg' : ''}`}>
-            {event.teaser}
+            {l(event.teaser)}
           </p>
           {event.registerLink && (
           <a
@@ -111,7 +114,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
             rel="noopener noreferrer"
           >
           <Button className="mt-3">
-            Register Now
+            {t('events.register')}
           </Button>
           </a>
           )}
@@ -127,20 +130,20 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
               {/* Gallery */}
               {event.gallery && event.gallery.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-foreground mb-2">Gallery</h4>
+                  <h4 className="font-semibold text-foreground mb-2">{t('events.gallery')}</h4>
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {event.gallery.slice(0, 6).map((image, index) => (
                       <img
                         key={index}
                         src={image}
-                        alt={`Gallery image ${index + 1}`}
+                        alt={t('events.galleryImageAlt', { n: index + 1 })}
                         onClick={() => setSelectedImage(image)}
                         className="w-full h-20 object-cover rounded border cursor-pointer hover:scale-105 transition"
                         loading="lazy"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = '/api/placeholder/200/150';
+                          target.src = '/placeholder.svg';
                         }}
                       />
                     ))}
@@ -155,7 +158,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
           <div className="flex flex-wrap gap-3 pt-2">
             <Collapsible.Trigger asChild>
               <Button variant="outline" size="sm" className="flex items-center space-x-1">
-                <span>{isExpanded ? 'Show Less' : 'Read More'}</span>
+                <span>{isExpanded ? t('common.showLess') : t('common.readMore')}</span>
                 {isExpanded ? (
                   <ChevronUp className="h-4 w-4" />
                 ) : (
@@ -176,6 +179,7 @@ export default function EventCard({ event, featured = false }: EventCardProps) {
         >
           <img
             src={selectedImage}
+            alt={t('events.popupImageAlt', { title })}
             className="max-h-[90%] max-w-[90%] rounded-lg shadow-lg"
           />
         </div>

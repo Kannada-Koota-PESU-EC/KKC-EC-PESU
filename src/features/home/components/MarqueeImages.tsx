@@ -5,14 +5,14 @@ interface MarqueeImagesProps {
 }
 
 const defaultImages = [
-  { src: '/api/placeholder/300/400', alt: 'Kannada cultural performance' },
-  { src: '/api/placeholder/400/300', alt: 'Traditional Mysore Dasara celebration' },
-  { src: '/api/placeholder/350/400', alt: 'Students in traditional attire' },
-  { src: '/api/placeholder/400/350', alt: 'Kannada poetry workshop' },
-  { src: '/api/placeholder/320/400', alt: 'Cultural dance performances' },
-  { src: '/api/placeholder/400/320', alt: 'Traditional food festival' },
-  { src: '/api/placeholder/360/400', alt: 'Team members at event' },
-  { src: '/api/placeholder/400/360', alt: 'Community gathering' }
+  { src: '/placeholder.svg', alt: 'Kannada cultural performance' },
+  { src: '/placeholder.svg', alt: 'Traditional Mysore Dasara celebration' },
+  { src: '/placeholder.svg', alt: 'Students in traditional attire' },
+  { src: '/placeholder.svg', alt: 'Kannada poetry workshop' },
+  { src: '/placeholder.svg', alt: 'Cultural dance performances' },
+  { src: '/placeholder.svg', alt: 'Traditional food festival' },
+  { src: '/placeholder.svg', alt: 'Team members at event' },
+  { src: '/placeholder.svg', alt: 'Community gathering' }
 ];
 
 export default function MarqueeImages({ images }: MarqueeImagesProps) {
@@ -60,7 +60,7 @@ export default function MarqueeImages({ images }: MarqueeImagesProps) {
                     loading="lazy"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = '/api/placeholder/300/300';
+                      target.src = '/placeholder.svg';
                     }}
                   />
                 </div>
