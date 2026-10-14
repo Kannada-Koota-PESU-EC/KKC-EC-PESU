@@ -1,0 +1,202 @@
+/* Site footer */
+.site-footer {
+  --footer-flag: linear-gradient(90deg, #ffd700 0%, #f4a21a 50%, #e3242b 100%);
+
+  position: relative;
+  overflow: hidden;
+  background: hsl(0 0% 5%);
+}
+
+.site-footer-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--footer-flag);
+}
+
+/* Large faint "ಕನ್ನಡ" */
+.site-footer-watermark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Noto Sans Kannada', sans-serif;
+  font-weight: 800;
+  font-size: clamp(8rem, 24vw, 20rem);
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff;
+  opacity: 0.03;
+  pointer-events: none;
+  user-select: none;
+}
+
+.site-footer-logo {
+  width: 3.25rem;
+  height: 3.25rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(180deg, #ffd700, #e3242b);
+  box-shadow: 0 0 14px rgba(255, 200, 60, 0.2);
+}
+
+.site-footer-logo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Column headings with a short gradient underline */
+.site-footer-heading {
+  color: #fff;
+  font-weight: 700;
+}
+
+.site-footer-heading::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 3px;
+  margin-top: 0.5rem;
+  border-radius: 3px;
+  background: var(--footer-flag);
+}
+
+@media (max-width: 767px) {
+  .site-footer-heading::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Links: turn yellow, slide right, small arrow appears */
+.site-footer-link {
+  display: inline-flex;
+  align-items: center;
+  color: #bdb7aa;
+  transition:
+    color 200ms ease,
+    transform 200ms ease;
+}
+
+.site-footer-link svg {
+  width: 0;
+  opacity: 0;
+  margin-right: 0;
+  transition:
+    width 200ms ease,
+    opacity 200ms ease,
+    margin-right 200ms ease;
+}
+
+.site-footer-link:hover,
+.site-footer-link:focus-visible {
+  color: #ffd23f;
+  transform: translateX(2px);
+}
+
+.site-footer-link:hover svg,
+.site-footer-link:focus-visible svg {
+  width: 0.85rem;
+  opacity: 1;
+  margin-right: 0.3rem;
+}
+
+/* Round dark chips for contact icons */
+.site-footer-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffd23f;
+}
+
+/* Instagram button, Instagram gradient on hover */
+.site-footer-instagram {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f1ede4;
+  font-weight: 500;
+  overflow: hidden;
+  transition: border-color 300ms ease;
+}
+
+.site-footer-instagram::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(45deg, #962fbf 0%, #d62976 45%, #fa7e1e 85%, #feda75 100%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.site-footer-instagram:hover,
+.site-footer-instagram:focus-visible {
+  border-color: transparent;
+  color: #fff;
+}
+
+.site-footer-instagram:hover::before,
+.site-footer-instagram:focus-visible::before {
+  opacity: 1;
+}
+
+.site-footer-heart {
+  display: inline-block;
+  animation: footer-heart 1.8s ease-in-out infinite;
+}
+
+@keyframes footer-heart {
+  0%, 100% { transform: scale(1); }
+  20% { transform: scale(1.18); }
+  40% { transform: scale(1); }
+}
+
+.site-footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 210, 63, 0.35);
+  color: #ffd23f;
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+}
+
+.site-footer-top:hover,
+.site-footer-top:focus-visible {
+  background: rgba(255, 210, 63, 0.12);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer-heart {
+    animation: none;
+  }
+
+  .site-footer-link,
+  .site-footer-link svg,
+  .site-footer-top {
+    transition: none;
+  }
+}

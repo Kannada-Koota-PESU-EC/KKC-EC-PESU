@@ -5,6 +5,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.css$':'<rootDir>/src/tests/styleStub.ts',
   },
   transform: {
     '^.+\\.tsx?$': [

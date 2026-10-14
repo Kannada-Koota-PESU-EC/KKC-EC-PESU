@@ -56,7 +56,7 @@ export default function UpiFallback() {
             className="w-48 h-48 mx-auto"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = '/api/placeholder/300/300';
+              target.src = '/placeholder.svg';
             }}
           />
         </div>

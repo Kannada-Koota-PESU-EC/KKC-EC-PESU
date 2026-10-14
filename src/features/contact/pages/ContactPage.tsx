@@ -3,8 +3,11 @@ import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Label } from '@/shared/components/ui/label';
-import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useToast } from '@/shared/hooks/use-toast';
+import { useLanguage } from '@/shared/i18n/useLanguage';
+import PageHeader from '@/shared/components/layout/PageHeader';
+import SectionTitle from '@/shared/components/layout/SectionTitle';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -15,6 +18,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,24 +66,11 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-surface via-background to-accent-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="space-y-6 animate-fade-in-up">
-            <div className="flex items-center justify-center space-x-2 text-accent">
-              <MessageCircle className="h-8 w-8" />
-              <h1 className="text-4xl md:text-6xl font-bold">ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ</h1>
-            </div>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Have questions, suggestions, or want to get involved? We'd love to hear from you!
-            </p>
-          </div>
-        </div>
-      </section>
+    <div className="min-h-screen">
+      <PageHeader title={t('contact.title')} subtitle={t('contact.subtitle')} />
 
       {/* Contact Content */}
-      <section className="py-12">
+      <section className="pt-8 pb-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -157,12 +148,12 @@ export default function Contact() {
             {/* Contact Info */}
             <div className="space-y-8">
               <div className="card-elevated p-8">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Contact Information</h2>
+                <SectionTitle title={t('contact.info')} className="mb-6" />
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <Mail className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                     <div>
-                      <h3 className="font-semibold text-foreground">Email</h3>
+                      <h3 className="font-semibold text-foreground">{t('contact.email')}</h3>
                       <p className="text-muted-foreground">kannadakoota.ecc@pes.edu</p>
                     </div>
                   </div>
@@ -170,11 +161,11 @@ export default function Contact() {
                   <div className="flex items-start space-x-4">
                     <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                     <div>
-                      <h3 className="font-semibold text-foreground">Location</h3>
+                      <h3 className="font-semibold text-foreground">{t('contact.location')}</h3>
                       <p className="text-muted-foreground">
-                        PES University<br />
-                        Electronic City Campus<br />
-                        Bangalore, Karnataka
+                        {t('contact.address1')}<br />
+                        {t('contact.address2')}<br />
+                        {t('contact.address3')}
                       </p>
                     </div>
                   </div>

@@ -1,123 +1,121 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowUp, ChevronRight, Instagram, Mail, MapPin } from 'lucide-react';
+import { useLanguage } from '@/shared/i18n/useLanguage';
+import type { TranslationKey } from '@/shared/i18n/translations';
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from '@/shared/lib/social';
+import './footer.css';
+
+const EMAIL = 'kannadakoota.ecc@pes.edu';
+
+const quickLinks: { key: TranslationKey; path: string }[] = [
+  { key: 'events.upcoming', path: '/events' },
+  { key: 'team.title', path: '/team' },
+  { key: 'footer.getInTouch', path: '/contact' },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { lang, t } = useLanguage();
+  const kannadaFont = lang === 'kn' ? 'kannada-text' : '';
+  const [madeBefore, madeAfter] = t('footer.madeWith').split('{heart}');
+
+  const scrollToTop = () => {
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  };
 
   return (
-    <footer className="bg-surface border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="site-footer">
+      <div className="site-footer-line" aria-hidden="true" />
+      <span className="site-footer-watermark" aria-hidden="true">
+        ಕನ್ನಡ
+      </span>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-left">
           {/* Club Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm kannada-text">ಕ</span>
-              </div>
-              <span className="font-bold text-lg">ಕನ್ನಡ ಕೂಟ</span>
+            <div className="flex items-center justify-center md:justify-start gap-3">
+              <span className="site-footer-logo">
+                <img src="/Respectives/KKC1.png" alt={t('brand.logoAlt')} loading="lazy" />
+              </span>
+              <span className={`font-bold text-lg text-white ${kannadaFont}`}>{t('footer.brand')}</span>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Celebrating and preserving Kannada culture, language, and traditions at PES University Electronic City Campus.
-            </p>
-            <p className="text-xs text-muted-foreground kannada-text">
-              ಕನ್ನಡ ಸಂಸ್ಕೃತಿಯನ್ನು ಉಳಿಸುವ ನಮ್ಮ ಪ್ರಯತ್ನ
-            </p>
+            <p className="text-sm leading-relaxed text-[#bdb7aa]">{t('footer.about')}</p>
+            <p className="text-sm italic text-[#ffd23f]">{t('brand.tagline')}</p>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/events" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Upcoming Events
-                </Link>
-              </li>
-              <li>
-                <Link to="/team" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Our Team
-                </Link>
-              </li>
-              <li>
-                <Link to="/upis" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Support Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Get in Touch
-                </Link>
-              </li>
+          <div className="space-y-5">
+            <h3 className={`site-footer-heading ${kannadaFont}`}>{t('footer.quickLinks')}</h3>
+            <ul className="space-y-2.5">
+              {quickLinks.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="site-footer-link text-sm">
+                    <ChevronRight aria-hidden="true" />
+                    {t(link.key)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Contact</h3>
+          <div className="space-y-5">
+            <h3 className={`site-footer-heading ${kannadaFont}`}>{t('nav.contact')}</h3>
             <div className="space-y-3">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>kannadakoota.ecc@pes.edu</span>
-              </div>
-              {/* <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+91-9876543210</span>
-              </div> */}
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 flex-shrink-0" />
-                <span>PES University, EC, 
-                  Bangalore
+              <a
+                href={`mailto:${EMAIL}`}
+                className="flex items-center justify-center md:justify-start gap-3 text-sm text-[#bdb7aa] hover:text-[#ffd23f] transition-colors"
+              >
+                <span className="site-footer-chip">
+                  <Mail className="h-4 w-4" aria-hidden="true" />
                 </span>
+                <span className="break-all">{EMAIL}</span>
+              </a>
+              <div className="flex items-center justify-center md:justify-start gap-3 text-sm text-[#bdb7aa]">
+                <span className="site-footer-chip">
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <span>{t('footer.address')}</span>
               </div>
             </div>
           </div>
 
           {/* Social Media */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Follow Us</h3>
-            <div className="flex space-x-3">
-              <a
-                href="https://www.instagram.com/kannadakoota_ecc?igsh=eGJnODZ6Njd0dTU5"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-accent rounded-full flex items-center justify-center hover:bg-accent/80 transition-colors"
-                aria-label="Follow us on Instagram"
-              >
-                <Instagram className="h-4 w-4 text-accent-foreground" />
-              </a>
-              {/* <a
-                href="https://facebook.com/kannadakoota.pes"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-accent rounded-full flex items-center justify-center hover:bg-accent/80 transition-colors"
-                aria-label="Follow us on Facebook"
-              >
-                <Facebook className="h-4 w-4 text-accent-foreground" />
-              </a> */}
-              {/* <a
-                href="https://twitter.com/kannadakoota_pes"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-accent rounded-full flex items-center justify-center hover:bg-accent/80 transition-colors"
-                aria-label="Follow us on Twitter"
-              >
-                <Twitter className="h-4 w-4 text-accent-foreground" />
-              </a> */}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Stay updated with our latest events and activities
-            </p>
+          <div className="space-y-5">
+            <h3 className={`site-footer-heading ${kannadaFont}`}>{t('footer.followUs')}</h3>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="site-footer-instagram text-sm"
+              aria-label={t('footer.instagramLabel')}
+            >
+              <Instagram className="h-4 w-4" aria-hidden="true" />@{INSTAGRAM_HANDLE}
+            </a>
+            <p className="text-xs text-[#9a958a]">{t('footer.stayUpdated')}</p>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-          <p className="text-xs text-muted-foreground">
-            © {currentYear} Kannada Koota EC PES. All rights reserved.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Made with ❤️ for preserving Kannada culture
-          </p>
+        <div
+          id="site-footer-bottom"
+          className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center"
+        >
+          <p className="text-xs text-[#9a958a]">{t('footer.rights', { year: currentYear })}</p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs text-[#9a958a]">
+              {madeBefore}
+              <span className="site-footer-heart" role="img" aria-label="love">
+                ❤️
+              </span>
+              {madeAfter}
+            </p>
+            <button type="button" className="site-footer-top" onClick={scrollToTop} aria-label={t('footer.backToTop')} title={t('footer.backToTop')}>
+              <ArrowUp className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

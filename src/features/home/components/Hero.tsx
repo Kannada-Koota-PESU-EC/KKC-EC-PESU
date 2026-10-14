@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/shared/components/ui/button";
-
-interface HeroProps {
-  title?: string;
-}
+import { useLanguage } from "@/shared/i18n/useLanguage";
 
 // MarqueeImages component with sliding effect
 function MarqueeImages() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { t } = useLanguage();
 
   const images = [
   '/img4.jpg',
@@ -37,11 +35,11 @@ function MarqueeImages() {
         >
           <img
             src={image}
-            alt={`Kannada Koota Event ${index + 1}`}
+            alt={t("hero.slideCaption", { n: index + 1 })}
             className="h-full w-full object-cover"
           />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
-            <p className="text-sm">Kannada Koota Event {index + 1}</p>
+            <p className="text-sm">{t("hero.slideCaption", { n: index + 1 })}</p>
           </div>
         </div>
       ))}
@@ -55,7 +53,7 @@ function MarqueeImages() {
               index === currentIndex ? "bg-white scale-125" : "bg-white/50"
             }`}
             onClick={() => setCurrentIndex(index)}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={t("hero.goToSlide", { n: index + 1 })}
           />
         ))}
       </div>
@@ -63,7 +61,8 @@ function MarqueeImages() {
   );
 }
 
-export default function Hero({ title = "ಕನ್ನಡ ಕೂಟ EC PES" }: HeroProps) {
+export default function Hero() {
+  const { t } = useLanguage();
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
     if (aboutSection) {
@@ -79,15 +78,14 @@ export default function Hero({ title = "ಕನ್ನಡ ಕೂಟ EC PES" }: Her
           <div className="space-y-8 animate-fade-in-up">
             <div className="space-y-4 text-center">
               <h1 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text moving-gradient-text bg-gradient-to-r from-red-500 via-yellow-400 to-red-500 mb-4 leading-snug md:leading-loose">
-                {title}
+                {t("brand.full")}
               </h1>
 
               <p className="text-xl text-muted-foreground mt-4 max-w-xl mx-auto">
-                Celebrating Kannada culture, language, and traditions at PES
-                University Electronic City Campus
+                {t("hero.subtitle")}
               </p>
-              <p className="text-sm text-muted-foreground kannada-text max-w-xl mx-auto">
-                ಕನ್ನಡ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಭಾಷೆಯ ಸಂರಕ್ಷಣೆಗಾಗಿ ನಮ್ಮ ಪ್ರಯತ್ನ
+              <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+                {t("brand.tagline")}
               </p>
             </div>
 
@@ -97,7 +95,7 @@ export default function Hero({ title = "ಕನ್ನಡ ಕೂಟ EC PES" }: Her
                 className="px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-all animate-pulse"
                 size="lg"
               >
-                Learn More About Us
+                {t("hero.learnMore")}
               </Button>
               {/* <Button 
                 variant="outline"
@@ -113,17 +111,17 @@ export default function Hero({ title = "ಕನ್ನಡ ಕೂಟ EC PES" }: Her
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">160+</div>
                 <div className="text-sm text-muted-foreground">
-                  Active Members
+                  {t("hero.statMembers")}
                 </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">5+</div>
-                <div className="text-sm text-muted-foreground">Events</div>
+                <div className="text-sm text-muted-foreground">{t("hero.statEvents")}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">3</div>
                 <div className="text-sm text-muted-foreground">
-                  Years Active
+                  {t("hero.statYears")}
                 </div>
               </div>
             </div>

@@ -1,0 +1,372 @@
+/* Respected Members block (Team page) */
+.respected-section {
+  --gold: #d4af37;
+  --flag-ring: conic-gradient(from 0deg, #ffd23f, #f7931e, #e3242b, #f7931e, #ffd23f);
+  --gold-ring: conic-gradient(from 0deg, #8a6d1d, #d4af37, #f3e3a3, #d4af37, #8a6d1d, #d4af37, #f3e3a3, #8a6d1d);
+  --ring-speed: 9s; /* one slow rotation */
+  --ring-speed-hover: 5s;
+
+  --respected-stagger: 160ms;
+  --respected-fade: 700ms;
+  --founder-photo: clamp(160px, 42vw, 210px);
+  --honour-photo: clamp(116px, 30vw, 136px);
+
+  position: relative;
+  /* Soft gold light behind the founder, fading into the page */
+  background: radial-gradient(ellipse 55% 40% at 50% 32%, rgba(212, 175, 55, 0.11) 0%, rgba(212, 175, 55, 0.04) 45%, transparent 75%);
+}
+
+.respected-sans {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Scroll-in: founder (index 0) first, then the honour cards one by one */
+.respected-reveal {
+  opacity: 0;
+  transition:
+    opacity var(--respected-fade) ease-out,
+    transform var(--respected-fade) ease-out,
+    box-shadow 300ms ease;
+  transition-delay: calc(var(--reveal-index) * var(--respected-stagger)), calc(var(--reveal-index) * var(--respected-stagger)), 0ms;
+}
+
+.honour-card.respected-reveal {
+  transform: translateY(18px);
+}
+
+.respected-block.is-visible .respected-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Kannada title chip */
+.title-chip {
+  display: inline-block;
+  border-radius: 9999px;
+  padding: 0.25rem 0.85rem;
+  background: rgba(255, 200, 0, 0.12);
+  color: #ffd23f;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.title-caption {
+  color: #9a9a9a;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+/* Rotating gradient ring with a dark gap before the photo */
+.spin-ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 4px;
+  isolation: isolate;
+  box-shadow: 0 0 28px 2px rgba(247, 147, 30, 0.28);
+  transition: box-shadow 300ms ease;
+}
+
+.spin-ring::before,
+.spin-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--flag-ring);
+  animation: ring-spin var(--ring-speed) linear infinite;
+}
+
+/* Faster copy, faded in on hover so the speed-up is smooth */
+.spin-ring::after {
+  animation-duration: var(--ring-speed-hover);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.spin-ring-gold {
+  padding: 5px;
+  box-shadow: 0 0 34px 4px rgba(212, 175, 55, 0.32);
+}
+
+.spin-ring-gold::before,
+.spin-ring-gold::after {
+  background: var(--gold-ring);
+}
+
+.spin-ring-gap {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 3px;
+  background: #121212;
+  overflow: hidden;
+}
+
+.respected-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 25%;
+  background: #fff;
+  transition: transform 300ms ease;
+}
+
+.respected-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: 0.05em;
+}
+
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Founder feature ---------- */
+.founder-photo {
+  position: relative;
+  width: var(--founder-photo);
+  height: var(--founder-photo);
+}
+
+/* Radiating halo, glows in when the block appears */
+.founder-halo {
+  position: absolute;
+  inset: -45%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 214, 120, 0.3) 0%, rgba(212, 175, 55, 0.12) 35%, rgba(212, 175, 55, 0.04) 55%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 1600ms ease-out,
+    transform 1600ms ease-out;
+  pointer-events: none;
+}
+
+.respected-block.is-visible .founder-halo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Laurel around the lower half of the photo */
+.founder-laurel {
+  position: absolute;
+  inset: -13%;
+  width: 126%;
+  height: 126%;
+  pointer-events: none;
+}
+
+.respected-memorial {
+  color: #c9a24a;
+}
+
+/* Tiny diya with a gentle flicker */
+.respected-diya {
+  position: relative;
+  display: inline-block;
+  width: 12px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.respected-diya::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px;
+  height: 10px;
+  margin-left: -3px;
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  background: radial-gradient(ellipse at 50% 75%, #fff4cc 0%, #ffcb5c 45%, #ff9a2e 100%);
+  box-shadow: 0 0 6px 1px rgba(255, 180, 70, 0.45);
+  transform-origin: 50% 100%;
+  animation: diya-flicker 2.6s ease-in-out infinite;
+}
+
+.respected-diya::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 12px;
+  height: 5px;
+  border-radius: 0 0 6px 6px / 0 0 5px 5px;
+  background: linear-gradient(180deg, #c98a3a, #8a5420);
+}
+
+@keyframes diya-flicker {
+  0%, 100% { transform: scale(1, 1); opacity: 1; }
+  30% { transform: scale(0.95, 1.05); opacity: 0.92; }
+  55% { transform: scale(1.04, 0.96); opacity: 1; }
+  80% { transform: scale(0.98, 1.02); opacity: 0.95; }
+}
+
+/* ---------- Honour cards ---------- */
+.honour-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 340px);
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 560px) {
+  .honour-grid {
+    grid-template-columns: repeat(2, minmax(0, 300px));
+  }
+}
+
+@media (min-width: 1024px) {
+  .honour-grid {
+    grid-template-columns: repeat(4, minmax(220px, 285px));
+    gap: 1.75rem;
+  }
+}
+
+/* Glass card */
+.honour-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+/* Gradient border, glows on hover */
+.honour-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #ffd23f, #f7931e, #e3242b);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+/* Soft mesh gradient top area that fades into the card */
+.honour-glow {
+  position: absolute;
+  /* Extends past the edges so the blur doesn't dim the top of the card */
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  height: 165px;
+  background:
+    radial-gradient(ellipse 70% 90% at 15% 0%, rgba(255, 210, 63, 0.75) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 55% 10%, rgba(247, 147, 30, 0.7) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 90% at 95% 0%, rgba(227, 36, 43, 0.75) 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 35%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 35%, transparent 100%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+/* Faint grain for depth */
+.honour-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.honour-photo {
+  position: relative;
+  width: var(--honour-photo);
+  height: var(--honour-photo);
+  margin-top: 2.75rem;
+}
+
+.honour-body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 1.75rem;
+}
+
+/* Side-by-side cards: names get a two-line slot so chips and titles line up across the row */
+@media (min-width: 560px) {
+  .honour-name {
+    min-height: 2.75em;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+
+@media (hover: hover) {
+  .respected-block.is-visible .honour-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px -18px rgba(247, 147, 30, 0.35);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+    transition-delay: 0ms;
+  }
+
+  .honour-card:hover::after {
+    opacity: 1;
+  }
+
+  .honour-card:hover .spin-ring::after {
+    opacity: 1;
+  }
+
+  .honour-card:hover .spin-ring {
+    box-shadow: 0 0 34px 4px rgba(247, 147, 30, 0.45);
+  }
+
+  .honour-card:hover .respected-photo {
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .respected-reveal,
+  .respected-block.is-visible .respected-reveal,
+  .respected-block.is-visible .honour-card:hover,
+  .founder-halo,
+  .respected-block.is-visible .founder-halo {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .spin-ring::before,
+  .spin-ring::after,
+  .respected-diya::before {
+    animation: none;
+  }
+}

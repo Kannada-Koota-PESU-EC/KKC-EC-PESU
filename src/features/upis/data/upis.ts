@@ -11,17 +11,17 @@ export const upiData: UpiInfo[] = [
   {
     id: 'primary',
     upiId: 'NA',
-    name: 'Kannada Koota EC PES - Primary',
+    name: 'Kannada Koota EC PESU - Primary',
     description: 'Primary account for general donations and event sponsorships',
-    qrCodeImage: '/Hero/KK1.jpeg',
+    qrCodeImage: '/Hero/KKC1.png',
     isDefault: true
   },
   {
     id: 'events',
     upiId: 'NA',
-    name: 'Kannada Koota EC PES - Events',
+    name: 'Kannada Koota EC PESU - Events',
     description: 'Dedicated account for event registrations and workshop fees',
-    qrCodeImage: '/Hero/KK1.jpeg',
+    qrCodeImage: '/Hero/KKC1.png',
     isDefault: false
   }
 ];
@@ -39,7 +39,7 @@ export const getUpiById = (id: string): UpiInfo | undefined => {
 };
 
 export const donationInfo = {
-  title: 'Support Kannada Koota EC PES',
+  title: 'Support Kannada Koota EC PESU',
   description: 'Your donations help us organize cultural events, workshops, and community activities that celebrate and preserve Kannada heritage.',
   usageAreas: [
     'Cultural event organization and venue booking',

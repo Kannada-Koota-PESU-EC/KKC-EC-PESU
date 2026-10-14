@@ -1,0 +1,121 @@
+/* Floating "Follow us on Instagram" button */
+.floating-ig {
+  --ig-size: 3.5rem;
+  --ig-gradient: linear-gradient(45deg, #feda75 0%, #fa7e1e 25%, #d62976 55%, #962fbf 80%, #4f5bd5 100%);
+  --ig-lift: 0px; /* raised while the footer's bottom bar is visible, so "Back to top" stays reachable */
+
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  height: var(--ig-size);
+  border-radius: 9999px;
+  background: var(--ig-gradient);
+  color: #fff;
+  box-shadow: 0 10px 24px -8px rgba(214, 41, 118, 0.55);
+  transform: translateY(calc(var(--ig-lift) * -1));
+  animation: ig-appear 400ms ease-out backwards;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    opacity 200ms ease;
+}
+
+.floating-ig.is-lifted {
+  --ig-lift: 4.5rem;
+}
+
+/* Hidden while the mobile menu is open (attribute set by the navbar) */
+html[data-nav-open] .floating-ig {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-ig-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ig-size);
+  height: var(--ig-size);
+  flex-shrink: 0;
+}
+
+.floating-ig-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition:
+    max-width 350ms ease,
+    opacity 250ms ease,
+    padding 350ms ease;
+}
+
+/* Soft pulse ring every few seconds */
+.floating-ig::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgba(214, 41, 118, 0.6);
+  pointer-events: none;
+  animation: ig-pulse 4s ease-out infinite;
+}
+
+@media (hover: hover) and (min-width: 768px) {
+  .floating-ig:hover .floating-ig-label,
+  .floating-ig:focus-visible .floating-ig-label,
+  .floating-ig.is-expanded .floating-ig-label {
+    max-width: 16rem;
+    opacity: 1;
+    padding-right: 1.25rem;
+  }
+
+  .floating-ig:hover,
+  .floating-ig:focus-visible {
+    box-shadow: 0 14px 30px -8px rgba(214, 41, 118, 0.7);
+  }
+}
+
+@media (max-width: 767px) {
+  .floating-ig {
+    --ig-size: 3rem;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .floating-ig.is-lifted {
+    --ig-lift: 7.5rem;
+  }
+}
+
+@keyframes ig-appear {
+  from { opacity: 0; transform: translateY(12px) scale(0.9); }
+  to { opacity: 1; }
+}
+
+@keyframes ig-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  40% { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-ig,
+  .floating-ig::before {
+    animation: none;
+  }
+
+  .floating-ig::before {
+    display: none;
+  }
+
+  .floating-ig,
+  .floating-ig-label {
+    transition: none;
+  }
+}
