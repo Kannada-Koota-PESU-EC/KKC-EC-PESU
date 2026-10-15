@@ -30,7 +30,6 @@ export function LanguageProvider({ children, initialLanguage }: LanguageProvider
       // Storage unavailable (private mode etc.); the choice just won't persist
     }
     document.documentElement.lang = lang;
-    document.title = translations['site.title'][lang];
   }, [lang]);
 
   const t = useCallback(
