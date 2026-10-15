@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config config/vite.config.ts",
-    "build": "vite build --config config/vite.config.ts",
-    "build:dev": "vite build --mode development --config config/vite.config.ts",
+    "build": "vite build --config config/vite.config.ts && node scripts/prerender-meta.mjs",
+    "build:dev": "vite build --mode development --config config/vite.config.ts && node scripts/prerender-meta.mjs",
     "lint": "eslint -c config/eslint.config.js .",
     "preview": "vite preview --config config/vite.config.ts",
     "test": "jest --config config/jest.config.cjs"

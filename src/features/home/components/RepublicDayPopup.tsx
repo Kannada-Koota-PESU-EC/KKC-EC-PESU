@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/shared/i18n/useLanguage";
+import { site } from "@/shared/data/site";
 
 export default function RepublicDayPopup() {
   const [show, setShow] = useState(false);
@@ -36,7 +37,7 @@ export default function RepublicDayPopup() {
 </button>
         {/* Image */}
         <img
-          src="/republic-day.jpg"
+          src={site.images.republicDay}
           alt={t("republic.imageAlt")}
           className="w-full object-cover"
         />

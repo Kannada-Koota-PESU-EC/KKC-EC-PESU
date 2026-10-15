@@ -3,22 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kannada Koota EC PESU - Cultural Club</title>
-    <link rel="icon" type="image/png" href="/KKCEC-ECON.png" />
-    <meta name="description" content="Kannada Koota EC PESU - Celebrating Kannada culture, language, and traditions at PES University Electronic City Campus" />
+    <!-- Apply the saved language before anything renders (no flash of the wrong language) -->
+    <script>
+      try {
+        var savedLang = localStorage.getItem('kk-language');
+        document.documentElement.lang = savedLang === 'en' ? 'en' : 'kn';
+      } catch (e) {}
+    </script>
+
+    <!-- Per-page values below are filled from src/data/pages.json (at build time and on navigation) -->
+    <title>ಕನ್ನಡ ಕೂಟ | Kannada Koota EC PESU – PES University Electronic City</title>
+    <meta name="description" content="Kannada Koota (ಕನ್ನಡ ಕೂಟ) at PES University Electronic City Campus celebrates Kannada culture, language and traditions through events, performances and community." />
     <meta name="author" content="Kannada Koota EC PESU" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://kannadakootaecc.in/" />
+    <meta name="theme-color" content="#0b0b0b" />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts load without blocking the first paint (swap in when ready) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;500;600;700;800&family=Inter:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;500;600;700;800&family=Inter:wght@500;600&display=swap"></noscript>
 
-    <meta property="og:title" content="Kannada Koota EC PESU - Cultural Club" />
-    <meta property="og:description" content="Celebrating Kannada culture, language, and traditions at PES University" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/KKCEC-ECON.png" />
+    <meta property="og:site_name" content="Kannada Koota EC PESU" />
+    <meta property="og:locale" content="kn_IN" />
+    <meta property="og:locale:alternate" content="en_IN" />
+    <meta property="og:title" content="ಕನ್ನಡ ಕೂಟ | Kannada Koota EC PESU – PES University Electronic City" />
+    <meta property="og:description" content="Kannada Koota (ಕನ್ನಡ ಕೂಟ) at PES University Electronic City Campus celebrates Kannada culture, language and traditions through events, performances and community." />
+    <meta property="og:url" content="https://kannadakootaecc.in/" />
+    <meta property="og:image" content="https://kannadakootaecc.in/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ಕನ್ನಡ ಕೂಟ ಇ.ಸಿ. ಪಿ.ಇ.ಎಸ್.ಯು. – Kannada Koota and PES University logos" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@kannadakoota_pes" />
-    <meta name="twitter:image" content="/KKCEC-ECON.png" />
+    <meta name="twitter:title" content="ಕನ್ನಡ ಕೂಟ | Kannada Koota EC PESU – PES University Electronic City" />
+    <meta name="twitter:description" content="Kannada Koota (ಕನ್ನಡ ಕೂಟ) at PES University Electronic City Campus celebrates Kannada culture, language and traditions through events, performances and community." />
+    <meta name="twitter:image" content="https://kannadakootaecc.in/og-image.jpg" />
   </head>
 
   <body>

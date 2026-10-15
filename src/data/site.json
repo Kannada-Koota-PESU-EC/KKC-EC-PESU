@@ -1,0 +1,103 @@
+{
+  "images": {
+    "logo": "/kkcec-econ.webp",
+    "footerLogo": "/Respectives/kkc1.webp",
+    "aboutPhoto": "/Hero/tm-2.webp",
+    "republicDay": "/republic-day.webp"
+  },
+  "stats": [
+    {
+      "value": 160,
+      "suffix": "+",
+      "label": {
+        "kn": "ಸಕ್ರಿಯ ಸದಸ್ಯರು",
+        "en": "Active Members"
+      }
+    },
+    {
+      "value": 5,
+      "suffix": "+",
+      "label": {
+        "kn": "ಕಾರ್ಯಕ್ರಮಗಳು",
+        "en": "Events"
+      }
+    },
+    {
+      "value": 3,
+      "suffix": "",
+      "label": {
+        "kn": "ಸಕ್ರಿಯ ವರ್ಷಗಳು",
+        "en": "Years Active"
+      }
+    }
+  ],
+  "contact": {
+    "email": "kannadakoota.ecc@pes.edu",
+    "instagramHandle": "kannadakoota_ecc",
+    "address": {
+      "kn": "ಪಿ.ಇ.ಎಸ್. ವಿಶ್ವವಿದ್ಯಾಲಯ, ಎಲೆಕ್ಟ್ರಾನಿಕ್ ಸಿಟಿ ಆವರಣ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ",
+      "en": "PES University, Electronic City Campus, Bengaluru, Karnataka"
+    },
+    "shortAddress": {
+      "kn": "ಪಿ.ಇ.ಎಸ್. ವಿಶ್ವವಿದ್ಯಾಲಯ, ಇ.ಸಿ., ಬೆಂಗಳೂರು",
+      "en": "PES University, EC, Bangalore"
+    },
+    "mapSearch": "PES University Electronic City Campus, Bengaluru",
+    "formEndpoint": ""
+  },
+  "heroSlides": [
+    {
+      "image": "/Hero/slides/utsava-dance.webp",
+      "caption": {
+        "kn": "ಉತ್ಸವ 2K25 · ನೃತ್ಯ",
+        "en": "Utsava 2K25 · Dance"
+      },
+      "imageSmall": "/Hero/slides/utsava-dance-960.webp"
+    },
+    {
+      "image": "/Hero/slides/utsava-stage.webp",
+      "caption": {
+        "kn": "ಉತ್ಸವ 2K25 · ವೇದಿಕೆ",
+        "en": "Utsava 2K25 · On stage"
+      },
+      "imageSmall": "/Hero/slides/utsava-stage-960.webp"
+    },
+    {
+      "image": "/Hero/slides/celebration.webp",
+      "caption": {
+        "kn": "ಸಂಭ್ರಮದ ಸಭಾಂಗಣ",
+        "en": "A packed celebration"
+      },
+      "imageSmall": "/Hero/slides/celebration-960.webp"
+    },
+    {
+      "image": "/Hero/slides/dance.webp",
+      "caption": {
+        "kn": "ನೃತ್ಯ ಪ್ರದರ್ಶನ",
+        "en": "Dance performance"
+      },
+      "imageSmall": "/Hero/slides/dance-960.webp"
+    },
+    {
+      "image": "/Hero/slides/crowd.webp",
+      "caption": {
+        "kn": "ಪ್ರೇಕ್ಷಕರ ಮುಂದೆ",
+        "en": "In front of the crowd"
+      },
+      "imageSmall": "/Hero/slides/crowd-960.webp"
+    },
+    {
+      "image": "/Hero/slides/team.webp",
+      "caption": {
+        "kn": "ನಮ್ಮ ತಂಡ",
+        "en": "Our team"
+      },
+      "imageSmall": "/Hero/slides/team-960.webp"
+    }
+  ],
+  "developer": {
+    "name": "Sharath Gowda G R",
+    "photo": "/developer/sharath.webp",
+    "linkedin": "https://www.linkedin.com/in/sharath-gowda-g-r-372832281/"
+  }
+}

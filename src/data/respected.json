@@ -1,0 +1,58 @@
+{
+  "heading": {
+    "kn": "ನಮ್ಮ ಗೌರವಾನ್ವಿತರು",
+    "en": "Our Respected Members"
+  },
+  "memorialLabel": {
+    "kn": "ಸವಿ ನೆನಪು",
+    "en": "In Loving Memory"
+  },
+  "members": [
+    {
+      "id": "mr-doreswamy",
+      "name": "Dr. M. R. Doreswamy",
+      "title": {
+        "kn": "ಸಂಸ್ಥಾಪಕರು",
+        "en": "Founder, PES Institutions"
+      },
+      "photo": "/Respectives/dr-m-r-doreswamy.webp",
+      "inMemory": true
+    },
+    {
+      "id": "jawahar-doreswamy",
+      "name": "Prof. Jawahar Doreswamy",
+      "title": {
+        "kn": "ಕುಲಾಧಿಪತಿಗಳು",
+        "en": "Chancellor"
+      },
+      "photo": "/Respectives/prof-jawahar-doreswamy.webp"
+    },
+    {
+      "id": "suryaprasad",
+      "name": "Dr. J Suryaprasad",
+      "title": {
+        "kn": "ಉಪ ಕುಲಾಧಿಪತಿಗಳು",
+        "en": "Vice Chancellor"
+      },
+      "photo": "/Respectives/dr-j-suryaprasad.webp"
+    },
+    {
+      "id": "subhash-kulkarni",
+      "name": "Dr. Subhash S. Kulkarni",
+      "title": {
+        "kn": "ಪ್ರಾಂಶುಪಾಲರು",
+        "en": "Principal"
+      },
+      "photo": "/Respectives/dr-subhash-s-kulkarni.webp"
+    },
+    {
+      "id": "lakshmi-narayanam",
+      "name": "Lakshmi Satya Vani Narayanam",
+      "title": {
+        "kn": "ಕನ್ನಡ ಕೂಟದ ಮಾರ್ಗದರ್ಶಕರು",
+        "en": "Faculty Coordinator, Kannada Koota"
+      },
+      "photo": "/Respectives/lakshmi-satya-vani-narayanam.webp"
+    }
+  ]
+}

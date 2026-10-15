@@ -1,0 +1,29 @@
+[
+  {
+    "id": "blog-1",
+    "video": "/blog1.mp4",
+    "title": {
+      "kn": "ವಿಡಿಯೋ 1",
+      "en": "Video 1"
+    },
+    "orientation": "landscape"
+  },
+  {
+    "id": "blog-2",
+    "video": "/blog2.mp4",
+    "title": {
+      "kn": "ವಿಡಿಯೋ 2",
+      "en": "Video 2"
+    },
+    "orientation": "landscape"
+  },
+  {
+    "id": "blog-3",
+    "video": "/blog3.mp4",
+    "title": {
+      "kn": "ವಿಡಿಯೋ 3",
+      "en": "Video 3"
+    },
+    "orientation": "landscape"
+  }
+]

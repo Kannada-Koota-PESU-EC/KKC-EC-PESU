@@ -1,0 +1,31 @@
+{
+  "siteUrl": "https://kannadakootaecc.in",
+  "siteName": "Kannada Koota EC PESU",
+  "shareImage": "/og-image.jpg",
+  "pages": {
+    "/": {
+      "title": "ಕನ್ನಡ ಕೂಟ | Kannada Koota EC PESU – PES University Electronic City",
+      "description": "Kannada Koota (ಕನ್ನಡ ಕೂಟ) at PES University Electronic City Campus celebrates Kannada culture, language and traditions through events, performances and community."
+    },
+    "/events": {
+      "title": "Events | ಕನ್ನಡ ಕೂಟ – Kannada Koota EC PESU",
+      "description": "Upcoming and past events of Kannada Koota (ಕನ್ನಡ ಕೂಟ) at PES University EC: Rajyotsava, Utsava, dance performances, workshops and more."
+    },
+    "/blogs": {
+      "title": "Blogs | ಕನ್ನಡ ಕೂಟ – Kannada Koota EC PESU",
+      "description": "Videos and moments from Kannada Koota (ಕನ್ನಡ ಕೂಟ) events at PES University Electronic City Campus."
+    },
+    "/team": {
+      "title": "Team | ಕನ್ನಡ ಕೂಟ – Kannada Koota EC PESU",
+      "description": "Meet the respected members, club heads and domain heads of Kannada Koota (ಕನ್ನಡ ಕೂಟ) at PES University EC, year by year."
+    },
+    "/contact": {
+      "title": "Contact | ಕನ್ನಡ ಕೂಟ – Kannada Koota EC PESU",
+      "description": "Get in touch with Kannada Koota (ಕನ್ನಡ ಕೂಟ) at PES University Electronic City Campus, Bengaluru: email, Instagram and location."
+    },
+    "404": {
+      "title": "Page not found | ಕನ್ನಡ ಕೂಟ – Kannada Koota EC PESU",
+      "description": "This page wasn't found on the Kannada Koota EC PESU website."
+    }
+  }
+}

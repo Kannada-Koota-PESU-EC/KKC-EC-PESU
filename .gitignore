@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files (may contain keys); commit only an example file
+.env
+.env.*
+!.env.example
+
+# Python cache (from scripts/optimize-images.py)
+__pycache__/

@@ -1,7 +1,7 @@
 import { Linkedin, Instagram, Github, ExternalLink } from 'lucide-react';
 import { Member } from '@/features/team/data/team';
 import { useLanguage } from '@/shared/i18n/useLanguage';
-import { splitBilingual } from '@/shared/i18n/translations';
+import { useMediaLoaded } from '@/shared/hooks/use-media-loaded';
 import './team-cards.css';
 
 interface TeamCardProps {
@@ -23,10 +23,9 @@ const getSocialIcon = (platform: string) => {
 
 export default function TeamCard({ member }: TeamCardProps) {
   const { lang, t, l } = useLanguage();
-  // Team data is written as "ಕನ್ನಡ / English"; show only the current language
-  const name = l(splitBilingual(member.name));
-  const role = t(`role.${member.role}` as const);
-  const domain = member.domain ? l(splitBilingual(member.domain)) : undefined;
+  const name = l(member.name);
+  const role = l(member.role);
+  const photo = useMediaLoaded();
 
   const socialLinks = [
     { platform: 'linkedin', url: member.linkedin },
@@ -35,15 +34,19 @@ export default function TeamCard({ member }: TeamCardProps) {
   ].filter(social => social.url);
 
   return (
-    <article className="team-card">
+    <article className={`team-card skeleton-fade ${photo.loaded ? '' : 'skeleton'}`}>
       <img
         src={member.photo}
-        alt={`${name} - ${role}`}
+        alt={name}
         className="team-card-photo"
         loading="lazy"
+        decoding="async"
+        ref={photo.checkCached}
+        onLoad={photo.markLoaded}
         onError={(e) => {
           const target = e.target as HTMLImageElement;
           target.src = '/placeholder.svg';
+          photo.markLoaded();
         }}
       />
 
@@ -55,9 +58,8 @@ export default function TeamCard({ member }: TeamCardProps) {
         >
           {name}
         </h3>
-        {/* Domain heads show their domain; the group heading already says "Domain Heads" */}
         <p className={`mt-0.5 text-xs sm:text-sm font-medium text-yellow-400 leading-snug break-words ${lang === 'kn' ? 'kannada-text' : ''}`}>
-          {domain ?? role}
+          {role}
         </p>
       </div>
 

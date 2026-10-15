@@ -1,0 +1,285 @@
+/* Contact page */
+.contact-glass {
+  position: relative;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 36px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* Gradient border glow, used on hover */
+.contact-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #ffd23f, #f7931e, #e3242b);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+/* Info tiles */
+.contact-tile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, #ffd23f, #f7931e, #e3242b);
+}
+
+.contact-icon-instagram {
+  background: linear-gradient(45deg, #feda75 0%, #fa7e1e 25%, #d62976 55%, #962fbf 80%, #4f5bd5 100%);
+}
+
+.contact-tile-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: #ffd23f;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+.contact-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #d9d4c8;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.contact-copy:hover,
+.contact-copy:focus-visible {
+  color: #ffd23f;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (hover: hover) {
+  .is-visible .contact-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 36px -18px rgba(247, 147, 30, 0.3);
+    transition-delay: 0ms;
+  }
+
+  .contact-tile:hover::after {
+    opacity: 1;
+  }
+
+  .contact-tile:hover .contact-tile-arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Form fields with floating labels */
+.contact-field {
+  position: relative;
+}
+
+.contact-input {
+  width: 100%;
+  padding: 1.35rem 1rem 0.55rem;
+  border-radius: 12px;
+  color: #f1ede4;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  outline: none;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+textarea.contact-input {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+select.contact-input {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2.5rem;
+}
+
+select.contact-input option {
+  color: #f1ede4;
+  background: #1a1a1a;
+}
+
+/* Yellow-red focus ring */
+.contact-input:focus {
+  border-color: transparent;
+  box-shadow:
+    0 0 0 1.5px #f7931e,
+    0 0 0 4px rgba(247, 147, 30, 0.2);
+}
+
+.contact-input[aria-invalid='true'] {
+  border-color: rgba(239, 68, 68, 0.7);
+}
+
+.contact-label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  color: #9a958a;
+  pointer-events: none;
+  transform-origin: left top;
+  transition:
+    transform 200ms ease,
+    color 200ms ease;
+}
+
+/* Float the label when the field has focus or a value (placeholder=" " trick) */
+.contact-input:focus + .contact-label,
+.contact-input:not(:placeholder-shown) + .contact-label,
+select.contact-input + .contact-label {
+  transform: translateY(-0.6rem) scale(0.78);
+  color: #ffd23f;
+}
+
+.contact-select-chevron {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9a958a;
+  pointer-events: none;
+}
+
+/* Send button with flying paper plane */
+.contact-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-width: 9rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #ffd23f 0%, #f7931e 50%, #e3242b 100%);
+  color: #1a1a1a;
+  font-weight: 700;
+  box-shadow: 0 8px 22px -10px rgba(247, 147, 30, 0.6);
+  transition:
+    box-shadow 300ms ease,
+    opacity 200ms ease;
+}
+
+.contact-send:hover,
+.contact-send:focus-visible {
+  box-shadow: 0 10px 32px -6px rgba(247, 147, 30, 0.75);
+}
+
+.contact-send:disabled {
+  cursor: progress;
+  opacity: 0.85;
+}
+
+.contact-send.is-launching .contact-plane {
+  animation: plane-fly 600ms ease-in forwards;
+}
+
+@keyframes plane-fly {
+  0% { transform: none; opacity: 1; }
+  100% { transform: translate(26px, -22px) rotate(-12deg); opacity: 0; }
+}
+
+/* Map */
+.contact-map {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  aspect-ratio: 21 / 9;
+  min-height: 260px;
+  background: #1a1a1a;
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* Dark-theme look */
+  filter: invert(0.9) hue-rotate(180deg) grayscale(0.25) contrast(0.9);
+}
+
+/* Scroll-in animations */
+.contact-reveal-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms ease-out,
+    transform 600ms ease-out;
+  transition-delay: calc(var(--i, 0) * 120ms);
+}
+
+.contact-reveal-right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity 700ms ease-out,
+    transform 700ms ease-out;
+  transition-delay: 150ms;
+}
+
+.is-visible .contact-reveal-up,
+.is-visible .contact-reveal-right,
+.contact-reveal-up.is-visible,
+.contact-reveal-right.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .contact-map {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-reveal-up,
+  .contact-reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .contact-tile,
+  .contact-tile-arrow,
+  .contact-label,
+  .contact-input {
+    transition: none;
+  }
+
+  .contact-send.is-launching .contact-plane {
+    animation: none;
+  }
+}
