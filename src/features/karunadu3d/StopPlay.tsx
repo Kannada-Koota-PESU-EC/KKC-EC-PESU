@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { drum, echoClap, MAYAMALAVAGOWLA, pluck, stoneNote, swaraFreq } from "@/features/karunadu/audio";
+import { drum, echoClap, MAYAMALAVAGOWLA, pluck, stoneNote, swaraFreq } from "@/features/karunadu3d/audio";
 
 /* A small game for every place on the 3D map. Each one is about that
  * place, takes under half a minute, and scores 0–10 points. */

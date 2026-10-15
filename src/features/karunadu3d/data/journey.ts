@@ -23,5 +23,5 @@ export const JOURNEY: Stop[] = [
   { id: "shravanabelagola", kn: "ಶ್ರವಣಬೆಳಗೊಳ", en: "Shravanabelagola", lat: 12.86, lon: 76.48, photo: photo("shravanabelagola") },
   { id: "mysuru-palace", kn: "ಮೈಸೂರು ಅರಮನೆ", en: "Mysuru Palace", lat: 12.305, lon: 76.655, photo: photo("mysuru-palace") },
   { id: "coorg", kn: "ಕೊಡಗು", en: "Kodagu", lat: 12.42, lon: 75.74, photo: photo("coorg") },
-  { id: "home", kn: "ಕನ್ನಡ ಕೂಟ EC PES", en: "PES University, Electronic City", lat: 12.86, lon: 77.66, photo: "/Hero/TM 2.JPG" },
+  { id: "home", kn: "ಕನ್ನಡ ಕೂಟ EC PES", en: "PES University, Electronic City", lat: 12.86, lon: 77.66, photo: "/karnataka/photos/pes-ec-campus.jpg" },
 ];

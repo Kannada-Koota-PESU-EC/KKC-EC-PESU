@@ -4,11 +4,11 @@ import {
   Castle, Check, ChevronDown, ChevronLeft, ChevronRight, Coffee, Crown, Droplets, GraduationCap, Landmark, MountainSnow, PersonStanding, ScrollText, Shield, Star, Waves, X as Wrong,
   type LucideIcon,
 } from "lucide-react";
-import { JOURNEY } from "@/features/karunadu/data/journey";
-import { KIND_LABEL, STOP_INFO } from "@/features/karunadu/data/stops";
-import type { KarnatakaScene } from "@/features/karunadu/three/scene";
-import KarnatakaIcon from "@/features/karunadu/components/KarnatakaIcon";
-import StopPlay from "@/features/karunadu/components/journey/StopPlay";
+import { JOURNEY } from "@/features/karunadu3d/data/journey";
+import { KIND_LABEL, STOP_INFO } from "@/features/karunadu3d/data/stops";
+import type { KarnatakaScene } from "@/features/karunadu3d/three/scene";
+import KarnatakaIcon from "@/features/karunadu3d/KarnatakaIcon";
+import StopPlay from "@/features/karunadu3d/StopPlay";
 
 /* ಕರುನಾಡು 3D. Scrolling flies the camera across the real terrain; at every
  * place a pin drops and a large card opens beside it with the story, a
@@ -341,7 +341,7 @@ export default function Journey3D() {
     let last = { active: -2, settled: false };
     (async () => {
       try {
-        const { createScene } = await import("@/features/karunadu/three/scene");
+        const { createScene } = await import("@/features/karunadu3d/three/scene");
         if (disposed || !canvasRef.current) return;
         const s = await createScene(canvasRef.current, JOURNEY);
         if (disposed) {
@@ -505,7 +505,8 @@ export default function Journey3D() {
                 <p className="f-display text-lg italic text-[#f6dc8c]/85">Karnataka, in 3D</p>
               </div>
             </div>
-            <p className="mt-4 text-sm text-[#fbf3e2]/80">
+            <p className="f-serif mt-4 text-base text-[#f6dc8c]">ಬೀದರ್‌ನಿಂದ ನಮ್ಮ ಎಲೆಕ್ಟ್ರಾನಿಕ್ ಸಿಟಿಯವರೆಗೆ, ಕರುನಾಡಿನ ಮೇಲೆ ಹಾರಿ ಬನ್ನಿ.</p>
+            <p className="mt-2 text-sm text-[#fbf3e2]/80">
               Scroll to fly over the real land, from Bidar in the north to our home in Electronic City. At every place, read its story, play its game and answer its question to collect points.
             </p>
             <button type="button" onClick={() => jumpTo(0)} className="btn-silk mt-5">

@@ -1,4 +1,4 @@
-import { MAP } from "@/features/karunadu/data/map-path";
+import { MAP } from "@/features/karunadu3d/data/map-path";
 
 /* Everything here is a name (Kannada + English) used as a visual label.
  * Coordinates are approximate district headquarters / site locations. */

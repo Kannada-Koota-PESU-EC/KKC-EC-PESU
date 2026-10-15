@@ -1,0 +1,103 @@
+/* ==================================================================
+ * Karunadu 3D – styles for the 3D map page and the per-page cursor.
+ * Everything is scoped under .k3d (or uses kd- names) so it never
+ * touches the rest of the site's design.
+ * ================================================================== */
+
+.k3d {
+  --ink: #1a0a06;
+  --zari: #d9a63a;
+  --zari-light: #f6dc8c;
+  --cream: #fbf3e2;
+  color: var(--cream);
+  background: #0d0e12;
+}
+.k3d .f-serif { font-family: var(--font-kannada, "Noto Sans Kannada"), system-ui, sans-serif; }
+.k3d .f-display { font-family: Georgia, "Times New Roman", serif; }
+
+/* buttons */
+.k3d .btn-silk {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.7rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--zari-light), var(--zari) 55%, #b07a1c);
+  box-shadow: 0 10px 30px -10px rgb(217 166 58 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.6);
+  overflow: hidden;
+  isolation: isolate;
+  transition: box-shadow 0.4s;
+}
+.k3d .btn-silk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.7) 48%, transparent 66%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.k3d .btn-silk:hover::after { transform: translateX(120%); }
+.k3d .btn-silk:hover { box-shadow: 0 16px 44px -10px rgb(217 166 58 / 0.95), inset 0 1px 0 rgb(255 255 255 / 0.6); }
+.k3d .btn-line {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--cream);
+  border: 1.5px solid rgb(246 220 140 / 0.55);
+  background: rgb(255 255 255 / 0.03);
+  backdrop-filter: blur(6px);
+  transition: background 0.4s, border-color 0.4s;
+}
+.k3d .btn-line:hover { background: rgb(246 220 140 / 0.12); border-color: var(--zari-light); }
+.k3d .btn-silk:focus-visible, .k3d .btn-line:focus-visible { outline: 2px solid var(--zari-light); outline-offset: 4px; }
+
+/* the Karnataka emblem */
+.k3d .spin-slow { animation: k3d-spin 40s linear infinite; }
+.k3d .spin-rev { animation: k3d-spin 60s linear infinite reverse; }
+@keyframes k3d-spin { to { transform: rotate(360deg); } }
+
+@keyframes pulse-ring { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes kd-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 3D map: location pin, story card, gold thread */
+.kd-pin { animation: pin-bob 2.6s ease-in-out infinite; }
+@keyframes pin-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.kd-pin-drop { animation: pin-drop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes pin-drop { from { transform: translateY(-60px) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.kd-stop-card {
+  background: linear-gradient(180deg, rgb(26 14 18 / 0.92), rgb(14 10 16 / 0.94));
+  border: 1px solid rgb(246 220 140 / 0.3);
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.85), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  backdrop-filter: blur(14px);
+}
+.kd-stop-card.wide::after { display: none; }
+.kd-stop-card::after {
+  content: "";
+  position: absolute;
+  left: var(--tip, 50%);
+  bottom: -9px;
+  width: 16px;
+  height: 16px;
+  transform: translateX(-50%) rotate(45deg);
+  background: rgb(14 10 16 / 0.94);
+  border-right: 1px solid rgb(246 220 140 / 0.3);
+  border-bottom: 1px solid rgb(246 220 140 / 0.3);
+}
+.kd-link-line { stroke-dasharray: 6 6; animation: link-flow 1s linear infinite; }
+@keyframes link-flow { to { stroke-dashoffset: -12; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .kd-pin, .kd-pin-drop, .kd-link-line, .k3d .spin-slow, .k3d .spin-rev { animation: none; }
+}

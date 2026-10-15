@@ -1,5 +1,5 @@
-import { KARNATAKA_PATH, MAP } from "@/features/karunadu/data/map-path";
-import { DISTRICTS, REGIONS } from "@/features/karunadu/data/karnataka";
+import { KARNATAKA_PATH, MAP } from "@/features/karunadu3d/data/map-path";
+import { DISTRICTS, REGIONS } from "@/features/karunadu3d/data/karnataka";
 
 /* ಕರುನಾಡು emblem
  * - 31 lamps on the outer ring: the 31 districts

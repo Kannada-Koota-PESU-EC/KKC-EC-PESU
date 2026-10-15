@@ -18,11 +18,12 @@ const videos = [
 
 const Blogs = () => {
   return (
-    <div className="min-h-screen bg-background py-16">
+    <div className="koota-subpage koota-blogs min-h-screen bg-background py-16">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-4xl font-bold text-primary mb-10 text-center">
-          Blogs
+        <h1 className="text-4xl font-bold text-primary mb-2 text-center">
+          ನಮ್ಮ ದಿನಚರಿ
         </h1>
+        <p className="mb-10 text-center text-base font-semibold text-muted-foreground">Blogs</p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {videos.map((video) => (
@@ -49,4 +50,3 @@ const Blogs = () => {
 };
 
 export default Blogs;
-

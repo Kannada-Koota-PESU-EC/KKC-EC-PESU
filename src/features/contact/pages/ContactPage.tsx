@@ -26,35 +26,11 @@ export default function Contact() {
     }
 
     setIsSubmitting(true);
-
-    try {
-      const res = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data?.error || 'Failed to send message');
-      }
-
-      toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you within 24 hours.",
-      });
-
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Try again later.';
-      console.error('Send email error:', err);
-      toast({
-        title: 'Could not send message',
-        description: message,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    const subject = encodeURIComponent(`[Website] ${formData.subject.trim()}`);
+    const body = encodeURIComponent(`Name: ${formData.name.trim()}\nReply to: ${formData.email.trim()}\n\n${formData.message.trim()}`);
+    window.location.href = `mailto:kannadakoota.ecc@pes.edu?subject=${subject}&body=${body}`;
+    toast({ title: 'Your email app is opening', description: 'Review your message there, then send it to Kannada Koota.' });
+    setIsSubmitting(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -62,7 +38,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="koota-subpage koota-contact min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-surface via-background to-accent-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -83,7 +59,7 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            {/* <div className="card-elevated p-8">
+            <div className="card-elevated p-8 koota-contact-form">
               <h2 className="text-2xl font-bold text-foreground mb-6">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -152,7 +128,7 @@ export default function Contact() {
                   )}
                 </Button>
               </form>
-            </div> */}
+            </div>
 
             {/* Contact Info */}
             <div className="space-y-8">

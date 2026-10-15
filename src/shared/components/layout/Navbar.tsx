@@ -1,99 +1,40 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/shared/components/ui/button";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 
 const navItems = [
-  { name: "Home", path: "/" },
-  { name: "Recruitment", path: "/recruitment" },
-  { name: "Events", path: "/events" },
-  { name: "Blogs", path: "/blogs" },
-  { name: "Team", path: "/team" },
-  { name: "Contact", path: "/contact" },
+  { name: "Our story", kn: "ನಮ್ಮ ಕಥೆ", path: "/" },
+  { name: "Events", kn: "ಕಾರ್ಯಕ್ರಮಗಳು", path: "/events" },
+  { name: "Journal", kn: "ದಿನಚರಿ", path: "/blogs" },
+  { name: "Our team", kn: "ನಮ್ಮ ತಂಡ", path: "/team" },
+  { name: "Karunadu 3D", kn: "ಕರುನಾಡು 3D", path: "/karunadu" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-
-  const isActivePath = (path: string) => location.pathname === path;
-
   const closeMenu = () => setIsOpen(false);
-
-  return (
-    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <img
-              src="/KKCEC-ECON.png"
-              alt="Kannada Koota Logo"
-              className="h-8 w-auto"
-            />
-            <span className="font-bold text-lg hidden sm:block">
-              Kannada Koota EC PES
-            </span>
-            <span className="font-bold text-lg sm:hidden">KKEC</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={
-                  isActivePath(item.path)
-                    ? "nav-link-active"
-                    : "nav-link px-4 py-2 rounded-lg hover:bg-surface transition-colors duration-200"
-                }
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile menu button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-            aria-label="Toggle navigation menu"
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div
-            id="mobile-menu"
-            className="md:hidden py-4 border-t border-border animate-fade-in-up"
-          >
-            <div className="flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={closeMenu}
-                  className={
-                    isActivePath(item.path)
-                      ? "nav-link-active block text-center py-3"
-                      : "nav-link block text-center py-3 hover:bg-surface rounded-lg transition-colors duration-200"
-                  }
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  );
+  const isActive = (path: string) => location.pathname === path;
+  const handleOurStory = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    closeMenu();
+    if (location.pathname === "/") {
+      event.preventDefault();
+      document.getElementById("about")?.scrollIntoView({ block: "start", behavior: "smooth" });
+    } else {
+      sessionStorage.setItem("kkc-scroll-to-about", "1");
+    }
+  };
+  const handlePageNav = (path: string) => {
+    closeMenu();
+    if (path !== location.pathname) window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 120);
+  };
+  return <nav className="site-nav">
+    <div className="nav-inner">
+      <Link to="/" className="brand" onClick={closeMenu}><img src="/KKCEC-ECON.png" alt="" /><span><strong>ಕನ್ನಡ ಕೂಟ</strong><small>KANNADA KOOTA · PES EC</small></span></Link>
+      <div className="desktop-nav">{navItems.map(item => <Link key={item.name} to={item.path} className={isActive(item.path) ? "nav-current" : ""} onClick={item.name === "Our story" ? handleOurStory : () => handlePageNav(item.path)}><span className="nav-kn">{item.kn}</span><span className="nav-en">{item.name}</span></Link>)}</div>
+      <Link to="/contact" className="nav-join"><span className="nav-kn">ನಮಸ್ಕಾರ</span> Say hello <ArrowUpRight size={15} /></Link>
+      <button className="mobile-menu-toggle" onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} aria-label="Toggle navigation">{isOpen ? <X /> : <Menu />}</button>
+    </div>
+    {isOpen && <div className="mobile-nav">{navItems.map(item => <Link key={item.name} to={item.path} onClick={item.name === "Our story" ? handleOurStory : () => handlePageNav(item.path)}><span><span className="nav-kn">{item.kn}</span> · {item.name}</span></Link>)}<Link to="/recruitment" onClick={() => handlePageNav("/recruitment")}><span><span className="nav-kn">ಕೂಟಕ್ಕೆ ಸೇರಿ</span> · Join the Koota</span> <ArrowUpRight size={16} /></Link><Link to="/contact" onClick={() => handlePageNav("/contact")}><span><span className="nav-kn">ಸಂಪರ್ಕಿಸಿ</span> · Contact us</span></Link></div>}
+  </nav>;
 }

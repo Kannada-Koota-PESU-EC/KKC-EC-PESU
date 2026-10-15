@@ -38,7 +38,7 @@ export default function Team() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="koota-subpage koota-team min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-surface via-background to-primary-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

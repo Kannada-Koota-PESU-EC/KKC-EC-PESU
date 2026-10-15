@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { MAP, KARNATAKA_PATH } from "@/features/karunadu/data/map-path";
-import { RIVERS, project } from "@/features/karunadu/data/karnataka";
-import type { Stop } from "@/features/karunadu/data/journey";
+import { MAP, KARNATAKA_PATH } from "@/features/karunadu3d/data/map-path";
+import { RIVERS, project } from "@/features/karunadu3d/data/karnataka";
+import type { Stop } from "@/features/karunadu3d/data/journey";
 
 /* Real Karnataka in 3D
  * - terrain.bin: elevation on a 400 x 624 grid (AWS Terrain Tiles), 1 byte
@@ -85,9 +85,9 @@ function skyTexture() {
 
 /* India's west coast, north to south (lat, lon) – where the sea begins */
 const SEA_COAST: [number, number][] = [
-  [19.5, 72.75], [18.5, 72.85], [17.5, 73.15], [16.5, 73.35], [16.0, 73.5], [15.5, 73.8], [15.0, 74.05],
+  [30.0, 70.5], [24.0, 68.6], [22.0, 70.0], [21.0, 72.6], [19.5, 72.75], [18.5, 72.85], [17.5, 73.15], [16.5, 73.35], [16.0, 73.5], [15.5, 73.8], [15.0, 74.05],
   [14.5, 74.35], [14.0, 74.5], [13.5, 74.68], [13.0, 74.78], [12.5, 74.95], [12.0, 75.2], [11.5, 75.55],
-  [11.0, 75.85], [10.5, 76.0], [9.5, 76.3],
+  [11.0, 75.85], [10.5, 76.0], [9.5, 76.3], [8.5, 76.9], [8.0, 77.5], [6.0, 79.0], [0.0, 82.0],
 ];
 
 function noiseNormalTexture() {
@@ -201,9 +201,10 @@ export async function createScene(canvas: HTMLCanvasElement, stops: Stop[]): Pro
   waterNormals.repeat.set(18, 18);
   const coast = SEA_COAST.map(([lat, lon]) => project(lat, lon + 0.06));
   const seaShape = new THREE.Shape();
-  seaShape.moveTo(-MAP.width * 3, coast[0].y);
+  // reach far beyond the horizon so the sea never shows a hard edge
+  seaShape.moveTo(-MAP.width * 6, coast[0].y);
   coast.forEach((c) => seaShape.lineTo(c.x, c.y));
-  seaShape.lineTo(-MAP.width * 3, coast[coast.length - 1].y);
+  seaShape.lineTo(-MAP.width * 6, coast[coast.length - 1].y);
   seaShape.closePath();
   const seaGeo = new THREE.ShapeGeometry(seaShape);
   seaGeo.rotateX(Math.PI / 2); // shape y → world z

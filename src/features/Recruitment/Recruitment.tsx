@@ -22,7 +22,7 @@ export default function Recruitment() {
     }`;
 
   return (
-    <div className="min-h-screen heritage-rangoli-bg">
+    <div className="koota-subpage koota-recruitment min-h-screen heritage-rangoli-bg">
 
       {/* Header */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-background/82 via-background/62 to-background/44 backdrop-blur-[1px]">

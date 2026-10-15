@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { finePointer, reducedMotion } from "@/features/karunadu/hooks";
+import { finePointer, reducedMotion } from "@/features/karunadu3d/hooks";
 
 export type CursorMode = "mallige" | "zari" | "ink" | "firefly" | "silver" | "ember" | "water" | "kumkuma" | "film" | "compass";
 
@@ -75,7 +75,8 @@ function CursorIcon({ mode }: { mode: CursorMode }) {
   }
 }
 
-export default function Cursor({ onActive }: { onActive: (on: boolean) => void }) {
+/** showIcon={false}: only the per-page trail is drawn, so another pointer (like the dancer) stays the cursor */
+export default function Cursor({ onActive, showIcon = true }: { onActive: (on: boolean) => void; showIcon?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const iconRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<CursorMode>("mallige");
@@ -308,18 +309,20 @@ export default function Cursor({ onActive }: { onActive: (on: boolean) => void }
   return (
     <>
       <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-[250]" aria-hidden="true" />
-      <div ref={iconRef} className="pointer-events-none fixed left-0 top-0 z-[251]" aria-hidden="true">
-        <span
-          className="absolute -left-5 -top-5 block h-10 w-10 rounded-full border border-[#f6dc8c] transition-all duration-300"
-          style={{ opacity: hot ? 0.9 : 0, transform: hot ? "scale(1.35)" : "scale(0.4)" }}
-        />
-        <span
-          className="absolute -left-3 -top-3 block h-6 w-6 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] transition-transform duration-300"
-          style={{ transform: hot ? "scale(1.25) rotate(-15deg)" : "none" }}
-        >
-          <CursorIcon mode={mode} />
-        </span>
-      </div>
+      {showIcon && (
+        <div ref={iconRef} className="pointer-events-none fixed left-0 top-0 z-[251]" aria-hidden="true">
+          <span
+            className="absolute -left-5 -top-5 block h-10 w-10 rounded-full border border-[#f6dc8c] transition-all duration-300"
+            style={{ opacity: hot ? 0.9 : 0, transform: hot ? "scale(1.35)" : "scale(0.4)" }}
+          />
+          <span
+            className="absolute -left-3 -top-3 block h-6 w-6 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] transition-transform duration-300"
+            style={{ transform: hot ? "scale(1.25) rotate(-15deg)" : "none" }}
+          >
+            <CursorIcon mode={mode} />
+          </span>
+        </div>
+      )}
     </>
   );
 }
