@@ -12,7 +12,7 @@ const chapters = [
 const highlights = [
   { title: "ಕ್ವಾಡ್ರ್ಯಾಂಗಲ್ ನೃತ್ಯ", tag: "CULTURE · PERFORMANCE", image: "/Events/KKEC DC 1.jpg" },
   { title: "ಇಡೀ ಕ್ಯಾಂಪಸ್ ಜೊತೆಯಾಯಿತು", tag: "CAMPUS · COMMUNITY", image: "/Events/KKEC DC 5.png" },
-  { title: "ಹಲವು ಕೈಗಳ ಶ್ರಮ", tag: "KANNADA KOOTA · EC", image: "/Hero/TM 2.JPG" },
+  { title: "ಹಲವು ಕೈಗಳ ಶ್ರಮ", tag: "KANNADA KOOTA · EC", image: "/Events/team-quadrangle.jpg" },
 ];
 
 // the scrolling band: one Kannada word, one English word, all the way across
