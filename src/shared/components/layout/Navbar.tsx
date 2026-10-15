@@ -4,6 +4,7 @@ import LanguageToggle from "@/shared/components/layout/LanguageToggle";
 import { useLanguage } from "@/shared/i18n/useLanguage";
 import type { TranslationKey } from "@/shared/i18n/translations";
 import { INTRO_REVEAL_EVENT } from "@/features/intro/data/intro";
+import { site } from "@/shared/data/site";
 import "./navbar.css";
 
 const navItems: { key: TranslationKey; path: string }[] = [
@@ -140,7 +141,7 @@ export default function Navbar() {
           style={{ "--i": 0 } as CSSProperties}
         >
           <span className="site-nav-logo">
-            <img src="/KKCEC-ECON.png" alt={t("brand.logoAlt")} />
+            <img src={site.images.logo} alt={t("brand.logoAlt")} />
           </span>
           <span className={`site-nav-title font-bold text-lg whitespace-nowrap hidden xl:block ${kannadaFont}`}>
             {t("brand.full")}

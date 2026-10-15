@@ -1,8 +1,10 @@
 import { useToast } from "@/shared/hooks/use-toast";
+import { useLanguage } from "@/shared/i18n/useLanguage";
 import { Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from "@/shared/components/ui/toast";
 
 export function Toaster() {
   const { toasts } = useToast();
+  const { t } = useLanguage();
 
   return (
     <ToastProvider>
@@ -14,7 +16,7 @@ export function Toaster() {
               {description && <ToastDescription>{description}</ToastDescription>}
             </div>
             {action}
-            <ToastClose />
+            <ToastClose aria-label={t("common.close")} />
           </Toast>
         );
       })}

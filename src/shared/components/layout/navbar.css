@@ -76,6 +76,9 @@
 }
 
 .site-nav-title {
+  /* Room for Kannada glyphs above/below the line, so the gradient covers them */
+  padding: 0.1em 0 0.15em;
+  line-height: 1.4;
   background: linear-gradient(90deg, #ffd23f 0%, #fff4c2 60%, #ffffff 100%);
   -webkit-background-clip: text;
   background-clip: text;
