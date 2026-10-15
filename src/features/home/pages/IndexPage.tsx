@@ -1,91 +1,21 @@
 import Hero from "@/features/home/components/Hero";
 import AboutSection from "@/features/home/components/AboutSection";
+import UpcomingEvent from "@/features/home/components/UpcomingEvent";
 import RepublicDayPopup from "@/features/home/components/RepublicDayPopup";
-import { useEffect, useState } from "react";
-import { useLanguage } from "@/shared/i18n/useLanguage";
 
-const slides = [
-  "/img1.jpg",
-  "/img3.jpg",
-];
+const Index = () => (
+  <div className="min-h-screen">
+    {/* 🇮🇳 Republic Day Popup (Jan 26 only) */}
+    <RepublicDayPopup />
 
-const Index = () => {
-  const [current, setCurrent] = useState(0);
-  const [fadeIn, setFadeIn] = useState(true);
-  const { t } = useLanguage();
+    {/* Hero: full-screen photo slideshow (includes the photos of the old gallery slider) */}
+    <Hero />
 
-  const nextSlide = () => {
-    setFadeIn(false);
-    setTimeout(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-      setFadeIn(true);
-    }, 300);
-  };
+    {/* Nearest future event; hidden when there is none */}
+    <UpcomingEvent />
 
-  const prevSlide = () => {
-    setFadeIn(false);
-    setTimeout(() => {
-      setCurrent((prev) =>
-        prev === 0 ? slides.length - 1 : prev - 1
-      );
-      setFadeIn(true);
-    }, 300);
-  };
-
-  // Auto slide
-  useEffect(() => {
-    const timer = setTimeout(nextSlide, 3500);
-    return () => clearTimeout(timer);
-  }, [current]);
-
-  return (
-    <div className="min-h-screen heritage-rangoli-bg">
-      {/* 🇮🇳 Republic Day Popup (Jan 26 only) */}
-      <RepublicDayPopup />
-
-      {/* Hero Section */}
-      <Hero />
-
-      {/* Home Image Gallery */}
-      <section className="py-16 bg-background/62 backdrop-blur-[1px]">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="relative h-[450px] rounded-2xl overflow-hidden shadow-lg bg-black">
-
-            {/* Image */}
-            <img
-              src={slides[current]}
-              alt={t("home.galleryAlt")}
-              className={`w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
-                fadeIn ? "opacity-100" : "opacity-0"
-              }`}
-            />
-
-            {/* Left Control */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full text-xl hover:bg-black/80"
-              aria-label={t("home.prevSlide")}
-            >
-              ‹
-            </button>
-
-            {/* Right Control */}
-            <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full text-xl hover:bg-black/80"
-              aria-label={t("home.nextSlide")}
-            >
-              ›
-            </button>
-
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <AboutSection />
-    </div>
-  );
-};
+    <AboutSection />
+  </div>
+);
 
 export default Index;
