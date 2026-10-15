@@ -11,6 +11,9 @@ export interface Member {
   linkedin?: string;
   instagram?: string;
   github?: string;
+  /** Marks the website's developer: animated border and a chip linking to `portfolio` */
+  developer?: boolean;
+  portfolio?: string;
 }
 
 export interface TeamGroup {

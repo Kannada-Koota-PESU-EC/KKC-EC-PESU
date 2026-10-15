@@ -42,6 +42,7 @@ export interface SiteContent {
     name: string;
     photo: string;
     linkedin: string;
+    portfolio?: string;
   };
 }
 
