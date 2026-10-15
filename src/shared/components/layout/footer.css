@@ -267,6 +267,11 @@
 
 .dev-badge-tooltip::after {
   content: attr(data-tooltip);
+  /* Keeps the line break between the LinkedIn and portfolio lines */
+  white-space: pre;
+  display: block;
+  text-align: center;
+  line-height: 1.5;
 }
 
 /* Small badge on the bottom-right edge, only on touch screens */

@@ -13,7 +13,10 @@ function LinkedInMark({ className = '' }: { className?: string }) {
  * touch screens show a small LinkedIn badge instead. Details come from site.json.
  */
 export default function DeveloperBadge() {
-  const { name, photo, linkedin } = site.developer;
+  const { name, photo, linkedin, portfolio } = site.developer;
+  // Second tooltip line, e.g. "Portfolio: sharath-gr.vercel.app"
+  const portfolioHost = portfolio ? new URL(portfolio).host : '';
+  const tooltip = portfolioHost ? `${name} · LinkedIn\nPortfolio: ${portfolioHost}` : `${name} · LinkedIn`;
 
   return (
     <a
@@ -24,7 +27,7 @@ export default function DeveloperBadge() {
       className="dev-badge"
     >
       {/* Tooltip text comes from data-tooltip via CSS, so it doesn't change the accessible name */}
-      <span className="dev-badge-tooltip" data-tooltip={`${name} · LinkedIn`} aria-hidden="true" />
+      <span className="dev-badge-tooltip" data-tooltip={tooltip} aria-hidden="true" />
 
       <span className="dev-badge-flip">
         <span className="dev-badge-face dev-badge-front">

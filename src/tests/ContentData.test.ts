@@ -33,6 +33,8 @@ describe('content files (src/data)', () => {
         for (const member of group.members) {
           expect([member.id, bilingual(member.name), bilingual(member.role)]).toEqual([member.id, true, true]);
           expect([member.id, member.photo, publicFile(member.photo)]).toEqual([member.id, member.photo, true]);
+          const portfolio = (member as { portfolio?: string }).portfolio;
+          if (portfolio) expect([member.id, portfolio.startsWith('https://')]).toEqual([member.id, true]);
         }
       }
     }

@@ -194,3 +194,154 @@
     transform: none;
   }
 }
+
+/* ---------- Website developer's card (team.json "developer": true) ---------- */
+@property --dev-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.team-card-dev {
+  box-shadow:
+    0 12px 30px -14px rgba(0, 0, 0, 0.7),
+    0 0 22px -6px rgba(247, 147, 30, 0.35);
+}
+
+/* Thin rotating conic border: the gradient is masked down to a 2px frame */
+.team-card-dev-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--dev-angle), #ffd23f, #f7931e, #e3242b, #f7931e, #ffd23f);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.75;
+  animation: dev-border-spin 7s linear infinite;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+/* Faster copy, faded in on hover so the speed-up is smooth */
+.team-card-dev-ring-fast {
+  opacity: 0;
+  animation-duration: 4s;
+}
+
+@keyframes dev-border-spin {
+  to { --dev-angle: 360deg; }
+}
+
+/* Small glass chip, top-left of the photo, linking to the portfolio */
+.team-card-dev-chip {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(10, 10, 10, 0.45);
+  border: 1px solid rgba(255, 210, 63, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.team-card-dev-chip svg:first-child {
+  color: #ffd23f;
+}
+
+.team-card-dev-arrow {
+  width: 0;
+  opacity: 0;
+  margin-left: -0.3rem;
+  transition:
+    width 200ms ease,
+    opacity 200ms ease,
+    margin 200ms ease;
+}
+
+.team-card-dev-tip {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  padding: 0.25rem 0.55rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #f1ede4;
+  background: rgba(20, 20, 20, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  transform: translateY(-3px);
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.team-card-dev-chip:hover,
+.team-card-dev-chip:focus-visible {
+  color: #fff;
+  background: rgba(10, 10, 10, 0.72);
+  border-color: rgba(255, 210, 63, 0.75);
+}
+
+.team-card-dev-chip:hover .team-card-dev-arrow,
+.team-card-dev-chip:focus-visible .team-card-dev-arrow {
+  width: 0.75rem;
+  opacity: 1;
+  margin-left: 0;
+}
+
+.team-card-dev-chip:hover .team-card-dev-tip,
+.team-card-dev-chip:focus-visible .team-card-dev-tip {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) {
+  .team-card-dev:hover,
+  .team-card-dev:focus-within {
+    box-shadow:
+      0 18px 36px -14px rgba(255, 170, 40, 0.35),
+      0 0 30px -4px rgba(247, 147, 30, 0.55);
+  }
+
+  .team-card-dev:hover .team-card-dev-ring-fast {
+    opacity: 0.85;
+  }
+
+  .team-card-dev:hover .team-card-dev-ring:not(.team-card-dev-ring-fast) {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-card-dev-ring {
+    animation: none;
+  }
+
+  .team-card-dev-ring-fast {
+    display: none;
+  }
+
+  .team-card-dev:hover .team-card-dev-ring:not(.team-card-dev-ring-fast) {
+    opacity: 0.75;
+  }
+}
