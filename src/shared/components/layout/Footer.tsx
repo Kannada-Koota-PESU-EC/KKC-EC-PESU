@@ -3,9 +3,11 @@ import { ArrowUp, ChevronRight, Instagram, Mail, MapPin } from 'lucide-react';
 import { useLanguage } from '@/shared/i18n/useLanguage';
 import type { TranslationKey } from '@/shared/i18n/translations';
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from '@/shared/lib/social';
+import { CONTACT_EMAIL as EMAIL, CONTACT_SHORT_ADDRESS } from '@/features/contact/data/contact';
+import { site } from '@/shared/data/site';
+import DeveloperBadge from '@/shared/components/layout/DeveloperBadge';
 import './footer.css';
 
-const EMAIL = 'kannadakoota.ecc@pes.edu';
 
 const quickLinks: { key: TranslationKey; path: string }[] = [
   { key: 'events.upcoming', path: '/events' },
@@ -15,7 +17,7 @@ const quickLinks: { key: TranslationKey; path: string }[] = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const { lang, t } = useLanguage();
+  const { lang, t, l } = useLanguage();
   const kannadaFont = lang === 'kn' ? 'kannada-text' : '';
   const [madeBefore, madeAfter] = t('footer.madeWith').split('{heart}');
 
@@ -37,7 +39,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center justify-center md:justify-start gap-3">
               <span className="site-footer-logo">
-                <img src="/Respectives/KKC1.png" alt={t('brand.logoAlt')} loading="lazy" />
+                <img src={site.images.footerLogo} alt={t('brand.logoAlt')} loading="lazy" />
               </span>
               <span className={`font-bold text-lg text-white ${kannadaFont}`}>{t('footer.brand')}</span>
             </div>
@@ -77,7 +79,7 @@ export default function Footer() {
                 <span className="site-footer-chip">
                   <MapPin className="h-4 w-4" aria-hidden="true" />
                 </span>
-                <span>{t('footer.address')}</span>
+                <span>{l(CONTACT_SHORT_ADDRESS)}</span>
               </div>
             </div>
           </div>
@@ -90,7 +92,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="site-footer-instagram text-sm"
-              aria-label={t('footer.instagramLabel')}
+              title={t('footer.instagramLabel')}
             >
               <Instagram className="h-4 w-4" aria-hidden="true" />@{INSTAGRAM_HANDLE}
             </a>
@@ -101,10 +103,14 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div
           id="site-footer-bottom"
-          className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center"
+          className="mt-12 pt-6 border-t border-white/10 flex flex-col items-center gap-4 text-center sm:grid sm:grid-cols-[1fr_auto_1fr] sm:text-left"
         >
-          <p className="text-xs text-[#9a958a]">{t('footer.rights', { year: currentYear })}</p>
-          <div className="flex items-center gap-4">
+          {/* Developer photo: centered on its own line above the copyright on mobile, in the middle on desktop */}
+          <div className="sm:order-2">
+            <DeveloperBadge />
+          </div>
+          <p className="text-xs text-[#9a958a] sm:order-1">{t('footer.rights', { year: currentYear })}</p>
+          <div className="flex items-center gap-4 sm:order-3 sm:justify-self-end">
             <p className="text-xs text-[#9a958a]">
               {madeBefore}
               <span className="site-footer-heart" role="img" aria-label="love">
