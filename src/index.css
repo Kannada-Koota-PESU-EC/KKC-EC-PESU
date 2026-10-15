@@ -763,3 +763,25 @@ All colors MUST be HSL.
 
 /* Kannada headline in the red section: keep the letters joined */
 .join-poster h2,.join-poster h2 em { font-family:var(--font-kannada); font-style:normal; letter-spacing:0; line-height:1.35; }
+
+/* hero: ಕನ್ನಡ is narrower than KANNADA was, so it is set a little larger to fill the line */
+@media (min-width:651px) {
+  .poster-copy h1>span.poster-kannada { font-size:1.32em; }
+}
+
+/* phones: the hero stacks in order (title, text, buttons, photo) so nothing overlaps */
+@media (max-width:650px) {
+  .poster-cover { justify-content:flex-start; gap:0; }
+  .poster-copy { position:relative; top:auto; left:auto; right:auto; margin:44px 0 0; }
+  .poster-photo-card { position:relative; top:auto; right:auto; bottom:auto; align-self:center; width:min(78vw,340px); height:min(62vw,280px); margin:38px auto 30px; }
+  .poster-sticker { position:relative; top:auto; bottom:auto; right:auto; align-self:flex-end; margin:-96px 2vw 30px 0; }
+  .poster-foot { margin-top:auto; }
+}
+
+/* large screens: let the title and photo grow so the middle doesn't feel empty */
+@media (min-width:1500px) {
+  .poster-copy { width:min(58%,1000px); }
+  .poster-copy h1 { font-size:clamp(118px,7.6vw,160px); }
+  .poster-description p { font-size:15px; }
+  .poster-photo-card { width:min(32vw,620px); height:min(64vh,640px); right:9%; }
+}
