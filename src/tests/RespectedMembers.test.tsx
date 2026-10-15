@@ -50,3 +50,21 @@ describe('Respected Members', () => {
     expect(getInitials('Lakshmi Satya Vani Narayanam')).toBe('LN');
   });
 });
+
+describe('Developer team card', () => {
+  it('marks only the developer card, with a portfolio chip and screen-reader note', () => {
+    const { container } = renderTeam();
+    fireEvent.click(screen.getByRole('button', { name: '2025' }));
+
+    const devCards = container.querySelectorAll('.team-card-dev');
+    expect(devCards).toHaveLength(1);
+
+    const chip = within(devCards[0] as HTMLElement).getByRole('link', { name: "View Sharath Gowda G R's portfolio" });
+    expect(chip).toHaveAttribute('href', 'https://sharath-gr.vercel.app/');
+    expect(chip).toHaveAttribute('target', '_blank');
+    expect(chip).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(within(devCards[0] as HTMLElement).getByRole('heading', { level: 3 })).toHaveTextContent('(Website developer)');
+    // Social links still there
+    expect(within(devCards[0] as HTMLElement).getAllByRole('link').length).toBeGreaterThan(1);
+  });
+});

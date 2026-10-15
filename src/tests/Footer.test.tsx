@@ -20,6 +20,10 @@ describe('Footer developer badge', () => {
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
     expect(link.querySelector('img')).toHaveAttribute('loading', 'lazy');
+    expect(link.querySelector('[data-tooltip]')).toHaveAttribute(
+      'data-tooltip',
+      'Sharath Gowda G R · LinkedIn\nPortfolio: sharath-gr.vercel.app',
+    );
     // No text credit, only the tooltip on the badge itself
     expect(screen.queryByText(/Designed & Developed/i)).not.toBeInTheDocument();
   });

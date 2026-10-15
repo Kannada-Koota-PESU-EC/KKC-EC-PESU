@@ -318,7 +318,9 @@
             },
             "photo": "/DomainHeads-2025-26/sharath.webp",
             "linkedin": "https://www.linkedin.com/in/sharath-gowda-g-r-372832281/",
-            "instagram": "https://www.instagram.com/diganth_gr/"
+            "instagram": "https://www.instagram.com/diganth_gr/",
+            "developer": true,
+            "portfolio": "https://sharath-gr.vercel.app/"
           },
           {
             "id": "dh-2025-2",

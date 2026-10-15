@@ -146,6 +146,10 @@ export const translations = {
   'team.joinTitle': { kn: 'ನಮ್ಮ ತಂಡವನ್ನು ಸೇರಲು ಆಸಕ್ತಿ ಇದೆಯೇ?', en: 'Interested in Joining Our Team?' },
   'team.joinBody': { kn: 'ನಮ್ಮ ಧ್ಯೇಯಕ್ಕೆ ಕೊಡುಗೆ ನೀಡುವ ಉತ್ಸಾಹಿಗಳನ್ನು ನಾವು ಸದಾ ಹುಡುಕುತ್ತಿರುತ್ತೇವೆ.', en: 'We are always looking for passionate individuals to contribute to our mission.' },
   'team.contactUs': { kn: 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ', en: 'Contact Us' },
+  'team.developer': { kn: 'ಡೆವಲಪರ್', en: 'Developer' },
+  'team.viewPortfolio': { kn: 'ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ನೋಡಿ', en: 'View portfolio' },
+  'team.viewPortfolioOf': { kn: '{name} ಅವರ ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ನೋಡಿ', en: "View {name}'s portfolio" },
+  'team.websiteDeveloper': { kn: '(ವೆಬ್‌ಸೈಟ್ ಡೆವಲಪರ್)', en: '(Website developer)' },
   'team.socialProfile': { kn: '{name} ಅವರ {platform} ಖಾತೆ', en: "{name}'s {platform} profile" },
 
   // Blogs
