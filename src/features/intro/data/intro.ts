@@ -20,9 +20,9 @@ export const logosText = {
 
 // Images (files live in public/Respectives)
 export const introImages = {
-  chairman: '/Respectives/sir-mrd-pesu.png',
-  college: '/Respectives/PESU.png',
-  club: '/Respectives/KKC1.png',
+  chairman: '/Respectives/sir-mrd-pesu.webp',
+  college: '/Respectives/pesu.webp',
+  club: '/Respectives/kkc1.webp',
 };
 
 // Phase lengths in milliseconds (total ≈ tribute + transition + logos + reveal)
