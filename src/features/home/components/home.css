@@ -1,0 +1,439 @@
+/* Homepage hero and About section */
+.hero {
+  /* Timings are set inline from SLIDE_MS / FADE_MS / LEAD_MS in Hero.tsx */
+  --hero-slide: 6000ms; /* time each photo stays */
+  --hero-fade: 1800ms; /* crossfade */
+  --hero-kenburns: 8100ms; /* lead-in + stay + fade-out */
+  --hero-step: 110ms; /* entrance stagger */
+  --nav-height: 4.25rem;
+
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  /* Slides under the transparent navbar, so the photo fills the whole screen */
+  margin-top: calc(var(--nav-height) * -1);
+  min-height: max(36rem, 100svh);
+  padding: calc(var(--nav-height) + 3rem) 0 6.5rem;
+  background: #0b0b0b;
+}
+
+/* Background slideshow: all slides stay stacked; only opacity and transform change.
+   The incoming slide fades in on top while the outgoing one stays fully visible underneath,
+   so there is never a dark gap. */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.hero-slide.is-prev {
+  z-index: 1;
+  opacity: 1;
+}
+
+.hero-slide.is-active {
+  z-index: 2;
+  opacity: 1;
+  transition: opacity var(--hero-fade) ease-in-out;
+}
+
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: var(--origin, 50% 50%);
+  will-change: transform;
+}
+
+/* Ken Burns runs from just before a slide appears until after it has faded out;
+   the class is removed (resetting the zoom) only once the slide is fully hidden */
+.hero-slide.is-moving img {
+  animation: hero-kenburns var(--hero-kenburns) linear both;
+}
+
+@keyframes hero-kenburns {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.08) translate3d(var(--pan-x, -1.5%), var(--pan-y, -1%), 0); }
+}
+
+/* Hidden tab: freeze zoom and progress so they resume where they stopped */
+.hero.is-paused .hero-slide img,
+.hero.is-paused .hero-dash-fill {
+  animation-play-state: paused;
+}
+
+/* Dark gradient (stronger on the left, where the text is) + soft flag glow */
+/* Separate layer above all slides, so it never fades with them */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    radial-gradient(ellipse 45% 55% at 15% 70%, rgba(255, 210, 63, 0.16) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 90% 20%, rgba(227, 36, 43, 0.16) 0%, transparent 70%),
+    linear-gradient(90deg, rgba(8, 8, 8, 0.9) 0%, rgba(8, 8, 8, 0.72) 40%, rgba(8, 8, 8, 0.35) 75%, rgba(8, 8, 8, 0.25) 100%),
+    linear-gradient(180deg, rgba(8, 8, 8, 0.35) 0%, transparent 30%, transparent 70%, rgba(20, 20, 20, 1) 100%);
+}
+
+@media (max-width: 767px) {
+  .hero-overlay {
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 70%, rgba(255, 210, 63, 0.14) 0%, transparent 70%),
+      linear-gradient(180deg, rgba(8, 8, 8, 0.55) 0%, rgba(8, 8, 8, 0.78) 45%, rgba(20, 20, 20, 1) 100%);
+  }
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  color: #f1ede4;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd23f;
+  box-shadow: 0 0 0 0 rgba(255, 210, 63, 0.6);
+  animation: hero-dot 2s ease-out infinite;
+}
+
+@keyframes hero-dot {
+  0% { box-shadow: 0 0 0 0 rgba(255, 210, 63, 0.6); }
+  70%, 100% { box-shadow: 0 0 0 8px rgba(255, 210, 63, 0); }
+}
+
+.hero-title-1 {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.hero-title-2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  background: linear-gradient(90deg, #ffd23f 0%, #f7931e 50%, #e3242b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Kannada needs more vertical room than English */
+html[lang='kn'] .hero-title-1,
+html[lang='kn'] .hero-title-2 {
+  line-height: 1.35;
+}
+
+/* Buttons shared by hero and About */
+.home-btn-primary,
+.home-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  transition:
+    box-shadow 300ms ease,
+    background-color 300ms ease,
+    border-color 300ms ease,
+    transform 300ms ease;
+}
+
+.home-btn-primary {
+  color: #1a1a1a;
+  background: linear-gradient(90deg, #ffd23f 0%, #f7931e 50%, #e3242b 100%);
+  box-shadow: 0 8px 22px -10px rgba(247, 147, 30, 0.6);
+}
+
+.home-btn-primary svg {
+  transition: transform 300ms ease;
+}
+
+.home-btn-primary:hover,
+.home-btn-primary:focus-visible {
+  box-shadow: 0 10px 32px -6px rgba(247, 147, 30, 0.75);
+  transform: translateY(-1px);
+}
+
+.home-btn-primary:hover svg,
+.home-btn-primary:focus-visible svg {
+  transform: translateX(4px);
+}
+
+.home-btn-secondary {
+  color: #f1ede4;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.home-btn-secondary:hover,
+.home-btn-secondary:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 210, 63, 0.6);
+}
+
+/* Stats strip */
+.hero-stats {
+  display: inline-grid;
+  grid-template-columns: repeat(3, auto);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-stat {
+  padding: 0.9rem 1.5rem;
+  text-align: center;
+}
+
+.hero-stat + .hero-stat {
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hero-stat-number {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #ffd23f, #f7931e, #e3242b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    display: grid;
+    width: 100%;
+  }
+
+  .hero-stat {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+/* Slide dashes (kept clear of the floating Instagram button) */
+.hero-dashes {
+  position: absolute;
+  right: 7rem;
+  bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-dash {
+  position: relative;
+  width: 2.25rem;
+  height: 3px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.hero-dash-button {
+  padding: 0.6rem 0;
+}
+
+.hero-dash-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #ffd23f, #e3242b);
+}
+
+.hero-dash.is-done .hero-dash-fill {
+  transform: scaleX(1);
+}
+
+.hero-dash.is-active .hero-dash-fill {
+  animation: hero-dash-fill var(--hero-slide) linear forwards;
+}
+
+@keyframes hero-dash-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (max-width: 767px) {
+  .hero-dashes {
+    left: 50%;
+    right: auto;
+    bottom: 5rem;
+    transform: translateX(-50%);
+  }
+}
+
+.hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: rgba(241, 237, 228, 0.75);
+}
+
+.hero-scroll svg {
+  animation: hero-bounce 1.8s ease-in-out infinite;
+}
+
+@keyframes hero-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* Entrance after the intro: eyebrow, title 1, title 2, subtitle, buttons, stats */
+.hero-enter {
+  opacity: 0;
+}
+
+.hero.is-entered .hero-enter {
+  animation: hero-in 650ms ease-out both;
+  animation-delay: calc(var(--i) * var(--hero-step));
+}
+
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- About ---------- */
+/* The slide-in starts offscreen; clip sideways so it never adds a horizontal scrollbar
+   (clip, not hidden, so nothing is cut vertically) */
+.about {
+  overflow-x: clip;
+}
+
+.about-photo {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Gradient frame offset behind the photo */
+.about-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, #ffd23f, #f7931e, #e3242b);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transform: translate(16px, 16px);
+}
+
+.about-chip {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(10, 10, 10, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.about-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, #ffd23f, #f7931e, #e3242b);
+}
+
+.about-reveal-left,
+.about-reveal-right,
+.about-reveal-up {
+  opacity: 0;
+  transition:
+    opacity 700ms ease-out,
+    transform 700ms ease-out;
+}
+
+.about-reveal-left {
+  transform: translateX(-28px);
+}
+
+.about-reveal-right {
+  transform: translateX(28px);
+}
+
+.about-reveal-up {
+  transform: translateY(14px);
+  transition-delay: calc(200ms + var(--i, 0) * 100ms);
+}
+
+.about.is-visible .about-reveal-left,
+.about.is-visible .about-reveal-right,
+.about.is-visible .about-reveal-up {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide img,
+  .hero-eyebrow::before,
+  .hero-scroll svg,
+  .hero.is-entered .hero-enter {
+    animation: none;
+  }
+
+  .hero-enter {
+    opacity: 1;
+  }
+
+  .about-reveal-left,
+  .about-reveal-right,
+  .about-reveal-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -5,12 +5,14 @@ import './page-header.css';
 interface PageHeaderProps {
   title: string;
   subtitle: string;
+  /** Extra-large title (e.g. the 404 page) */
+  large?: boolean;
 }
 
 const PARALLAX_FACTOR = 0.25;
 
 /** Shared header banner for inner pages (Events, Blogs, Team, Contact). */
-export default function PageHeader({ title, subtitle }: PageHeaderProps) {
+export default function PageHeader({ title, subtitle, large = false }: PageHeaderProps) {
   const { lang, t } = useLanguage();
   const headerRef = useRef<HTMLElement>(null);
 
@@ -43,7 +45,7 @@ export default function PageHeader({ title, subtitle }: PageHeaderProps) {
 
       <div className="page-header-content">
         <p className={`page-header-eyebrow ${kannadaFont}`}>{t('header.eyebrow')}</p>
-        <h1 className={`page-header-title ${kannadaFont}`}>{title}</h1>
+        <h1 className={`page-header-title ${large ? 'page-header-title-xl' : ''} ${kannadaFont}`}>{title}</h1>
         <div className="page-header-divider" aria-hidden="true">
           <span />
           <span />

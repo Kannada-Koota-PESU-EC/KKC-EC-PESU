@@ -200,3 +200,154 @@
     transition: none;
   }
 }
+
+/* Developer photo button (footer bottom bar) */
+.dev-badge {
+  position: relative;
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, #ffd23f, #f7931e, #e3242b);
+  perspective: 300px;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.dev-badge-flip {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 500ms ease;
+}
+
+.dev-badge-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.dev-badge-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dev-badge-back {
+  transform: rotateY(180deg);
+}
+
+.dev-badge-linkedin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #0a66c2;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.dev-badge-linkedin::after {
+  content: 'in';
+}
+
+.dev-badge-tooltip::after {
+  content: attr(data-tooltip);
+}
+
+/* Small badge on the bottom-right edge, only on touch screens */
+.dev-badge-corner {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 18px;
+  height: 18px;
+  font-size: 0.6rem;
+  border: 2px solid hsl(0 0% 5%);
+  display: none;
+}
+
+.dev-badge-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translate(-50%, 4px);
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  color: #f1ede4;
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+@media (hover: hover) {
+  .dev-badge:hover,
+  .dev-badge:focus-visible {
+    transform: scale(1.1);
+    box-shadow: 0 0 16px 2px rgba(247, 147, 30, 0.45);
+  }
+
+  .dev-badge:hover .dev-badge-flip,
+  .dev-badge:focus-visible .dev-badge-flip {
+    transform: rotateY(180deg);
+  }
+
+  .dev-badge:hover .dev-badge-tooltip,
+  .dev-badge:focus-visible .dev-badge-tooltip {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (hover: none) {
+  .dev-badge-corner {
+    display: flex;
+  }
+}
+
+/* Reduced motion: simple fade instead of the flip */
+@media (prefers-reduced-motion: reduce) {
+  .dev-badge,
+  .dev-badge-flip,
+  .dev-badge-tooltip {
+    transition: opacity 200ms ease;
+  }
+
+  .dev-badge-back {
+    transform: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .dev-badge:hover,
+  .dev-badge:focus-visible,
+  .dev-badge:hover .dev-badge-flip,
+  .dev-badge:focus-visible .dev-badge-flip {
+    transform: none;
+  }
+
+  .dev-badge:hover .dev-badge-back,
+  .dev-badge:focus-visible .dev-badge-back {
+    opacity: 1;
+  }
+}

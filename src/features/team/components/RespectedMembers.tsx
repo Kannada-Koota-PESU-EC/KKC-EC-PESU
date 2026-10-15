@@ -141,10 +141,10 @@ export default function RespectedMembers() {
                 {founder.name}
               </h3>
               <p lang="en" className="title-caption respected-sans mt-2">
-                {founder.titleEn}
+                {founder.title.en}
               </p>
               <p lang="kn" className="title-chip kannada-text mt-3 text-sm sm:text-base">
-                {founder.titleKn}
+                {founder.title.kn}
               </p>
               <p className="respected-memorial mt-4 flex items-center gap-2 whitespace-nowrap text-xs sm:text-sm tracking-wide">
                 <span className="respected-diya" aria-hidden="true" />
@@ -172,10 +172,10 @@ export default function RespectedMembers() {
                     {member.name}
                   </h3>
                   <p lang="kn" className="title-chip kannada-text text-sm text-balance">
-                    {member.titleKn}
+                    {member.title.kn}
                   </p>
                   <p lang="en" className="title-caption respected-sans leading-relaxed text-balance">
-                    {member.titleEn}
+                    {member.title.en}
                   </p>
                 </div>
               </article>

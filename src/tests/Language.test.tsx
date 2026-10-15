@@ -49,8 +49,7 @@ describe('Language toggle', () => {
 
 describe('translations', () => {
   it('has non-empty Kannada and English text for every key', () => {
-    // about.heading* intentionally leave one side empty to wrap the club name
-    const allowedEmpty = new Set(['about.headingBefore', 'about.headingAfter']);
+    const allowedEmpty = new Set<string>();
     for (const [key, value] of Object.entries(translations)) {
       if (allowedEmpty.has(key)) continue;
       expect([key, value.kn.trim().length > 0]).toEqual([key, true]);

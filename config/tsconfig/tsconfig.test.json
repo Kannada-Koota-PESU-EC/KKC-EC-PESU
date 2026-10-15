@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
   },
   "include": ["../../src/tests/**/*.tsx", "../../src/tests/**/*.ts", "../../src/tests/setupTests.ts"]
 }

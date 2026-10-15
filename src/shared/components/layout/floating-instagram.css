@@ -27,8 +27,9 @@
   --ig-lift: 4.5rem;
 }
 
-/* Hidden while the mobile menu is open (attribute set by the navbar) */
-html[data-nav-open] .floating-ig {
+/* Hidden while the mobile menu (navbar) or a modal (events, blogs) is open */
+html[data-nav-open] .floating-ig,
+html[data-modal-open] .floating-ig {
   opacity: 0;
   pointer-events: none;
 }

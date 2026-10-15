@@ -94,7 +94,9 @@
   margin-top: 0.5rem;
   font-size: clamp(2.2rem, 5vw, 3.5rem);
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.4;
+  /* Room for glyphs above/below the line, so the gradient covers them (see .gradient-text-safe) */
+  padding: 0.1em 0 0.15em;
   background: linear-gradient(90deg, #ffd23f 0%, #f7931e 35%, #e3242b 60%, #f7931e 80%, #ffd23f 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -102,6 +104,12 @@
   color: transparent;
   filter: drop-shadow(0 0 18px rgba(255, 170, 40, 0.25));
   overflow-wrap: anywhere;
+}
+
+/* Extra-large title, e.g. the 404 page */
+.page-header-title-xl {
+  font-size: clamp(5rem, 16vw, 9rem);
+  line-height: 1.1;
 }
 
 /* Diamond divider */

@@ -62,7 +62,8 @@
 .join-cta-title {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 800;
-  line-height: 1.3;
+  line-height: 1.4;
+  padding: 0.1em 0 0.15em;
   background: linear-gradient(90deg, #ffd23f 0%, #f7931e 50%, #e3242b 100%);
   -webkit-background-clip: text;
   background-clip: text;

@@ -4,8 +4,9 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
   moduleNameMapper: {
+    // CSS first, so "@/...css" imports are stubbed too
+    '\\.css$': '<rootDir>/src/tests/styleStub.ts',
     '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.css$':'<rootDir>/src/tests/styleStub.ts',
   },
   transform: {
     '^.+\\.tsx?$': [

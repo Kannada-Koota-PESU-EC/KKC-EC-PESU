@@ -2,11 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/shared/components/ui/button';
 import TeamGroup from '@/features/team/components/TeamGroup';
 import RespectedMembers from '@/features/team/components/RespectedMembers';
-import {
-  getAllYears,
-  getClubHeads,
-  getDomainHeads,
-} from '@/features/team/data/team';
+import { getAllYears, getTeamGroups } from '@/features/team/data/team';
 import { Users } from 'lucide-react';
 import { useLanguage } from '@/shared/i18n/useLanguage';
 import PageHeader from '@/shared/components/layout/PageHeader';
@@ -14,11 +10,11 @@ import JoinTeamCta from '@/features/team/components/JoinTeamCta';
 
 export default function Team() {
   const allYears = getAllYears();
-  const { t } = useLanguage();
+  const { t, l } = useLanguage();
+  // Years come from team.json, newest first; the newest is selected by default
   const [selectedYear, setSelectedYear] = useState(allYears[0] || new Date().getFullYear());
 
-  const clubHeads = getClubHeads(selectedYear);
-  const domainHeads = getDomainHeads(selectedYear);
+  const groups = getTeamGroups(selectedYear);
 
   return (
     <div className="min-h-screen">
@@ -59,10 +55,11 @@ export default function Team() {
       <section className="py-16 md:py-20">
         {/* Keyed by year so switching years remounts the groups and the new cards animate in */}
         <div key={selectedYear} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 md:space-y-24">
-          <TeamGroup title={t('team.clubHeads')} members={clubHeads} large />
-          <TeamGroup title={t('team.domainHeads')} members={domainHeads} />
+          {groups.map((group) => (
+            <TeamGroup key={group.id} title={l(group.title)} members={group.members} large={group.large} />
+          ))}
 
-          {clubHeads.length === 0 && domainHeads.length === 0 && (
+          {groups.length === 0 && (
              <div className="text-center py-12">
              <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
              <h3 className="text-xl font-semibold text-foreground mb-2">

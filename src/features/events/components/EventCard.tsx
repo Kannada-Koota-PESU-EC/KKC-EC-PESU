@@ -1,190 +1,140 @@
-import { useState } from 'react';
-import { Button } from '@/shared/components/ui/button';
-import { Calendar, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
-import * as Collapsible from '@radix-ui/react-collapsible';
+import { ArrowRight, Clock, Images, MapPin, Share2 } from 'lucide-react';
 import { Event } from '@/features/events/data/events';
 import { useLanguage } from '@/shared/i18n/useLanguage';
+import { useToast } from '@/shared/hooks/use-toast';
+import { useMediaLoaded } from '@/shared/hooks/use-media-loaded';
+import { dateBadgeParts, eventShareUrl, eventSummary, isUpcomingEvent, posterSources } from '@/features/events/components/eventFormat';
+import './event-cards.css';
 
 interface EventCardProps {
   event: Event;
-  featured?: boolean;
+  onOpen: (event: Event) => void;
 }
 
-export default function EventCard({ event, featured = false }: EventCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+export default function EventCard({ event, onOpen }: EventCardProps) {
   const { lang, t, l } = useLanguage();
+  const { toast } = useToast();
+  const poster = useMediaLoaded();
   const title = l(event.title);
-  const isUpcoming = new Date(event.date).getTime() >= new Date().setHours(0, 0, 0, 0);
+  const badge = dateBadgeParts(event.date, lang);
+  const upcoming = isUpcomingEvent(event.date);
+  const kannadaFont = lang === 'kn' ? 'kannada-text' : '';
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(lang === 'kn' ? 'kn-IN' : 'en-IN', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
+  // Venue/time come from the data fields, or from "Venue: … Time: …" inside the description
+  const { body, venue, time } = eventSummary(event, lang);
+  // Only count real gallery photos (not the poster repeated)
+  const galleryCount = (event.gallery ?? []).filter((image) => image !== event.poster).length;
+
+  const share = async () => {
+    const url = eventShareUrl(event);
+    const touchDevice = typeof window.matchMedia === 'function' && window.matchMedia('(hover: none)').matches;
+    if (touchDevice && navigator.share) {
+      try {
+        await navigator.share({ title, url });
+        return;
+      } catch {
+        // Share sheet closed or unavailable: fall back to copying
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      toast({ title: t('events.linkCopied'), description: url });
+    } catch {
+      // Clipboard blocked; nothing else to do
+    }
   };
 
-  const cardClasses = featured
-    ? 'card-elevated card-hover w-full border-primary/45 bg-gradient-to-br from-card via-card to-primary-muted shadow-[0_0_0_1px_hsl(var(--primary)/0.22),0_18px_42px_-22px_hsl(var(--primary)/0.6)]'
-    : 'card-elevated card-hover';
-
   return (
-    <Collapsible.Root
-      open={isExpanded}
-      onOpenChange={setIsExpanded}
-      className={cardClasses}
-      data-testid={featured ? 'featured-event' : 'event-card'}
+    <article
+      className="event-card"
+      data-testid="event-card"
       data-event-id={event.id}
+      onClick={() => onOpen(event)}
     >
-      <div className={`p-6 ${featured ? 'md:flex md:space-x-6' : ''}`}>
-        
-        {/* Event Image */}
-        <div className={`relative overflow-hidden rounded-lg ${featured ? 'md:w-[46%] md:flex-shrink-0' : ''}`}>
-          <img
-            src={event.image}
-            alt={title}
-            className={`w-full object-cover transition-transform duration-300 ${
-              featured ? 'h-64 md:h-[320px] lg:h-[360px]' : 'h-48'
-            }`}
-            loading="lazy"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = '/placeholder.svg';
-            }}
-          />
-
-          {/* Upcoming Badge */}
-          {isUpcoming && (
-            <div className="absolute top-3 right-3">
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-success text-success-foreground">
-                {t('events.badgeUpcoming')}
-              </span>
-            </div>
-          )}
-
-          {/* Featured Badge */}
-          {featured && (
-            <div className="absolute top-3 left-3">
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground">
-                {t('events.badgeFeatured')}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Content */}
-        <div className={`${featured ? 'md:w-[54%] mt-4 md:mt-0' : 'mt-4'} space-y-4`}>
-
-          {/* Title */}
-          <div>
-            <h3
-              className={`font-bold text-foreground leading-tight ${
-                featured ? 'text-2xl md:text-3xl' : 'text-xl'
-              }`}
-            >
-              {title}
-            </h3>
-
-            {/* Date + Location */}
-            <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-muted-foreground">
-              <div className="flex items-center space-x-1">
-                <Calendar className="h-4 w-4" />
-                <span>{formatDate(event.date)}</span>
-              </div>
-
-              {event.location && (
-                <div className="flex items-center space-x-1">
-                  <MapPin className="h-4 w-4" />
-                  <span>{l(event.location)}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Description */}
-          <p className={`text-muted-foreground leading-relaxed ${featured ? 'text-lg' : ''}`}>
-            {l(event.teaser)}
-          </p>
-          {event.registerLink && (
-          <a
-            href={event.registerLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-          <Button className="mt-3">
-            {t('events.register')}
-          </Button>
-          </a>
-          )}
-
-          {/* Expandable Section */}
-          <Collapsible.Content
-            className={`transition-all duration-300 overflow-hidden ${
-              isExpanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-            }`}
-          >
-            <div className="pt-4 mt-4 border-t border-border space-y-4">
-
-              {/* Gallery */}
-              {event.gallery && event.gallery.length > 0 && (
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">{t('events.gallery')}</h4>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {event.gallery.slice(0, 6).map((image, index) => (
-                      <img
-                        key={index}
-                        src={image}
-                        alt={t('events.galleryImageAlt', { n: index + 1 })}
-                        onClick={() => setSelectedImage(image)}
-                        className="w-full h-20 object-cover rounded border cursor-pointer hover:scale-105 transition"
-                        loading="lazy"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/placeholder.svg';
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-            </div>
-          </Collapsible.Content>
-
-          {/* Read More Button */}
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Collapsible.Trigger asChild>
-              <Button variant="outline" size="sm" className="flex items-center space-x-1">
-                <span>{isExpanded ? t('common.showLess') : t('common.readMore')}</span>
-                {isExpanded ? (
-                  <ChevronUp className="h-4 w-4" />
-                ) : (
-                  <ChevronDown className="h-4 w-4" />
-                )}
-              </Button>
-            </Collapsible.Trigger>
-          </div>
-
-        </div>
+      <div className={`event-poster skeleton-fade ${poster.loaded ? '' : 'skeleton'}`}>
+        <img src={event.posterSmall ?? event.poster} alt="" aria-hidden="true" className="event-poster-bg" loading="lazy" decoding="async" />
+        <img
+          src={event.poster}
+          {...posterSources(event)}
+          alt={title}
+          className="event-poster-img"
+          loading="lazy"
+          decoding="async"
+          ref={poster.checkCached}
+          onLoad={poster.markLoaded}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+            poster.markLoaded();
+          }}
+        />
+        <span className={`event-status ${upcoming ? 'event-status-upcoming' : 'event-status-completed'} ${kannadaFont}`}>
+          {t(upcoming ? 'events.badgeUpcoming' : 'events.badgeCompleted')}
+        </span>
       </div>
 
-      {/* Image Popup Viewer */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
-          onClick={() => setSelectedImage(null)}
-        >
-          <img
-            src={selectedImage}
-            alt={t('events.popupImageAlt', { title })}
-            className="max-h-[90%] max-w-[90%] rounded-lg shadow-lg"
-          />
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <div className="flex items-start gap-3">
+          <div className="event-date-tile" aria-hidden="true">
+            <span className="text-xl font-bold leading-none">{badge.day}</span>
+            <span className={`mt-1 text-[0.6rem] leading-tight tracking-wide text-white/75 ${kannadaFont}`}>
+              {badge.month} {badge.year}
+            </span>
+          </div>
+          <h3 className={`min-w-0 text-[1.25rem] font-bold text-white line-clamp-2 ${lang === 'kn' ? 'leading-[1.5]' : 'leading-snug'} ${kannadaFont}`}>{title}</h3>
         </div>
-      )}
 
-    </Collapsible.Root>
+        {(venue || time || galleryCount > 1) && (
+          <div className={`flex flex-wrap gap-2 ${kannadaFont}`}>
+            {venue && (
+              <span className="event-chip">
+                <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                <span className="truncate">{venue}</span>
+              </span>
+            )}
+            {time && (
+              <span className="event-chip">
+                <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                {time}
+              </span>
+            )}
+            {galleryCount > 1 && (
+              <span className="event-chip">
+                <Images className="h-3.5 w-3.5" aria-hidden="true" />
+                {t('events.galleryCount', { n: galleryCount })}
+              </span>
+            )}
+          </div>
+        )}
+
+        <p className="text-sm leading-[1.7] text-[#bdb7aa] line-clamp-2">{body}</p>
+
+        <div className="event-card-footer">
+          <button
+            type="button"
+            className={`event-read-more ${kannadaFont}`}
+            aria-label={`${t('common.readMore')}: ${title}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen(event);
+            }}
+          >
+            {t('common.readMore')}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className="event-share"
+            aria-label={`${t('events.share')}: ${title}`}
+            title={t('events.share')}
+            onClick={(e) => {
+              e.stopPropagation();
+              share();
+            }}
+          >
+            <Share2 className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </article>
   );
 }

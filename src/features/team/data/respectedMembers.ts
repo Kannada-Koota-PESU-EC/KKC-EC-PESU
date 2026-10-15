@@ -1,67 +1,23 @@
+import type { Localized } from '@/shared/i18n/translations';
+import respectedData from '@/data/respected.json';
+
 /**
- * Respected members shown at the top of the Team page, in this order.
- * Separate from the year-wise team data; does not change when the year changes.
- * Photos live in public/Respectives. Leave photo empty to show the person's initials instead.
+ * Respected members shown at the top of the Team page, in the order listed in
+ * src/data/respected.json. Separate from the year-wise team; not tied to the selected year.
  */
 export interface RespectedMember {
   id: string;
   name: string;
-  titleEn: string;
-  titleKn: string;
+  title: Localized;
+  /** Photo in public/Respectives. Leave out to show the person's initials instead. */
   photo?: string;
   /** Featured founder card on its own row: gold ring, glow and memorial line */
   inMemory?: boolean;
 }
 
-export const respectedHeading = {
-  kn: 'ನಮ್ಮ ಗೌರವಾನ್ವಿತರು',
-  en: 'Our Respected Members',
-};
-
-// Shown as "ಸವಿ ನೆನಪು · In Loving Memory" under the founder
-export const memorialLabel = {
-  kn: 'ಸವಿ ನೆನಪು',
-  en: 'In Loving Memory',
-};
-
-export const respectedMembers: RespectedMember[] = [
-  {
-    id: 'mr-doreswamy',
-    name: 'Dr. M. R. Doreswamy',
-    titleEn: 'Founder, PES Institutions',
-    titleKn: 'ಸಂಸ್ಥಾಪಕರು',
-    photo: '/Respectives/dr-m-r-doreswamy.png',
-    inMemory: true,
-  },
-  {
-    id: 'jawahar-doreswamy',
-    name: 'Prof. Jawahar Doreswamy',
-    titleEn: 'Chancellor',
-    titleKn: 'ಕುಲಾಧಿಪತಿಗಳು',
-    photo: '/Respectives/prof-jawahar-doreswamy.png',
-  },
-  {
-    id: 'suryaprasad',
-    name: 'Dr. J Suryaprasad',
-    titleEn: 'Vice Chancellor',
-    titleKn: 'ಉಪ ಕುಲಾಧಿಪತಿಗಳು',
-    photo: '/Respectives/dr-j-suryaprasad.png',
-  },
-  {
-    id: 'subhash-kulkarni',
-    name: 'Dr. Subhash S. Kulkarni',
-    titleEn: 'Principal',
-    titleKn: 'ಪ್ರಾಂಶುಪಾಲರು',
-    photo: '/Respectives/dr-subhash-s-kulkarni.png',
-  },
-  {
-    id: 'lakshmi-narayanam',
-    name: 'Lakshmi Satya Vani Narayanam',
-    titleEn: 'Faculty Coordinator, Kannada Koota',
-    titleKn: 'ಕನ್ನಡ ಕೂಟದ ಮಾರ್ಗದರ್ಶಕರು',
-    photo: '/Respectives/lakshmi-satya-vani-narayanam.png',
-  },
-];
+export const respectedHeading: Localized = respectedData.heading;
+export const memorialLabel: Localized = respectedData.memorialLabel;
+export const respectedMembers: RespectedMember[] = respectedData.members;
 
 /** "Dr. M. R. Doreswamy" -> "MD": first and last name initials, skipping titles */
 export const getInitials = (name: string) => {

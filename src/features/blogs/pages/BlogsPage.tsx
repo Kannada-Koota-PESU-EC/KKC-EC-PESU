@@ -1,53 +1,42 @@
+import { useState, type CSSProperties } from "react";
 import { useLanguage } from "@/shared/i18n/useLanguage";
+import { useInView } from "@/shared/hooks/use-in-view";
 import PageHeader from "@/shared/components/layout/PageHeader";
+import BlogCard from "@/features/blogs/components/BlogCard";
+import BlogPlayerModal from "@/features/blogs/components/BlogPlayerModal";
+import { blogVideos } from "@/features/blogs/data/blogs";
 
-const videos = [
-  {
-    id: 1,
-    src: "/blog1.mp4",
-  },
-  {
-    id: 2,
-    src: "/blog2.mp4",
-  },
-  {
-    id: 3,
-    src: "/blog3.mp4",
-  },
-];
+// Mostly portrait videos -> 9:16 reel grid (4 per row), otherwise 16:9 (3 per row)
+const portraitCount = blogVideos.filter((video) => video.orientation === "portrait").length;
+const gridLayout = portraitCount > blogVideos.length / 2 ? "portrait" : "landscape";
 
 const Blogs = () => {
   const { t } = useLanguage();
+  const { ref, inView } = useInView<HTMLDivElement>(0.05);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen">
       <PageHeader title={t("blogs.title")} subtitle={t("blogs.subtitle")} />
 
       <div className="max-w-6xl mx-auto px-4 pt-8 pb-16">
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {videos.map((video) => (
-            <div
-              key={video.id}
-              className="rounded-xl overflow-hidden shadow-lg bg-black"
-            >
-              <video
-                src={video.src}
-                controls
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-4 text-center">
-                <h2 className="text-lg font-semibold text-foreground">
-                  {t("blogs.item", { n: video.id })}
-                </h2>
-              </div>
+        <div ref={ref} className={`blog-grid blog-grid-${gridLayout} ${inView ? "is-visible" : ""}`}>
+          {blogVideos.map((video, index) => (
+            <div key={video.id} className="blog-slot" style={{ "--i": index } as CSSProperties}>
+              <BlogCard video={video} onOpen={() => setOpenIndex(index)} />
             </div>
           ))}
         </div>
       </div>
+
+      <BlogPlayerModal
+        videos={blogVideos}
+        index={openIndex}
+        onChange={setOpenIndex}
+        onClose={() => setOpenIndex(null)}
+      />
     </div>
   );
 };
 
 export default Blogs;
-
