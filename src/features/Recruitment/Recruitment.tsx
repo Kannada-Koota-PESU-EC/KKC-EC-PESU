@@ -172,11 +172,11 @@ export default function Recruitment() {
                 </Button>
               )}
 
-              <p className="text-sm text-muted-foreground mt-4">
-                {isRecruitmentFormAvailable
-                  ? "Opens the official recruitment Google Form in a new tab."
-                  : "The recruitment form will be available soon. Stay tuned!"}
-              </p>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Click the button above to join our club.
+                </p>
+              </div>
+
             </div>
           </div>
         </div>
