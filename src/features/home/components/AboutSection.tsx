@@ -1,154 +1,200 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/shared/components/ui/button';
-import { ChevronDown, ChevronUp, Users, Calendar, Heart, Award } from 'lucide-react';
-import * as Collapsible from '@radix-ui/react-collapsible';
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/shared/components/ui/button";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  CalendarDays,
+  Heart,
+  Sparkles,
+  Users,
+} from "lucide-react";
+import * as Collapsible from "@radix-ui/react-collapsible";
 
 export default function AboutSection() {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleExpanded = () => setIsExpanded(!isExpanded);
-
   return (
-    <section id="about" className="py-20 bg-surface/68 backdrop-blur-[2px]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Image */}
-          <div className="relative animate-fade-in-up">
-            <div className="relative">
+    <section
+      id="about"
+      className="relative overflow-hidden bg-background py-20 text-foreground sm:py-28"
+    >
+      <div className="pointer-events-none absolute -right-24 top-20 h-72 w-72 rounded-full border border-primary/10" />
+      <div className="pointer-events-none absolute -right-12 top-32 h-48 w-48 rounded-full border border-primary/10" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 flex flex-col gap-5 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              <Sparkles className="h-4 w-4" />
+              Our Story
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+              More than a club.
+              <span className="kannada-text mt-2 block text-primary">
+                ಒಂದು ಕುಟುಂಬ.
+              </span>
+            </h2>
+          </div>
+
+          <p className="max-w-md text-base leading-7 text-muted-foreground sm:text-lg">
+            A place where language connects generations, culture brings us
+            together, and campus life becomes a little more meaningful.
+          </p>
+        </div>
+
+        <div className="grid items-start gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div className="relative mx-auto w-full max-w-2xl">
+            <div className="absolute -inset-3 rotate-2 rounded-2xl bg-primary/10" />
+
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
               <img
                 src="/Hero/TM 2.JPG"
-                alt="Kannada Koota club members in traditional attire"
-                className="w-full h-[500px] object-cover rounded-2xl shadow-lg"
+                alt="Kannada Koota members celebrating together"
+                className="aspect-[4/5] max-h-[620px] w-full object-cover sm:aspect-[5/4]"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-club-black/30 to-transparent rounded-2xl"></div>
-              <div className="absolute bottom-6 inset-x-0 text-white text-center">
-                <h3 className="text-xl font-bold kannada-text">ನಮ್ಮ ಸಮುದಾಯ</h3>
-                <p className="text-sm opacity-90">Our Community</p>
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
+
+              <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
+                <p className="kannada-text text-3xl font-bold sm:text-4xl">
+                  ನಮ್ಮ ಸಮುದಾಯ
+                </p>
+                <p className="mt-2 text-sm tracking-wide text-white/80">
+                  Our Community · Our Culture · Our Home
+                </p>
+              </div>
+
+              <div className="absolute left-4 top-4 rounded-full border border-white/30 bg-black/30 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
+                PESU · Electronic City
               </div>
             </div>
 
-
-            {/* Floating Stats Cards */}
-            <div className="absolute -top-4 -right-4 bg-card border border-border rounded-lg p-4 shadow-lg">
-              <div className="flex items-center space-x-2">
-                <Users className="h-5 w-5 text-primary" />
-                <div>
-                  <div className="text-lg font-bold">160+</div>
-                  <div className="text-xs text-muted-foreground">Members</div>
-                </div>
+            <div className="absolute -bottom-5 -right-2 flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-lg sm:-right-5 sm:p-5">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10">
+                <Heart className="h-5 w-5 text-primary" />
               </div>
-            </div>
-
-            <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-lg p-4 shadow-lg">
-              <div className="flex items-center space-x-2">
-                <Calendar className="h-5 w-5 text-accent" />
-                <div>
-                  <div className="text-lg font-bold">5+</div>
-                  <div className="text-xs text-muted-foreground">Events/Year</div>
-                </div>
+              <div>
+                <p className="font-semibold">Rooted in Karnataka</p>
+                <p className="text-xs text-muted-foreground">
+                  Growing together on campus
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Content */}
-          <div className="space-y-6 animate-slide-in-right">
-            <div className="space-y-4">
-              <h2 className="text-4xl font-bold text-foreground ">
-                About <span className="text-primary kannada-text text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-400">ಕನ್ನಡ ಕೂಟ</span>
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Kannada Koota EC PES is a vibrant cultural club dedicated to preserving and promoting the rich heritage of Karnataka. We bring together students who share a passion for Kannada language, literature, arts, and traditions.
-              </p>
+          <div className="pt-2 lg:pt-5">
+            <p className="kannada-text text-lg font-medium text-primary">
+              ಕನ್ನಡ ನಮ್ಮ ಹೆಮ್ಮೆ.
+            </p>
+
+            <h3 className="mt-3 text-2xl font-bold leading-snug sm:text-3xl">
+              Keeping our roots alive in a changing world.
+            </h3>
+
+            <p className="mt-5 text-base leading-8 text-muted-foreground">
+              Kannada Koota EC PES is a cultural community at PES University
+              Electronic City Campus dedicated to celebrating Kannada
+              language, literature, art, and traditions. We bring students
+              together through shared experiences that make our culture a
+              living part of campus life.
+            </p>
+
+            <div className="my-8 grid grid-cols-2 gap-4">
+              <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
+                <Users className="mb-4 h-5 w-5 text-primary" />
+                <p className="text-lg font-bold">Culture & Community</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Bringing students together through a shared heritage.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
+                <CalendarDays className="mb-4 h-5 w-5 text-primary" />
+                <p className="text-lg font-bold">Events & Experiences</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Creating opportunities to celebrate and participate.
+                </p>
+              </div>
             </div>
 
-            {/* Key Features */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center space-x-3 p-3 bg-primary-muted rounded-lg">
-                <Heart className="h-5 w-5 text-primary flex-shrink-0" />
-                <div>
-                  <div className="font-semibold text-sm">Cultural Events</div>
-                  <div className="text-xs text-muted-foreground">Regular celebrations</div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-accent-muted rounded-lg">
-                <Award className="h-5 w-5 text-accent flex-shrink-0" />
-                <div>
-                  <div className="font-semibold text-sm">Workshops</div>
-                  <div className="text-xs text-muted-foreground">Skill development</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Main Description */}
-            <Collapsible.Root open={isExpanded} onOpenChange={setIsExpanded} className="prose prose-gray max-w-none">
-              <p className="text-muted-foreground leading-relaxed">
-                Our club serves as a bridge between tradition and modernity, organizing cultural festivals, 
-                poetry workshops, traditional cooking sessions, and community outreach programs. We believe 
-                in creating an inclusive environment where everyone can learn and appreciate the beauty of Kannada culture.
+            <Collapsible.Root
+              open={isExpanded}
+              onOpenChange={setIsExpanded}
+            >
+              <p className="text-base leading-8 text-muted-foreground">
+                From cultural celebrations to creative activities, Kannada
+                Koota is a space to discover traditions, share ideas, build
+                friendships, and make memories with people across campus.
               </p>
 
-              {/* Expandable Content */}
-              <Collapsible.Content className={`transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="pt-4 mt-4 space-y-4">
-                  <h3 className="text-xl font-semibold text-foreground">Our Mission</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    To create a platform where students can connect with their cultural roots while building 
-                    lasting friendships and memories. We aim to showcase the diversity and richness of Karnataka's 
-                    cultural landscape through authentic experiences and meaningful engagement.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-foreground">What We Do</h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex items-start space-x-2">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Organize traditional festivals like Kannada Rajyotsava and Mysore Dasara</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Conduct poetry and literature workshops in Kannada</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Host traditional cooking and crafts sessions</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Arrange cultural performances and music concerts</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Build community partnerships and outreach programs</span>
-                    </li>
-                  </ul>
-
-                  <div className="bg-primary-muted p-4 rounded-lg">
-                    <p className="text-foreground font-medium kannada-text text-center">
-                      "ಕನ್ನಡ ನಾಡು ನುಡಿ ಬೆಳದಿಂಗ್ಳಾಗಿ ಬೆಳೆಯಲಿ"
-                    </p>
-                    <p className="text-muted-foreground text-sm text-center mt-1">
-                      "May the Kannada land and language flourish like the bright moon"
+              <Collapsible.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                <div className="mt-6 space-y-6 border-l-2 border-primary/30 pl-5">
+                  <div>
+                    <h4 className="text-lg font-bold">Our Mission</h4>
+                    <p className="mt-2 leading-7 text-muted-foreground">
+                      To create an inclusive platform where students can
+                      connect with their cultural roots, appreciate Kannada
+                      heritage, and form lasting friendships through meaningful
+                      experiences.
                     </p>
                   </div>
+
+                  <div>
+                    <h4 className="text-lg font-bold">What We Celebrate</h4>
+                    <ul className="mt-3 space-y-3 text-muted-foreground">
+                      {[
+                        "Kannada Rajyotsava and cultural festivals",
+                        "Kannada literature, poetry, and language",
+                        "Traditional arts, music, and performances",
+                        "Creative activities and community participation",
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-primary" />
+                          <span className="leading-6">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <blockquote className="rounded-xl border border-primary/20 bg-primary/5 p-5">
+                    <p className="kannada-text text-center text-lg font-semibold text-primary sm:text-xl">
+                      ಕನ್ನಡವೇ ಸತ್ಯ, ಕನ್ನಡವೇ ನಿತ್ಯ.
+                    </p>
+                    <p className="mt-2 text-center text-sm text-muted-foreground">
+                      Celebrating the language that connects us.
+                    </p>
+                  </blockquote>
                 </div>
               </Collapsible.Content>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Collapsible.Trigger asChild>
-                <Button 
-                  variant="outline"
-                  className="flex items-center space-x-2"
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Collapsible.Trigger asChild>
+                  <Button
+                    variant="outline"
+                    className="min-h-11 justify-center rounded-full border-primary/30 px-5"
+                  >
+                    {isExpanded ? "Show Less" : "Discover Our Story"}
+                    {isExpanded ? (
+                      <ArrowUpRight className="ml-2 h-4 w-4" />
+                    ) : (
+                      <ArrowDownRight className="ml-2 h-4 w-4" />
+                    )}
+                  </Button>
+                </Collapsible.Trigger>
+
+                <Button
+                  asChild
+                  className="min-h-11 rounded-full px-5"
                 >
-                  <span>{isExpanded ? 'Show Less' : 'Read More'}</span>
-                  {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                  <Link to="/team">
+                    Meet Our Team
+                    <ArrowUpRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
-              </Collapsible.Trigger>
-              <Button className="btn-accent" asChild>
-                <Link to="/team">Meet Our Team</Link>
-              </Button>
-            </div>
+              </div>
             </Collapsible.Root>
           </div>
         </div>
