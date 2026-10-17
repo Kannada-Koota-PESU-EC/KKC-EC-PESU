@@ -26,6 +26,7 @@ function MarqueeImages() {
     return () => window.clearInterval(interval);
   }, [images.length]);
 
+export default function Hero() {
   return (
     <div className="relative mx-auto w-full max-w-xl">
       <div className="absolute -inset-3 rotate-3 rounded-[2rem] bg-primary/10" />

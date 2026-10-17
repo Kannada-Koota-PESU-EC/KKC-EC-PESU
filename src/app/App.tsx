@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { StatsigProvider, useStatsigClient } from "@statsig/react-bindings";
 import { Toaster } from "@/shared/components/ui/toaster";
 import { Toaster as Sonner } from "@/shared/components/ui/sonner";
 import { TooltipProvider } from "@/shared/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Blogs from "@/features/blogs/pages/BlogsPage";
 import Index from "@/features/home/pages/IndexPage";
 import Events from "@/features/events/pages/EventsPage";
@@ -17,6 +17,34 @@ import Recruitments from "@/features/Recruitment/Recruitment";
 
 // Create a query client instance
 const queryClient = new QueryClient();
+
+function RouteScrollManager() {
+  const location = useLocation();
+  useEffect(() => {
+    if (!location.hash) window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname]);
+  return null;
+}
+
+// Each page gets its own cursor style (see SiteCursor)
+const PAGE_CURSOR: Record<string, string> = {
+  "/": "mallige",
+  "/events": "kumkuma",
+  "/blogs": "film",
+  "/team": "silver",
+  "/contact": "zari",
+  "/recruitment": "firefly",
+  "/karunadu": "compass",
+};
+
+function CursorZone({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  return (
+    <main className="flex-1" data-cursor={PAGE_CURSOR[pathname] ?? "water"}>
+      {children}
+    </main>
+  );
+}
 
 // Logging component for Statsig events
 function StatsigLogger() {
@@ -37,8 +65,9 @@ const AppContent = () => (
       <Sonner />
       <BrowserRouter>
         <div className="min-h-screen flex flex-col">
+          <RouteScrollManager />
           <Navbar />
-          <main className="flex-1">
+          <CursorZone>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/blogs" element={<Blogs />} />
@@ -47,10 +76,13 @@ const AppContent = () => (
               <Route path="/recruitments" element={<Recruitments />} />
               {/* <Route path="/upis" element={<Upis />} /> */}
               <Route path="/contact" element={<Contact />} />
+              <Route path="/recruitment" element={<Recruitment />} />
+              <Route path="/karunadu" element={<KarunaduPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </main>
+          </CursorZone>
           <Footer />
+          <SiteCursor />
         </div>
       </BrowserRouter>
     </TooltipProvider>

@@ -6,26 +6,26 @@ export default function Events() {
   const pastEvents = getPastEvents();
 
   return (
-    <div className="min-h-screen events-flower-rangoli-bg">
+    <div className="koota-subpage koota-events min-h-screen events-flower-rangoli-bg">
       {/* Page Header */}
       <section className="py-16 text-center">
         <h1 className="text-5xl font-bold text-primary mb-4">
-          All Events
+          ನಮ್ಮ ಕಾರ್ಯಕ್ರಮಗಳು
         </h1>
         <p className="text-muted-foreground text-lg">
-          Explore our upcoming and past celebrations.
+          All events · Explore our upcoming and past celebrations.
         </p>
       </section>
 
       {/* Upcoming Events */}
       <section className="max-w-7xl mx-auto px-4 pb-20">
         <h2 className="text-3xl font-bold mb-8 text-foreground">
-          Upcoming Events
+          <span>ಮುಂಬರುವ ಕಾರ್ಯಕ್ರಮಗಳು</span> <span className="block text-base font-semibold text-muted-foreground">Upcoming Events</span>
         </h2>
 
         {upcomingEvents.length === 0 ? (
           <p className="text-muted-foreground">
-            No upcoming events right now.
+            ಸದ್ಯಕ್ಕೆ ಯಾವುದೇ ಕಾರ್ಯಕ್ರಮಗಳಿಲ್ಲ · No upcoming events right now.
           </p>
         ) : (
           <div className="space-y-8">
@@ -45,7 +45,7 @@ export default function Events() {
       {/* Past Events */}
       <section className="max-w-7xl mx-auto px-4 pb-20">
         <h2 className="text-3xl font-bold mb-8 text-foreground">
-          Past Events
+          <span>ಹಿಂದಿನ ಕಾರ್ಯಕ್ರಮಗಳು</span> <span className="block text-base font-semibold text-muted-foreground">Past Events</span>
         </h2>
 
         {pastEvents.length === 0 ? (

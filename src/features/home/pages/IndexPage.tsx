@@ -144,4 +144,6 @@ const Index = () => {
   );
 };
 
-export default Index;
+    <div className="fest-home-footer"><span>ಕನ್ನಡವೇ ನಮ್ಮ ಉಸಿರು</span><span>Made with care at PES University, EC</span><a href="https://www.instagram.com/kannadakoota_ecc?igsh=eGJnODZ6Njd0dTU5" target="_blank" rel="noreferrer"><Instagram size={14}/> FIND US ON INSTAGRAM <ArrowUpRight size={13}/></a></div>
+  </div>;
+}

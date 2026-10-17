@@ -2,6 +2,7 @@
 
 Website for PES University Kannada Koota. The project highlights Kannada culture, events, team members, and community information in a modern React frontend.
 
+
 ## About PESU Kannada Koota
 
 PESU Kannada Koota is a student community at PES University focused on promoting Kannada language and culture through events, outreach, and creative activities.
@@ -13,7 +14,7 @@ PESU Kannada Koota is a student community at PES University focused on promoting
 - Team page with year-wise club/domain heads.
 - Blogs/media page.
 - Contact information page.
-- UPI donation flow components (scanner + manual fallback).
+- Cloudflare deployment configuration
 
 ## Tech Stack
 
@@ -44,6 +45,7 @@ src/
 		lib/               # Shared utilities
 	tests/               # Unit/integration tests
 ```
+
 
 ## Scripts
 

@@ -5,11 +5,11 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 
 const navItems = [
-  { name: "Home", path: "/" },
+  { name: "Our story", path: "/" },
   { name: "Events", path: "/events" },
-  { name: "Blogs", path: "/blogs" },
-  { name: "Team", path: "/team" },
-  { name: "Contact", path: "/contact" },
+  { name: "Journal", path: "/blogs" },
+  { name: "Our team", path: "/team" },
+  { name: "Karunadu 3D", path: "/karunadu" },
 ];
 
 export default function Navbar() {
