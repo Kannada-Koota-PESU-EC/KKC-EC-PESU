@@ -8,6 +8,7 @@ const navItems = [
   { name: "Journal", path: "/blogs" },
   { name: "Our team", path: "/team" },
   { name: "Karunadu 3D", path: "/karunadu" },
+  { name: "ಪ್ರಯೋಗ", path: "/prayoga" },
 ];
 
 export default function Navbar() {

@@ -16,6 +16,7 @@ import Footer from "@/shared/components/layout/Footer";
 import Recruitment from "@/features/Recruitment/Recruitment";
 import KarunaduPage from "@/features/karunadu3d/KarunaduPage";
 import SiteCursor from "@/features/karunadu3d/SiteCursor";
+import PrayogaPage from "@/features/prayoga/pages/PrayogaPage";
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -24,7 +25,7 @@ function RouteScrollManager() {
   const location = useLocation();
   useEffect(() => {
     if (!location.hash) window.scrollTo({ top: 0, behavior: "auto" });
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
   return null;
 }
 
@@ -37,6 +38,7 @@ const PAGE_CURSOR: Record<string, string> = {
   "/contact": "zari",
   "/recruitment": "firefly",
   "/karunadu": "compass",
+  "/prayoga": "zari",
 };
 
 function CursorZone({ children }: { children: ReactNode }) {
@@ -79,6 +81,7 @@ const AppContent = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/karunadu" element={<KarunaduPage />} />
+              <Route path="/prayoga" element={<PrayogaPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </CursorZone>

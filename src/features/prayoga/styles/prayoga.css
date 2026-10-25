@@ -1,0 +1,173 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRAYOGA — THE CREATIVE CULTURE STUDIO
+   Design System: Deep Dark Cinematic (#0D0D0D), Karnataka Crimson (#C8102E),
+   Rich Warm Gold (#E5A93C)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.prayoga-page-container {
+  background-color: #0d0d0d;
+  color: #f5eedb;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Ambient Background Glows ── */
+.prayoga-glow-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+  height: 450px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(229, 169, 60, 0.12), transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.prayoga-glow-crimson {
+  position: absolute;
+  top: 15%;
+  left: -150px;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(200, 16, 46, 0.08), transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.prayoga-glow-gold {
+  position: absolute;
+  top: 25%;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(229, 169, 60, 0.09), transparent 70%);
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Monumental Kannada Watermark ── */
+.prayoga-watermark {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-kannada, 'Noto Sans Kannada', sans-serif);
+  font-size: clamp(140px, 24vw, 360px);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.018);
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 1;
+}
+
+/* ── Hero Opening Sequence Animations ── */
+.prayoga-hero-section {
+  position: relative;
+  animation: prayogaHeroFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prayoga-hero-section::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 820px);
+  height: 360px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(13, 13, 13, 0.55) 0%, rgba(13, 13, 13, 0.2) 55%, transparent 80%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(24px);
+}
+
+@keyframes prayogaHeroFadeIn {
+  0% {
+    opacity: 0.3;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title Gradient with Golden Warmth & Depth */
+.prayoga-title-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #ffdf94 40%, #e5a93c 75%, #c8102e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  letter-spacing: -0.02em;
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.85));
+}
+
+/* ── Section Selector Panels ── */
+.prayoga-section-panel {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.prayoga-panel-idle:hover {
+  border-color: rgba(229, 169, 60, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -8px rgba(0, 0, 0, 0.7), 0 0 18px -4px rgba(229, 169, 60, 0.15);
+}
+
+.prayoga-panel-active {
+  border-color: rgba(229, 169, 60, 0.45);
+}
+
+.prayoga-active-glow {
+  box-shadow: 0 0 25px -5px rgba(229, 169, 60, 0.25), inset 0 0 20px -8px rgba(229, 169, 60, 0.15);
+}
+
+/* ── WebGL Fallback ── */
+.prayoga-fallback-halo {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(229, 169, 60, 0.2) 0%, rgba(200, 16, 46, 0.1) 45%, transparent 70%);
+  filter: blur(60px);
+  border-radius: 50%;
+  animation: fallbackPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes fallbackPulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 0.95; }
+}
+
+/* ── Custom Scrollbar for Literary Text & Reader ── */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(229, 169, 60, 0.35);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(229, 169, 60, 0.55);
+}
+
+/* ── Accessibility & Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .prayoga-hero-section,
+  .prayoga-fallback-halo {
+    animation: none !important;
+    transition: none !important;
+  }
+}

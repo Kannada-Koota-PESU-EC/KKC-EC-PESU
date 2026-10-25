@@ -3,8 +3,9 @@ import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Label } from '@/shared/components/ui/label';
-import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/shared/hooks/use-toast';
+import { sendContactNotification } from '../services/emailService';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function Contact() {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSent, setIsSent] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,16 +23,55 @@ export default function Contact() {
 
     // Basic client-side validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
-      toast({ title: 'Please fill all fields', description: 'All fields are required.' });
+      toast({
+        title: 'ದಯವಿಟ್ಟು ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ (Please fill all fields)',
+        description: 'All fields are required to send your message.',
+        variant: 'destructive',
+      });
       return;
     }
 
     setIsSubmitting(true);
-    const subject = encodeURIComponent(`[Website] ${formData.subject.trim()}`);
-    const body = encodeURIComponent(`Name: ${formData.name.trim()}\nReply to: ${formData.email.trim()}\n\n${formData.message.trim()}`);
-    window.location.href = `mailto:kannadakoota.ecc@pes.edu?subject=${subject}&body=${body}`;
-    toast({ title: 'Your email app is opening', description: 'Review your message there, then send it to Kannada Koota.' });
-    setIsSubmitting(false);
+    setIsSent(false);
+
+    try {
+      const result = await sendContactNotification({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+      });
+
+      if (result.success) {
+        setIsSent(true);
+        toast({
+          title: 'ಸಂದೇಶ ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ · Message Sent!',
+          description: 'ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಸಂದೇಶ ನಮಗೆ ತಲುಪಿದೆ. (Notification sent to vikasnnaik201@gmail.com).',
+        });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'ಸಂದೇಶ ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ (Failed to send)',
+          description: result.error || 'Please try again or email us directly at kannadakoota.ecc@pes.edu',
+        });
+      }
+    } catch (err: unknown) {
+      const errorDescription =
+        err instanceof Error ? err.message : 'Network error. Please try again.';
+      toast({
+        variant: 'destructive',
+        title: 'ದೋಷ ಉಂಟಾಗಿದೆ (Error sending message)',
+        description: errorDescription,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -113,6 +154,13 @@ export default function Contact() {
                   />
                 </div>
                 
+                {isSent && (
+                  <div className="flex items-center gap-2.5 p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <span>ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಸಂದೇಶ ಯಶಸ್ವಿಯಾಗಿ ತಲುಪಿದೆ. (Thank you! We have received your message.)</span>
+                  </div>
+                )}
+
                 <Button
                   type="submit"
                   disabled={isSubmitting}
@@ -123,7 +171,7 @@ export default function Contact() {
                   ) : (
                     <>
                       <Send className="h-4 w-4 mr-2" />
-                      Send Message
+                      Send Message · ಸಂದೇಶ ಕಳುಹಿಸಿ
                     </>
                   )}
                 </Button>
