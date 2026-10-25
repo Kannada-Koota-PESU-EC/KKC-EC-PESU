@@ -8,6 +8,7 @@ const navItems = [
   { name: "Journal", path: "/blogs" },
   { name: "Our team", path: "/team" },
   { name: "Karunadu 3D", path: "/karunadu" },
+  { name: "Akshara Shilpa", path: "/akshara-shilpa" },
 ];
 
 export default function Navbar() {
@@ -30,7 +31,7 @@ export default function Navbar() {
   };
   return <nav className="site-nav">
     <div className="nav-inner">
-      <Link to="/" className="brand" onClick={closeMenu}><img src="/KKCEC-ECON.png" alt="" /><span><strong>ಕನ್ನಡ ಕೂಟ</strong><small>KANNADA KOOTA · PES EC</small></span></Link>
+      <Link to="/" className="brand" onClick={closeMenu}><img src="/KKCEC-ECON.png" alt="" /><span><strong>à²•à²¨à³à²¨à²¡ à²•à³‚à²Ÿ</strong><small>KANNADA KOOTA Â· PES EC</small></span></Link>
       <div className="desktop-nav">{navItems.map(item => <Link key={item.name} to={item.path} className={isActive(item.path) ? "nav-current" : ""} onClick={item.name === "Our story" ? handleOurStory : () => handlePageNav(item.path)}>{item.name}</Link>)}</div>
       <Link to="/contact" className="nav-join">Say hello <ArrowUpRight size={15} /></Link>
       <button className="mobile-menu-toggle" onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} aria-label="Toggle navigation">{isOpen ? <X /> : <Menu />}</button>

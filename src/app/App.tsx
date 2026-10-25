@@ -1,21 +1,22 @@
-import { useEffect, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, type ReactNode } from "react";
 import { StatsigProvider, useStatsigClient } from "@statsig/react-bindings";
 import { Toaster } from "@/shared/components/ui/toaster";
 import { Toaster as Sonner } from "@/shared/components/ui/sonner";
 import { TooltipProvider } from "@/shared/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Blogs from "@/features/blogs/pages/BlogsPage";
-import Index from "@/features/home/pages/IndexPage";
-import Events from "@/features/events/pages/EventsPage";
-import Team from "@/features/team/pages/TeamPage";
-import Contact from "@/features/contact/pages/ContactPage";
-import NotFound from "@/app/pages/NotFoundPage";
+const Blogs = lazy(() => import("@/features/blogs/pages/BlogsPage"));
+const Index = lazy(() => import("@/features/home/pages/IndexPage"));
+const Events = lazy(() => import("@/features/events/pages/EventsPage"));
+const Team = lazy(() => import("@/features/team/pages/TeamPage"));
+const Contact = lazy(() => import("@/features/contact/pages/ContactPage"));
+const NotFound = lazy(() => import("@/app/pages/NotFoundPage"));
 import Navbar from "@/shared/components/layout/Navbar";
 import Footer from "@/shared/components/layout/Footer";
-import Recruitment from "@/features/Recruitment/Recruitment";
-import KarunaduPage from "@/features/karunadu3d/KarunaduPage";
+const Recruitment = lazy(() => import("@/features/Recruitment/Recruitment"));
+const KarunaduPage = lazy(() => import("@/features/karunadu3d/KarunaduPage"));
 import SiteCursor from "@/features/karunadu3d/SiteCursor";
+const AksharaShilpaPage = lazy(() => import("@/features/akshara/AksharaShilpaPage"));
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -24,7 +25,7 @@ function RouteScrollManager() {
   const location = useLocation();
   useEffect(() => {
     if (!location.hash) window.scrollTo({ top: 0, behavior: "auto" });
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
   return null;
 }
 
@@ -70,7 +71,17 @@ const AppContent = () => (
           <RouteScrollManager />
           <Navbar />
           <CursorZone>
-            <Routes>
+            <Suspense
+              fallback={
+                <div
+                  className="flex min-h-[40vh] items-center justify-center text-sm text-muted-foreground"
+                  role="status"
+                >
+                  Loading page…
+                </div>
+              }
+            >
+              <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/events" element={<Events />} />
@@ -79,8 +90,10 @@ const AppContent = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/karunadu" element={<KarunaduPage />} />
+              <Route path="/akshara-shilpa" element={<AksharaShilpaPage />} />
               <Route path="*" element={<NotFound />} />
-            </Routes>
+              </Routes>
+            </Suspense>
           </CursorZone>
           <Footer />
           <SiteCursor />

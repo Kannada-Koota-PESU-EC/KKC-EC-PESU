@@ -1,0 +1,1603 @@
+.akshara-page {
+  --ak-ink: #28231f;
+  --ak-muted: #786f64;
+  --ak-paper: #f7f4ed;
+  --ak-border: #e2dbd0;
+  --ak-red: #b73c30;
+  --ak-gold: #c9a35c;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--ak-paper);
+  color: var(--ak-ink);
+  font-family: "DM Sans", Inter, system-ui, sans-serif;
+}
+
+.akshara-page *,
+.akshara-page *::before,
+.akshara-page *::after {
+  box-sizing: border-box;
+}
+
+.akshara-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 350px;
+  padding: 64px max(7vw, calc((100vw - 1300px) / 2));
+  overflow: hidden;
+  background: #261d1a;
+  color: #f7f0e5;
+  isolation: isolate;
+}
+
+.akshara-hero::before {
+  position: absolute;
+  z-index: -1;
+  top: -250px;
+  right: -70px;
+  width: 700px;
+  height: 700px;
+  border: 1px solid rgb(221 181 108 / 18%);
+  border-radius: 50%;
+  content: "";
+}
+
+.akshara-hero::after {
+  position: absolute;
+  z-index: -1;
+  top: -180px;
+  right: 0;
+  width: 550px;
+  height: 550px;
+  border: 1px solid rgb(221 181 108 / 15%);
+  border-radius: 50%;
+  content: "";
+}
+
+.akshara-hero-mark {
+  position: absolute;
+  top: -80px;
+  right: 13%;
+  color: rgb(236 197 128 / 7%);
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: clamp(300px, 38vw, 570px);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.akshara-hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  animation: ak-rise 700ms ease-out both;
+}
+
+.akshara-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0 0 20px;
+  color: #cfae6a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.akshara-eyebrow span {
+  width: 25px;
+  height: 1px;
+  background: currentColor;
+}
+
+.akshara-hero h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(58px, 8vw, 96px);
+  font-weight: 400;
+  letter-spacing: -.065em;
+  line-height: .98;
+}
+
+.akshara-hero h1 em {
+  color: #ddb86f;
+  font-weight: 400;
+}
+
+.akshara-kannada-title {
+  margin: 19px 0 0;
+  color: #e4c68d;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: clamp(16px, 2vw, 21px);
+}
+
+.akshara-intro {
+  max-width: 520px;
+  margin: 15px 0 0;
+  color: rgb(247 240 229 / 72%);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.akshara-hero-index {
+  position: absolute;
+  right: 7vw;
+  bottom: 29px;
+  color: rgb(244 230 208 / 50%);
+  font-size: 9px;
+  letter-spacing: .15em;
+}
+
+.akshara-main {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+  padding: 83px 5vw 100px;
+}
+
+.akshara-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 35px;
+}
+
+.akshara-section-heading .akshara-eyebrow {
+  margin-bottom: 12px;
+  color: var(--ak-red);
+}
+
+.akshara-section-heading h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 400;
+  letter-spacing: -.05em;
+}
+
+.akshara-section-heading h2 em {
+  color: var(--ak-red);
+  font-weight: 400;
+}
+
+.akshara-section-note {
+  margin: 0 0 6px;
+  color: var(--ak-muted);
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 13px;
+}
+
+.akshara-workspace {
+  display: grid;
+  grid-template-columns: minmax(300px, .84fr) minmax(0, 1.16fr);
+  align-items: start;
+  gap: 28px;
+}
+
+.akshara-controls,
+.akshara-preview {
+  min-width: 0;
+  border: 1px solid var(--ak-border);
+  background: #fbf9f4;
+}
+
+.akshara-controls {
+  padding: 26px;
+}
+
+.akshara-panel-heading,
+.akshara-control-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.akshara-panel-heading {
+  margin-bottom: 26px;
+}
+
+.akshara-panel-heading > svg {
+  margin-left: auto;
+  color: var(--ak-red);
+}
+
+.akshara-step {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border: 1px solid #d8cfc1;
+  border-radius: 50%;
+  color: var(--ak-red);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.akshara-panel-heading h3,
+.akshara-control-title h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.akshara-panel-heading p,
+.akshara-control-title p {
+  margin: 5px 0 0;
+  color: var(--ak-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.akshara-field-label,
+.akshara-slider-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #73685b;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+
+.akshara-field-label span,
+.akshara-slider-heading span {
+  color: #9b8e7f;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.akshara-text-input {
+  display: block;
+  width: 100%;
+  min-height: 96px;
+  margin-top: 10px;
+  padding: 17px;
+  resize: vertical;
+  border: 1px solid #ded5c8;
+  border-radius: 0;
+  outline: none;
+  background: #f5f0e7;
+  color: #392c26;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.akshara-text-input:focus {
+  border-color: #b84a3d;
+  box-shadow: 0 0 0 3px rgb(184 74 61 / 10%);
+}
+
+.akshara-text-input::placeholder {
+  color: #ad9e8c;
+}
+
+.akshara-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.akshara-examples button {
+  padding: 7px 10px;
+  border: 1px solid #e1d7c8;
+  background: transparent;
+  color: #675b50;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 11px;
+  transition: color .2s, border-color .2s, background .2s;
+}
+
+.akshara-examples button:hover {
+  border-color: #b83f32;
+  background: #f5e8df;
+  color: #9e3026;
+}
+
+.akshara-divider {
+  height: 1px;
+  margin: 25px 0;
+  background: var(--ak-border);
+}
+
+.akshara-control-title {
+  margin-bottom: 17px;
+}
+
+.akshara-style-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.akshara-style-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 13px;
+  border: 1px solid #e0d8cc;
+  background: #faf7f0;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+
+.akshara-style-card:hover {
+  transform: translateY(-2px);
+  border-color: #c49a69;
+}
+
+.akshara-style-card.is-selected {
+  border-color: #b83f32;
+  background: #f6e9df;
+  box-shadow: inset 0 0 0 1px rgb(184 63 50 / 12%);
+}
+
+.akshara-style-glyph {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  margin-bottom: 12px;
+  place-items: center;
+  background: #30241f;
+  color: #f1d296;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 27px;
+}
+
+.glyph-stone {
+  background: #51443a;
+  color: #e2d2ab;
+  text-shadow: 1px 2px 1px #17110e;
+}
+
+.glyph-silk {
+  border: 1px solid #c8a45f;
+  background: #691f29;
+  color: #f4d28b;
+}
+
+.glyph-wave {
+  background: #272b55;
+  color: #c9c6fa;
+  box-shadow: inset 0 0 0 3px #6565bd;
+}
+
+.glyph-ink {
+  background: #ebe2d3;
+  color: #28231f;
+  border: 1px dashed #958477;
+}
+
+.akshara-style-name {
+  color: #302721;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.akshara-style-kannada {
+  margin-top: 4px;
+  color: #a23a2e;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 11px;
+}
+
+.akshara-style-description {
+  margin-top: 7px;
+  color: #8a7e70;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.akshara-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.akshara-palette {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #6b6055;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.akshara-palette.is-selected {
+  border-color: #b83f32;
+  color: #30251f;
+}
+
+.akshara-palette-swatch {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 1 / .85;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 7px;
+  border: 1px solid;
+}
+
+.akshara-palette-swatch i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.akshara-slider-heading {
+  margin: 22px 0 10px;
+  color: #544a40;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.akshara-range {
+  width: 100%;
+  accent-color: #b83f32;
+  cursor: pointer;
+}
+
+.akshara-layout-fieldset {
+  min-width: 0;
+  margin: 20px 0;
+  padding: 0;
+  border: 0;
+}
+
+.akshara-layout-fieldset legend {
+  margin-bottom: 10px;
+  color: #73685b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.akshara-layout-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.akshara-layout-options button {
+  padding: 10px 8px;
+  border: 1px solid #e0d8cc;
+  background: transparent;
+  color: #72675a;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.akshara-layout-options button.is-selected {
+  border-color: #b83f32;
+  background: #f6e9df;
+  color: #9b3027;
+}
+
+.akshara-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 0;
+  border-top: 1px solid #e7dfd4;
+  cursor: pointer;
+}
+
+.akshara-toggle-row strong,
+.akshara-toggle-row small {
+  display: block;
+}
+
+.akshara-toggle-row strong {
+  font-size: 11px;
+}
+
+.akshara-toggle-row small {
+  margin-top: 4px;
+  color: #887d70;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.akshara-toggle-row input {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  accent-color: #b83f32;
+  cursor: pointer;
+}
+
+.akshara-reset {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #8a3b31;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.akshara-reset:hover {
+  color: #c13d30;
+}
+
+.akshara-preview {
+  padding: 22px;
+  background: #f0ebe2;
+}
+
+.akshara-preview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 19px;
+  color: #887c6e;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+
+.akshara-preview-toolbar > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #54483d;
+}
+
+.akshara-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4d8a5d;
+  box-shadow: 0 0 0 4px rgb(77 138 93 / 13%);
+}
+
+.akshara-canvas-stage {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #e4dac9;
+  box-shadow: 0 14px 38px rgb(52 40 28 / 12%);
+}
+
+.akshara-art-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.akshara-canvas-decoration {
+  position: absolute;
+  z-index: 2;
+  width: 18%;
+  aspect-ratio: 1;
+  border-color: rgb(218 181 111 / 50%);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+}
+
+.decoration-one {
+  top: 4%;
+  left: 4%;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.decoration-two {
+  right: 4%;
+  bottom: 4%;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.akshara-canvas-stage.motion-enabled {
+  animation: ak-canvas-in 650ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.akshara-preview-caption {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 23px 2px 18px;
+  border-bottom: 1px solid #dcd2c4;
+}
+
+.akshara-caption-label {
+  color: #948575;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+.akshara-preview-caption p {
+  overflow-wrap: anywhere;
+  margin: 8px 0 0;
+  color: #332720;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 20px;
+}
+
+.akshara-caption-style {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border: 1px solid #dbcebc;
+  color: #786a59;
+  font-size: 10px;
+}
+
+.akshara-export-actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 19px;
+}
+
+.akshara-download-button,
+.akshara-share-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 15px;
+  border: 1px solid transparent;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .2s;
+}
+
+.akshara-download-button {
+  flex: 1;
+  background: #29221e;
+  color: #fbf5e9;
+}
+
+.akshara-download-button:hover {
+  transform: translateY(-2px);
+  background: #9f352b;
+}
+
+.akshara-share-button {
+  border-color: #d8cbbb;
+  background: #fbf8f2;
+  color: #4f4237;
+}
+
+.akshara-share-button:hover {
+  background: #eadfcd;
+}
+
+.akshara-export-note {
+  margin: 13px 0 0;
+  color: #897d70;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.akshara-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 13px 0 0;
+  color: #3e754e;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.akshara-notice svg {
+  flex: 0 0 auto;
+}
+
+.akshara-footer {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 28px 7vw;
+  border-top: 1px solid #e3dbce;
+  background: #eee8dc;
+}
+
+.akshara-footer-symbol {
+  display: grid;
+  width: 45px;
+  height: 45px;
+  place-items: center;
+  background: #6a2428;
+  color: #f2d79b;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 29px;
+}
+
+.akshara-footer p {
+  margin: 0;
+  color: #352720;
+  font-family: "Noto Sans Kannada", sans-serif;
+  font-size: 13px;
+}
+
+.akshara-footer div > span {
+  display: block;
+  margin-top: 5px;
+  color: #887b6e;
+  font-size: 8px;
+  letter-spacing: .13em;
+}
+
+.akshara-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  color: #817464;
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+
+.akshara-footer-brand b {
+  color: #b63e32;
+}
+
+@keyframes ak-rise {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ak-canvas-in {
+  from {
+    opacity: .75;
+    transform: translateY(7px) scale(.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 1000px) {
+  .akshara-workspace {
+    grid-template-columns: minmax(280px, .9fr) minmax(0, 1.1fr);
+    gap: 16px;
+  }
+
+  .akshara-controls,
+  .akshara-preview {
+    padding: 18px;
+  }
+
+  .akshara-section-note {
+    max-width: 230px;
+    text-align: right;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 760px) {
+  .akshara-hero {
+    min-height: 340px;
+    padding: 60px 7vw 76px;
+  }
+
+  .akshara-hero-mark {
+    top: 8px;
+    right: -34px;
+    font-size: 310px;
+  }
+
+  .akshara-hero-index {
+    right: 7vw;
+    bottom: 22px;
+  }
+
+  .akshara-main {
+    padding: 55px 5vw 65px;
+  }
+
+  .akshara-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+    margin-bottom: 25px;
+  }
+
+  .akshara-section-note {
+    max-width: none;
+    text-align: left;
+  }
+
+  .akshara-workspace {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .akshara-controls,
+  .akshara-preview {
+    padding: 20px;
+  }
+
+  .akshara-preview {
+    order: -1;
+  }
+
+  .akshara-footer {
+    flex-wrap: wrap;
+    padding: 25px 6vw;
+  }
+
+  .akshara-footer-brand {
+    width: 100%;
+    margin: 8px 0 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .akshara-hero h1 {
+    font-size: 58px;
+  }
+
+  .akshara-preview-toolbar {
+    font-size: 8px;
+    letter-spacing: .08em;
+  }
+
+  .akshara-style-grid {
+    gap: 7px;
+  }
+
+  .akshara-style-card {
+    padding: 10px;
+  }
+
+  .akshara-export-actions {
+    flex-direction: column;
+  }
+
+  .akshara-share-button {
+    min-height: 43px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .akshara-page *,
+  .akshara-page *::before,
+  .akshara-page *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ================================================================
+   AKSHARA 3D UPGRADE
+   Ambient motion, interactive perspective, light sweeps and depth.
+   ================================================================ */
+
+.akshara-page {
+  background:
+    radial-gradient(ellipse at 8% 38%, rgb(214 183 129 / 9%), transparent 34%),
+    radial-gradient(ellipse at 96% 65%, rgb(184 63 50 / 5%), transparent 32%),
+    var(--ak-paper);
+}
+
+.akshara-hero {
+  perspective: 1000px;
+  background:
+    radial-gradient(ellipse at 78% 45%, rgb(128 69 126 / 28%), transparent 35%),
+    radial-gradient(ellipse at 52% 120%, rgb(168 90 38 / 24%), transparent 42%),
+    linear-gradient(116deg, #201714 0%, #35201f 52%, #171b30 100%);
+}
+
+.akshara-hero::before {
+  animation: ak-hero-orbit 30s linear infinite;
+  box-shadow:
+    0 0 80px rgb(193 91 255 / 5%),
+    inset 0 0 60px rgb(66 245 215 / 4%);
+}
+
+.akshara-hero::after {
+  animation: ak-hero-orbit 38s linear infinite reverse;
+  border-color: rgb(193 91 255 / 18%);
+}
+
+.akshara-hero-mark {
+  background: linear-gradient(
+    140deg,
+    rgb(66 245 215 / 20%),
+    rgb(193 91 255 / 16%),
+    rgb(245 236 118 / 15%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: ak-glyph-float 9s ease-in-out infinite;
+  text-shadow: 0 0 100px rgb(193 91 255 / 9%);
+}
+
+.akshara-hero h1 em {
+  background: linear-gradient(100deg, #f4d58d 5%, #ffffff 35%, #cba2ff 58%, #80fff0 85%);
+  background-size: 230% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: ak-metal-shimmer 7s ease-in-out infinite;
+}
+
+.akshara-hero-copy {
+  transform-style: preserve-3d;
+}
+
+.akshara-kannada-title {
+  text-shadow: 0 0 22px rgb(232 184 105 / 28%);
+}
+
+.akshara-section-heading h2 em {
+  background: linear-gradient(100deg, #a7332b, #c16f44, #7b42a2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.akshara-preview {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: #d8ccbc;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgb(255 255 255 / 90%), transparent 45%),
+    radial-gradient(ellipse at 98% 48%, rgb(193 91 255 / 9%), transparent 42%),
+    radial-gradient(ellipse at 4% 95%, rgb(66 245 215 / 8%), transparent 38%),
+    linear-gradient(145deg, #f6f0e6, #e9e0d2);
+  box-shadow:
+    0 22px 65px rgb(48 33 20 / 7%),
+    inset 0 1px 0 rgb(255 255 255 / 85%);
+}
+
+.akshara-preview::before,
+.akshara-preview::after {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.akshara-preview::before {
+  top: 90px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgb(136 77 177 / 21%);
+  box-shadow:
+    0 0 0 18px rgb(136 77 177 / 4%),
+    0 0 0 38px rgb(66 145 150 / 5%),
+    inset 0 0 45px rgb(136 77 177 / 6%);
+  animation: ak-orbit-ring 36s linear infinite;
+}
+
+.akshara-preview::after {
+  right: 18px;
+  bottom: 170px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(
+    circle,
+    rgb(66 245 215 / 17%) 0%,
+    rgb(193 91 255 / 7%) 35%,
+    transparent 70%
+  );
+  animation: ak-orb-breathe 7s ease-in-out infinite;
+}
+
+.akshara-preview > * {
+  position: relative;
+  z-index: 1;
+}
+
+.akshara-preview-toolbar {
+  color: #71635a;
+}
+
+.akshara-live-dot {
+  background: #32a87b;
+  box-shadow:
+    0 0 0 4px rgb(50 168 123 / 12%),
+    0 0 16px rgb(50 168 123 / 25%);
+}
+
+.akshara-canvas-stage {
+  position: relative;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 60%);
+  background: #151829;
+  box-shadow:
+    0 35px 60px rgb(35 23 35 / 19%),
+    0 10px 24px rgb(35 23 35 / 9%),
+    inset 0 1px 0 rgb(255 255 255 / 48%);
+  isolation: isolate;
+}
+
+.akshara-canvas-3d {
+  position: relative;
+  width: 100%;
+  transform: perspective(1200px)
+    rotateX(var(--ak-tilt-x, 0deg))
+    rotateY(var(--ak-tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  transition: transform 180ms cubic-bezier(.2, .75, .25, 1);
+  will-change: transform;
+}
+
+.akshara-art-canvas {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(8px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow:
+    0 10px 28px rgb(0 0 0 / 8%),
+    inset 0 0 0 1px rgb(255 255 255 / 10%);
+}
+
+.akshara-canvas-decoration {
+  z-index: 3;
+  transform: translateZ(45px);
+  transition: border-color .4s;
+}
+
+.akshara-canvas-stage.motion-enabled::after {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(255 255 255 / 0%) 43%,
+    rgb(255 255 255 / 16%) 49%,
+    rgb(66 245 215 / 8%) 50%,
+    transparent 57%,
+    transparent 100%
+  );
+  background-size: 100% 220%;
+  mix-blend-mode: screen;
+  opacity: .65;
+  pointer-events: none;
+  content: "";
+  animation: ak-light-sweep 8s ease-in-out infinite;
+}
+
+.akshara-canvas-stage.motion-enabled .akshara-canvas-decoration {
+  animation: ak-frame-float 8s ease-in-out infinite;
+}
+
+.akshara-canvas-stage.motion-enabled .decoration-two {
+  animation-delay: -4s;
+}
+
+.akshara-style-card {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 700px;
+  overflow: hidden;
+}
+
+.akshara-style-card::after {
+  position: absolute;
+  top: -80%;
+  left: -70%;
+  width: 55%;
+  height: 260%;
+  transform: rotate(24deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 52%),
+    transparent
+  );
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.akshara-style-card.is-selected {
+  border-color: #a34e6e;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(193 91 255 / 13%), transparent 58%),
+    linear-gradient(145deg, #fcf1e6, #f0e4dd);
+  box-shadow:
+    inset 0 0 0 1px rgb(163 78 110 / 12%),
+    0 7px 19px rgb(132 67 99 / 8%);
+}
+
+.akshara-style-card.is-selected .akshara-style-glyph {
+  box-shadow:
+    0 7px 16px rgb(30 20 29 / 20%),
+    0 0 0 3px rgb(193 91 255 / 10%);
+  transform: translateZ(12px);
+}
+
+.akshara-palette {
+  border-radius: 3px;
+  transition: transform .25s, background .25s, border-color .25s;
+}
+
+.akshara-palette-swatch {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow:
+    0 5px 12px rgb(43 31 23 / 8%),
+    inset 0 1px 0 rgb(255 255 255 / 35%);
+}
+
+.akshara-palette-swatch::after {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgb(255 255 255 / 56%) 49%,
+    transparent 68%
+  );
+  content: "";
+}
+
+.akshara-palette.is-selected {
+  border-color: #b53c32;
+  border-radius: 4px;
+  background: rgb(181 60 50 / 5%);
+  box-shadow: 0 0 0 1px rgb(181 60 50 / 9%);
+}
+
+.akshara-toggle-row input {
+  accent-color: #a7448c;
+}
+
+.akshara-range {
+  accent-color: #a7448c;
+}
+
+.akshara-layout-options button.is-selected {
+  border-color: #a74a87;
+  background: linear-gradient(115deg, #f5e8ea, #eee5f9);
+  color: #752b69;
+}
+
+.akshara-download-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(112deg, #281d26, #3f2445 55%, #25383f);
+  box-shadow: 0 8px 20px rgb(45 25 50 / 13%);
+}
+
+.akshara-download-button::before {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-130%);
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgb(255 255 255 / 21%) 49%,
+    transparent 72%
+  );
+  content: "";
+  transition: transform 900ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.akshara-download-button:hover {
+  background: linear-gradient(112deg, #5d244e, #853f81 55%, #235e63);
+  box-shadow:
+    0 12px 26px rgb(88 45 99 / 20%),
+    0 0 22px rgb(193 91 255 / 9%);
+}
+
+.akshara-notice {
+  padding: 11px 13px;
+  border: 1px solid rgb(50 137 92 / 20%);
+  background: rgb(50 137 92 / 6%);
+}
+
+.akshara-footer {
+  background:
+    radial-gradient(ellipse at 5% 100%, rgb(193 91 255 / 6%), transparent 40%),
+    radial-gradient(ellipse at 96% 0%, rgb(66 245 215 / 7%), transparent 38%),
+    #eee8dc;
+}
+
+@keyframes ak-hero-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ak-glyph-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg) scale(1); }
+  50% { transform: translateY(-16px) rotate(2deg) scale(1.025); }
+}
+
+@keyframes ak-metal-shimmer {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+@keyframes ak-orbit-ring {
+  0% { transform: rotate(0deg) scale(.95); }
+  50% { transform: rotate(180deg) scale(1.04); }
+  100% { transform: rotate(360deg) scale(.95); }
+}
+
+@keyframes ak-orb-breathe {
+  0%, 100% { transform: scale(.88); opacity: .45; }
+  50% { transform: scale(1.13); opacity: .95; }
+}
+
+@keyframes ak-light-sweep {
+  0% { background-position: 0 -130%; }
+  58%, 100% { background-position: 0 170%; }
+}
+
+@keyframes ak-frame-float {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .akshara-style-card:hover {
+    transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
+    border-color: #b87e81;
+    box-shadow:
+      0 13px 25px rgb(53 30 40 / 9%),
+      inset 0 1px 0 rgb(255 255 255 / 90%);
+  }
+
+  .akshara-style-card:hover::after {
+    opacity: 1;
+    animation: ak-card-shine 850ms ease-out both;
+  }
+
+  .akshara-palette:hover {
+    transform: translateY(-3px);
+  }
+
+  .akshara-palette:hover .akshara-palette-swatch::after {
+    animation: ak-card-shine 850ms ease-out both;
+  }
+
+  .akshara-canvas-stage:hover {
+    box-shadow:
+      0 38px 75px rgb(53 30 57 / 22%),
+      0 12px 30px rgb(35 23 35 / 12%),
+      inset 0 1px 0 rgb(255 255 255 / 48%);
+  }
+
+  .akshara-download-button:hover::before {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes ak-card-shine {
+  from { transform: translateX(-150%) rotate(24deg); }
+  to { transform: translateX(340%) rotate(24deg); }
+}
+
+.akshara-page button:focus-visible,
+.akshara-page textarea:focus-visible,
+.akshara-page input:focus-visible {
+  outline: 2px solid #9d53ae;
+  outline-offset: 4px;
+}
+
+.akshara-page .akshara-canvas-stage,
+.akshara-page .akshara-canvas-3d {
+  touch-action: pan-y;
+}
+
+@media (max-width: 760px) {
+  .akshara-preview::before {
+    top: 70px;
+    right: -160px;
+    width: 230px;
+    height: 230px;
+  }
+
+  .akshara-preview::after {
+    right: -25px;
+    bottom: 100px;
+    width: 130px;
+    height: 130px;
+  }
+
+  .akshara-canvas-3d {
+    transform: none;
+    transition: none;
+  }
+
+  .akshara-canvas-stage.motion-enabled::after {
+    animation-duration: 11s;
+    opacity: .4;
+  }
+
+  .akshara-palette-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .akshara-hero::before,
+  .akshara-hero::after,
+  .akshara-hero-mark,
+  .akshara-hero h1 em,
+  .akshara-preview::before,
+  .akshara-preview::after,
+  .akshara-canvas-stage.motion-enabled::after,
+  .akshara-canvas-stage.motion-enabled .akshara-canvas-decoration {
+    animation: none !important;
+  }
+
+  .akshara-canvas-3d {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ================================================================
+   REAL THREE.JS VIEWPORT
+   ================================================================ */
+
+.akshara-view-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.akshara-view-controls button {
+  min-height: 30px;
+  padding: 0 8px;
+  border: 1px solid #d9cebf;
+  background: rgb(255 255 255 / 56%);
+  color: #776a5c;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .055em;
+  transition: background .2s, color .2s, border-color .2s;
+  cursor: pointer;
+}
+
+.akshara-view-controls button.is-active {
+  border-color: #7e477f;
+  background: linear-gradient(110deg, #38253e, #253c47);
+  color: #fff5e9;
+}
+
+.akshara-view-controls button:hover {
+  border-color: #ad6c9d;
+}
+
+.akshara-canvas-stage.is-3d {
+  background:
+    radial-gradient(ellipse at 50% 45%, rgb(108 70 145 / 18%), transparent 52%),
+    radial-gradient(ellipse at 90% 14%, rgb(42 215 200 / 12%), transparent 40%),
+    linear-gradient(135deg, #151727, #211929 55%, #10242b);
+  box-shadow:
+    0 30px 75px rgb(39 25 49 / 24%),
+    inset 0 1px 0 rgb(255 255 255 / 14%);
+}
+
+.akshara-canvas-stage.is-3d .akshara-canvas-3d {
+  transform: none !important;
+}
+
+.akshara-canvas-stage.is-3d .akshara-art-canvas {
+  visibility: hidden;
+}
+
+.akshara-canvas-stage.is-3d .akshara-canvas-decoration {
+  display: none;
+}
+
+.akshara-three-host {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgb(193 91 255 / 10%), transparent 48%),
+    radial-gradient(ellipse at 20% 78%, rgb(66 245 215 / 7%), transparent 37%);
+  isolation: isolate;
+  touch-action: none;
+}
+
+.akshara-three-host::before,
+.akshara-three-host::after {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid rgb(219 186 131 / 19%);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.akshara-three-host::before {
+  top: 12%;
+  left: 13%;
+  width: 74%;
+  height: 74%;
+  box-shadow:
+    0 0 0 18px rgb(193 91 255 / 3%),
+    0 0 0 44px rgb(66 245 215 / 3%);
+}
+
+.akshara-three-host::after {
+  top: 23%;
+  left: 24%;
+  width: 52%;
+  height: 52%;
+  border-color: rgb(66 245 215 / 18%);
+  transform: rotate(-24deg);
+}
+
+.akshara-three-host canvas {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  outline: none;
+}
+
+.akshara-three-hud,
+.akshara-three-bottom-hud {
+  position: absolute;
+  z-index: 5;
+  right: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: rgb(249 237 220 / 67%);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  pointer-events: none;
+}
+
+.akshara-three-hud {
+  top: 15px;
+}
+
+.akshara-three-bottom-hud {
+  bottom: 15px;
+  color: rgb(249 237 220 / 54%);
+  font-size: 7px;
+}
+
+.akshara-three-hud span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.akshara-three-hud i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4af1ca;
+  box-shadow: 0 0 12px rgb(74 241 202 / 85%);
+  animation: ak-three-pulse 2.3s ease-in-out infinite;
+}
+
+.akshara-canvas-stage.is-3d.motion-enabled::after {
+  z-index: 3;
+  opacity: .20;
+  mix-blend-mode: screen;
+}
+
+.akshara-canvas-stage.is-3d .akshara-three-host::before {
+  animation: ak-orbit-ring 45s linear infinite;
+}
+
+.akshara-canvas-stage.is-3d .akshara-three-host::after {
+  animation: ak-orbit-ring 32s linear infinite reverse;
+}
+
+@keyframes ak-three-pulse {
+  0%, 100% {
+    opacity: .5;
+    box-shadow: 0 0 5px rgb(74 241 202 / 65%);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 8px rgb(74 241 202 / 90%),
+      0 0 20px rgb(74 241 202 / 33%);
+  }
+}
+
+@media (max-width: 760px) {
+  .akshara-preview-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .akshara-view-controls {
+    justify-content: flex-start;
+  }
+
+  .akshara-view-controls button {
+    min-height: 35px;
+    padding: 0 9px;
+  }
+
+  .akshara-three-hud,
+  .akshara-three-bottom-hud {
+    right: 10px;
+    left: 10px;
+    font-size: 7px;
+    letter-spacing: .07em;
+  }
+
+  .akshara-canvas-stage.is-3d .akshara-three-host::before {
+    top: 15%;
+    left: 6%;
+    width: 88%;
+    height: 70%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .akshara-three-host::before,
+  .akshara-three-host::after,
+  .akshara-three-hud i {
+    animation: none !important;
+  }
+}
+
+/* Lazy-loaded Three.js viewport */
+.akshara-three-loading {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgb(108 70 145 / 18%), transparent 52%),
+    linear-gradient(135deg, #151727, #211929 55%, #10242b);
+  color: #f5e9d5;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
