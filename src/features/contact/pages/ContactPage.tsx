@@ -55,19 +55,22 @@ export default function Contact() {
           message: '',
         });
       } else {
+        // Fallback: If backend endpoint is unreachable or 404, launch mailto to vikasnnaik201@gmail.com
+        const subjectEnc = encodeURIComponent(`[Kannada Koota Website] ${formData.subject.trim()}`);
+        const bodyEnc = encodeURIComponent(`From: ${formData.name.trim()} (${formData.email.trim()})\n\nMessage:\n${formData.message.trim()}`);
+        window.location.href = `mailto:vikasnnaik201@gmail.com?subject=${subjectEnc}&body=${bodyEnc}`;
         toast({
-          variant: 'destructive',
-          title: 'ಸಂದೇಶ ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ (Failed to send)',
-          description: result.error || 'Please try again or email us directly at kannadakoota.ecc@pes.edu',
+          title: 'ಇಮೇಲ್ ಅಪ್ಲಿಕೇಶನ್ ತೆರೆಯಲಾಗುತ್ತಿದೆ (Opening Email)',
+          description: 'ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ನೇರವಾಗಿ vikasnnaik201@gmail.com ಗೆ ಕಳುಹಿಸಲು ಇಮೇಲ್ ಅಪ್ಲಿಕೇಶನ್ ತೆರೆಯಲಾಗಿದೆ.',
         });
       }
     } catch (err: unknown) {
-      const errorDescription =
-        err instanceof Error ? err.message : 'Network error. Please try again.';
+      const subjectEnc = encodeURIComponent(`[Kannada Koota Website] ${formData.subject.trim()}`);
+      const bodyEnc = encodeURIComponent(`From: ${formData.name.trim()} (${formData.email.trim()})\n\nMessage:\n${formData.message.trim()}`);
+      window.location.href = `mailto:vikasnnaik201@gmail.com?subject=${subjectEnc}&body=${bodyEnc}`;
       toast({
-        variant: 'destructive',
-        title: 'ದೋಷ ಉಂಟಾಗಿದೆ (Error sending message)',
-        description: errorDescription,
+        title: 'ಇಮೇಲ್ ಅಪ್ಲಿಕೇಶನ್ ತೆರೆಯಲಾಗುತ್ತಿದೆ (Opening Email)',
+        description: 'ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ನೇರವಾಗಿ vikasnnaik201@gmail.com ಗೆ ಕಳುಹಿಸಲು ಇಮೇಲ್ ಅಪ್ಲಿಕೇಶನ್ ತೆರೆಯಲಾಗಿದೆ.',
       });
     } finally {
       setIsSubmitting(false);
