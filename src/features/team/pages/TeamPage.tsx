@@ -93,7 +93,6 @@ function LeaderProfile({
           member={member}
           className="kk-leader-pair-image"
         />
-        <span className="kk-leader-pair-number">{number}</span>
       </div>
 
       <div className="kk-leader-pair-info">
@@ -287,10 +286,6 @@ export default function Team() {
                     member={member}
                     className="kk-domain-person-image"
                   />
-
-                  <span className="kk-domain-person-number">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
                 </div>
 
                 <div className="kk-domain-person-info">
