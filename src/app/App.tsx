@@ -16,6 +16,7 @@ import Footer from "@/shared/components/layout/Footer";
 import Recruitment from "@/features/Recruitment/Recruitment";
 import KarunaduPage from "@/features/karunadu3d/KarunaduPage";
 import SiteCursor from "@/features/karunadu3d/SiteCursor";
+import EventDetailPage from "@/features/events/pages/EventDetailPage";
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -41,8 +42,12 @@ const PAGE_CURSOR: Record<string, string> = {
 
 function CursorZone({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
+  const cursor = pathname.startsWith("/events")
+    ? "kumkuma"
+    : (PAGE_CURSOR[pathname] ?? "water");
+
   return (
-    <main className="flex-1" data-cursor={PAGE_CURSOR[pathname] ?? "water"}>
+    <main className="flex-1" data-cursor={cursor}>
       {children}
     </main>
   );
@@ -74,6 +79,7 @@ const AppContent = () => (
               <Route path="/" element={<Index />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/events/:slug" element={<EventDetailPage />} />
               <Route path="/team" element={<Team />} />
               {/* <Route path="/upis" element={<Upis />} /> */}
               <Route path="/contact" element={<Contact />} />
@@ -83,8 +89,8 @@ const AppContent = () => (
             </Routes>
           </CursorZone>
           <Footer />
-          <SiteCursor />
-        </div>
+          <SiteCursor/>
+                  </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

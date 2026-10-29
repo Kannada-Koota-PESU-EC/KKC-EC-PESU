@@ -70,10 +70,13 @@ export const events: Event[] = [
     image: '/Events/KKEC DC 1.jpg',
     location: 'Quadrangle PES EC',
     gallery: [
-      '/Events/KKEC DC 2.jpg',
-      '/Events/KKEC DC 3.png',
-      '/Events/KKEC DC 5.png',
-    ],
+  '/Events/Quadrangle/_DSC3897.JPG',
+  '/Events/Quadrangle/IMG_6830.JPG',
+  '/Events/Quadrangle/IMG20260819101306.JPG',
+  '/Events/Quadrangle/IMG20260819100920.JPG',
+  '/Events/Quadrangle/IMG_6890.JPG',
+  '/Events/Quadrangle/IMG_6878.JPG  ',
+],
   },
 
   {
